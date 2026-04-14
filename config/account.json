@@ -1,0 +1,92 @@
+{
+    "_demo.mail@gmail.com" : {
+        "player" : [
+            {
+                "name" : "xxxxx",
+                "id" : 123456789
+            },
+            {
+                "name" : "yyyyy",
+                "id" : 123456788
+            }
+        ]
+    },
+
+    "aminulislamsifat19@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    },
+
+    "aminulislamsifat5@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    },
+
+    "darkdevil1996120@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    },
+
+    "ais.wos.001@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    },
+
+    "ais.wos.0002@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    },
+
+    "ais.wos.0003@gmail.com" : {
+        "player" : [
+            {
+                "name" : "shadow",
+                "id" : 11
+            },
+            {
+                "name" : "shadowy",
+                "id" : 12
+            }
+        ]
+    }
+}

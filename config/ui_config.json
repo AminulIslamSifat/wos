@@ -1,0 +1,128 @@
+{
+    "_demo": {
+        "image": "assets/global/demo.png",
+        "location" : [0, 0],
+        "threshold" : 0.8
+    },
+
+    "exploration" : {
+        "image" : "assets/global/exploration_icon.jpg",
+        "location" : [101, 2383],
+        "threshold" : 0.8
+    },
+
+    "exploration_claim" : {
+        "image" : "assets/exploration/claim.jpg",
+        "location" : [926, 1921],
+        "threshold" : 0.8
+    },
+
+    "exploration_explore" : {
+        "image" : "assets/exploration/explore.jpg",
+        "location" : [540, 2305],
+        "threshold" : 0.8
+    },
+
+    "exploration_fight" : {
+        "image" : "assets/exploration/fight.jpg",
+        "location" : [794, 2340],
+        "threshold" : 0.8
+    },
+
+    "exploration_quick_deploy" : {
+        "image" : "assets/exploration/quick_deploy.jpg",
+        "location" : [285, 2341],
+        "threshold" : 0.8
+    },
+
+    "exploration_auto" : {
+        "image" : "assets/exploration/auto.jpg",
+        "location" : [986, 1833],
+        "threshold" : 0.8
+    },
+
+    "exploration_x2" : {
+        "image" : "assets/exploration/x2.jpg",
+        "location" : [987, 1980],
+        "threshold" : 0.8
+    }, 
+
+    "exploration_retry" : {
+        "image" : "assets/exploration/retry.jpg",
+        "location" : [790, 1843],
+        "threshold" : 0.8
+    },
+
+    "exploration_return_to_city" : {
+        "image" : "assets/exploration/return_to_city.jpg",
+        "location" : [291, 1843],
+        "threshold" : 0.8
+    },
+
+    "exploration_pause" : {
+        "image" : "assets/exploration/pause.jpg",
+        "location" : [91, 1983],
+        "threshold" : 0.8
+    },
+
+    "exploration_retreat" : {
+        "image" : "assets/exploration/retreat.jpg",
+        "location" : [231, 1287],
+        "threshold" : 0.8
+    },
+
+    "exploration_restart" : {
+        "image" : "assets/exploration/restart.jpg",
+        "location" : [540, 1288],
+        "threshold" : 0.8
+    },
+
+    "exploration_continue" : {
+        "image" : "assets/exploration/continue.jpg",
+        "location" : [846, 1289],
+        "threshold" : 0.8
+    },
+
+    "exploration_final_claim" : {
+        "image" : "assets/exploration/final_claim.jpg",
+        "location" : [539, 1715],
+        "threshold" : 0.8
+    },
+
+    "global_back_button" : {
+        "image" : "assets/global/back_button.jpg",
+        "location" : [67, 180],
+        "threshold" : 0.8
+    },
+
+    "global_close_button" : {
+        "image" : "assets/global/close_button.jpg",
+        "location" : [],
+        "threshold" : 0.7
+    },
+
+    "intel_beast": {
+        "image" : "assets/intel/beast_intel.jpg",
+        "location" : [],
+        "threshold" : 0.3
+    },
+
+    "intel_fight": {
+        "image" : "assets/intel/fight_intel.jpg",
+        "location" : [],
+        "threshold" : 0.3
+    },
+
+    "intel_survivor": {
+        "image" : "assets/intel/survivor_intel.jpg",
+        "location" : [],
+        "threshold" : 0.3
+    },
+
+    "reconnect": {
+        "image" : "assets/global/reconnect.jpg",
+        "location" : [781, 1529],
+        "threshold" : 0.8
+    }
+    
+}
