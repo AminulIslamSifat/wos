@@ -5,26 +5,65 @@ import json
 import time
 import uvicorn
 import numpy as np
+from pathlib import Path
 from typing import Optional
 from fastapi import FastAPI
-from paddleocr import PaddleOCR
 from pydantic import BaseModel
-
+from paddleocr import PaddleOCR
+from concurrent.futures import ThreadPoolExecutor
 from cmd_program.screen_action import take_screenshot
 
 
 
+
+
+#------------------- Data Models ---------------------------------#
+
+#input schema for fastapi
+class OCRRequest(BaseModel):
+    img_path: Optional[str] = None
+    save_result: Optional[bool] = False
+    rois: Optional[list[list[int]]] = None
+
+
+class TemplateMatchRequest(BaseModel):
+    name: str
+    threshold: Optional[float] = None
+    save_result: Optional[bool] = False
+
+
+#------------------- Configuration ------------------------------#
+SCREENSHOT_TTL = 0.1
+CPU_THREADS = os.cpu_count() or 1
+TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets"))
+
+
+#---------------------- Globals ---------------------------------#
 app = FastAPI()
+_template_cache = {}
 
 
-#initializeng the ocr once for all
-ocr = PaddleOCR(
-        use_doc_orientation_classify=False,
-        use_doc_unwarping=False,
-        use_textline_orientation=False
-    )
-
-
+#----------------------- Functions -------------------------------#
+def init_services():
+    global ocr, _template_cache, ui_element
+    #initializeng the ocr once for all
+    ocr = PaddleOCR(
+            use_doc_orientation_classify=False,
+            use_doc_unwarping=False,
+            use_textline_orientation=False
+        )
+    
+    root_dir = Path(TEMPLATE_PATH)
+    for file_path in root_dir.rglob("*.png | *.jpg"):
+        if file_path.is_file:
+            fn = os.path.splitext(file_path.name)[0]
+            img = cv2.imread(filepath)
+            if img is not None:
+                _template_cache[fn] = img
+    
+    #loading all the ui elements from config
+    with open("config/ui_config.json", "r") as file:
+        ui_element = json.load(file)
 
 
 def clamp_roi(roi, width, height):
@@ -41,25 +80,6 @@ def clamp_roi(roi, width, height):
         return None
 
     return [x1, y1, x2, y2]
-
-
-
-#input schema for fastapi
-class OCRRequest(BaseModel):
-    img_path: Optional[str] = None
-    save_result: Optional[bool] = False
-    rois: Optional[list[list[int]]] = None
-
-
-class TemplateMatchRequest(BaseModel):
-    name: str
-    threshold: Optional[float] = None
-    save_result: Optional[bool] = False
-
-
-#loading all the ui elements from config
-with open("config/ui_config.json", "r") as file:
-    ui_element = json.load(file)
 
 
 def match_template(name, threshold=None, save_result=None, get_all=False):
@@ -114,8 +134,6 @@ def match_template(name, threshold=None, save_result=None, get_all=False):
     return {"x" : x, "y" : y}
 
 
-
-
 def run_ocr(img_path=None, save_result=False, rois=None):
     if img_path:
         img = cv2.imread(img_path)
@@ -136,6 +154,25 @@ def run_ocr(img_path=None, save_result=False, rois=None):
             x1, y1, x2, y2 = roi
 
             cropped = img[y1:y2, x1:x2]
+
+
+            pad = 50
+
+            cropped = img[y1:y2, x1:x2]
+
+            h, w = cropped.shape[:2]
+
+            # Create a bigger white image
+            if len(cropped.shape) == 3:
+                new_img = np.ones((h + 2*pad, w + 2*pad, 3), dtype=cropped.dtype) * 255
+            else:
+                new_img = np.ones((h + 2*pad, w + 2*pad), dtype=cropped.dtype) * 255
+
+            # Place original image in the center
+            new_img[pad:pad+h, pad:pad+w] = cropped
+
+            cropped = new_img
+            cv2.imwrite("hh.jpg", cropped)
 
             output = ocr.predict(cropped)[0]
 
@@ -178,7 +215,45 @@ def run_ocr(img_path=None, save_result=False, rois=None):
     return all_results
 
 
+def process_roi(args):
+    img, roi = args
+    h, w = img.shape[:2]
+    roi = clamp_roi(roi, w, h)
+    if not roi:
+        return []
 
+    x1, y1, x2, y2 = roi
+    cropped = img[y1:y2, x1:x2]
+
+    output = ocr.predict(cropped)[0]
+
+    return [
+        {
+            "text": text,
+            "score": float(score),
+            "box": (box + np.array([x1, y1, x1, y1])).tolist()
+        }
+        for text, score, box in zip(
+            output["rec_texts"],
+            output["rec_scores"],
+            output["rec_boxes"]
+        )
+    ]
+
+
+def run_parallel_rois(img=None, rois=None):
+    if img_path:
+        img = cv2.imread(img_path)
+    else:
+        img = take_screenshot()
+
+    if rois == None:
+        return None
+
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        results = ex.map(lambda r: process_roi((img, r)), rois)
+
+    return [item for sub in results for item in sub]
 
 
 @app.post("/ocr")
@@ -198,7 +273,6 @@ def ocr_endpoint(req:OCRRequest):
     }
 
 
-
 @app.post("/template")
 def template_matching(req:TemplateMatchRequest):
     results = match_template(req.name, req.threshold, req.save_result)
@@ -215,14 +289,19 @@ def template_matching(req:TemplateMatchRequest):
     }
 
 
-
-if __name__ == "__main__":
-    uvicorn.run(
-        "core.ocr:app",
-        host="127.0.0.1",
-        port=8000
-    )
+init_services()
 
 
+# t1 = time.time()
+# run_parallel_rois(rois=[[]])
 
 
+res = run_ocr(rois=[[3, 2308, 194, 2448]], save_result=True)
+print(res)
+
+# if __name__ == "__main__":
+#     uvicorn.run(
+#         "core.ocr:app",
+#         host="127.0.0.1",
+#         port=8000
+#     )

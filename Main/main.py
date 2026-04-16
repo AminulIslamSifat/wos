@@ -29,6 +29,7 @@ from core.exploration import(
 
 
 
-res = req_ocr(rois=[[300, 1725, 665, 1830]])
-res = [t["text"] for t in res if t["score"] > 0.9]
+res = req_ocr(rois=[[400, 1830, 800, 1970]], save_result=True)
+# res = [t["text"] for t in res if t["score"] > 0.9]
 print(res)
+
