@@ -1,0 +1,92 @@
+{
+    "World.MarchQueue": {
+        "text": "4/6",
+        "score": 0.9763403534889221,
+        "box": [
+            294,
+            421,
+            364,
+            463
+        ]
+    },
+    "World.FirstMarchTime": {
+        "text": "09:44:40",
+        "score": 0.977952241897583,
+        "box": [
+            131,
+            528,
+            243,
+            553
+        ]
+    },
+    "World.SecondMarchTime": {
+        "text": "09:43:57",
+        "score": 0.967756450176239,
+        "box": [
+            134,
+            620,
+            238,
+            645
+        ]
+    },
+    "World.ThirdMarchTime": {
+        "text": "09:10:01",
+        "score": 0.9855250716209412,
+        "box": [
+            138,
+            709,
+            239,
+            737
+        ]
+    },
+    "World.FourthMarchTime": {
+        "text": "10:14:25",
+        "score": 0.9945790767669678,
+        "box": [
+            142,
+            802,
+            236,
+            826
+        ]
+    },
+    "World.FifthMarchTime": {
+        "text": "00:00:10",
+        "score": 0.9931122064590454,
+        "box": [
+            138,
+            894,
+            239,
+            918
+        ]
+    },
+    "World.Search.ItemLevel": {
+        "text": "29",
+        "score": 0.9995030760765076,
+        "box": [
+            886,
+            2103,
+            937,
+            2139
+        ]
+    },
+    "World.Search.Search": {
+        "text": "Search",
+        "score": 0.9997553825378418,
+        "box": [
+            457,
+            2332,
+            625,
+            2390
+        ]
+    },
+    "World.Search.ItemBox": {
+        "text": null,
+        "score": null,
+        "box": [
+            0,
+            1830,
+            1080,
+            2030
+        ]
+    }
+}

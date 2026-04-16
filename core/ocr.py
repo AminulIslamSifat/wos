@@ -139,6 +139,7 @@ def match_template(name, threshold=None, save_result=None, get_all=False):
 
 def run_ocr(img_path=None, save_result=False, rois=None):
     # Adding padding to process small rois better
+    # 👉 Modified to return the pad value so we can subtract it later
     def add_padding(img, pad=50):
         h, w, k = img.shape
         avg_color = img.mean(axis=(0,1))
@@ -146,15 +147,14 @@ def run_ocr(img_path=None, save_result=False, rois=None):
         new_img = np.full((h + 2*pad, w + 2*pad, k), avg_color, dtype=img.dtype)
         new_img[pad:pad+h, pad:pad+w] = img
 
-        img = new_img
-        return img
+        return new_img, pad
 
     if img_path:
         img = cv2.imread(img_path)
     else:
         img = take_screenshot()
 
-    all_results = []
+    all_results =[]
 
     # 👉 If ROI is provided
     if rois:
@@ -167,16 +167,18 @@ def run_ocr(img_path=None, save_result=False, rois=None):
             
             x1, y1, x2, y2 = roi
             cropped = img[y1:y2, x1:x2]
-            cropped = add_padding(cropped)
+            
+            # Unpack the padded image and the padding amount used
+            cropped, pad_val = add_padding(cropped, pad=50)
             
             output = ocr.predict(cropped)[0]
 
-            results = [
+            results =[
                 {
                     "text": text,
                     "score": float(score),
-                    # shift box back to original image coords 😈
-                    "box": (box + np.array([x1, y1, x1, y1])).tolist()
+                    # 👉 Fix: Subtract the padding amount, then add x1/y1
+                    "box": (box + np.array([x1 - pad_val, y1 - pad_val, x1 - pad_val, y1 - pad_val])).tolist()
                 }
                 for text, score, box in zip(
                     output["rec_texts"],
@@ -187,6 +189,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
             ]
 
             all_results.extend(results)
+            print(all_results)
 
             if save_result:
                 cv2.imwrite(f"test/debug/roi-{time.time()}.png", cropped)
@@ -195,7 +198,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
     else:
         output = ocr.predict(img)[0]
 
-        all_results = [
+        all_results =[
             {
                 "text": text,
                 "score": float(score),
@@ -205,14 +208,13 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                 output["rec_texts"],
                 output["rec_scores"],
                 output["rec_boxes"]
-            )if score > 0.8
+            ) if score > 0.8
         ]
 
         if save_result:
             output.save_to_img("test/debug")
-
+    print(all_results)
     return all_results
-
 
 @app.post("/ocr")
 def ocr_endpoint(req:OCRRequest):

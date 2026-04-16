@@ -81,11 +81,13 @@ def req_temp_match(name, threshold=None, save_result=None):
     return result
 
 
-def tap_on_template(name, threshold=None, save_result=None, wait=None, tap=True):
+def tap_on_template(name, threshold=None, save_result=None, wait=None, tap=True, sleep=None):
     def try_match():
         coord = req_temp_match(name, threshold, save_result)
         if coord and tap:
             tap_screen(coord)
+            if sleep:
+                time.sleep(sleep)
         return bool(coord)
 
     # --- wait mode ---
@@ -158,3 +160,50 @@ def tap_on_templates_batch(
 
     return [False] * n
 
+
+
+
+def tap_on_text(text, img_path = None, save_result=None, rois=None, wait=None, sleep=None):
+    if isinstance(text, str):
+        text = [text]
+
+    def try_match(res):
+        for t in text:
+            box = next((item["box"] for item in res if item["text"].lower()==t.lower()), None)
+            print(box)
+            if box is not None:
+                break
+        if box is None:
+            return None
+        coord = ((box[0]+box[2])//2, (box[1]+box[3])//2)
+        print(coord)
+        tap_screen(coord)
+        if sleep:
+            time.sleep(sleep)
+        return True
+        
+    if not text:
+        print("No text provided")
+        return None
+    
+    res = req_ocr(img_path,save_result,rois)
+    if res is None:
+        print("OCR failed")
+        return None
+    
+    if wait:
+        start = time.time()
+        end = time.time()
+
+        while((end-start)<wait):
+            if try_match(res):
+                return True
+            end = time.time()
+        print("No match found for the text")
+        return None
+
+    for _ in range(3):
+        if try_match(res):
+            return True
+    print("No match found for the text")
+    return None

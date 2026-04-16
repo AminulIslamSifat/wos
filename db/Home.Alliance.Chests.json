@@ -1,0 +1,42 @@
+{
+    "Home.Alliance.Chests.Title": {
+        "text": "Chests",
+        "score": 0.9998205304145813,
+        "box": [
+            136,
+            148,
+            298,
+            209
+        ]
+    },
+    "Home.Alliance.Chests.AllianceGift": {
+        "text": "Alliance Gift",
+        "score": 0.9195088744163513,
+        "box": [
+            677,
+            694,
+            911,
+            741
+        ]
+    },
+    "Home.Alliance.Chests.Claim": {
+        "text": "Claim",
+        "score": 0.994733989238739,
+        "box": [
+            851,
+            1056,
+            965,
+            1103
+        ]
+    },
+    "Home.Alliance.Chests.ClaimAll": {
+        "text": "Claim All",
+        "score": 0.8800263404846191,
+        "box": [
+            433,
+            2322,
+            650,
+            2382
+        ]
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "Home.Exploration.Explore.Fight.Defeat0": {
+        "text": "Defeat!",
+        "score": 0.9983393549919128,
+        "box": [
+            365,
+            922,
+            717,
+            1023
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat1": {
+        "text": "Gain Power|",
+        "score": 0.9343328475952148,
+        "box": [
+            412,
+            1103,
+            620,
+            1148
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat2": {
+        "text": "by:",
+        "score": 0.9294071793556213,
+        "box": [
+            608,
+            1111,
+            665,
+            1151
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat3": {
+        "text": "Enhance Hero",
+        "score": 0.9848566055297852,
+        "box": [
+            250,
+            1254,
+            486,
+            1299
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat4": {
+        "text": "Recruit more",
+        "score": 0.988114595413208,
+        "box": [
+            253,
+            1450,
+            471,
+            1485
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat5": {
+        "text": "heroes",
+        "score": 0.999721109867096,
+        "box": [
+            469,
+            1454,
+            583,
+            1485
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat6": {
+        "text": "Change Lineup",
+        "score": 0.998970091342926,
+        "box": [
+            250,
+            1634,
+            501,
+            1684
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat7": {
+        "text": "Return to City",
+        "score": 0.9945525527000427,
+        "box": [
+            123,
+            1802,
+            456,
+            1880
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat8": {
+        "text": "Retry",
+        "score": 0.9991763234138489,
+        "box": [
+            717,
+            1806,
+            862,
+            1883
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Defeat9": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9915912747383118,
+        "box": [
+            361,
+            2333,
+            718,
+            2383
+        ]
+    }
+}

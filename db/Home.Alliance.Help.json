@@ -1,0 +1,22 @@
+{
+    "Home.Alliance.Help.Title": {
+        "text": "Help",
+        "score": 0.9970967769622803,
+        "box": [
+            129,
+            144,
+            253,
+            220
+        ]
+    },
+    "Home.Alliance.Help.HelpAll": {
+        "text": "Help All",
+        "score": 0.8528255224227905,
+        "box": [
+            443,
+            2319,
+            637,
+            2396
+        ]
+    }
+}

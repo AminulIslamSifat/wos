@@ -1,0 +1,102 @@
+{
+    "Home.ChiefOrder.UrgentMobilization0": {
+        "text": "285,053",
+        "score": 0.9992026090621948,
+        "box": [
+            603,
+            152,
+            750,
+            200
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization1": {
+        "text": "77.3M",
+        "score": 0.9990726709365845,
+        "box": [
+            910,
+            156,
+            1015,
+            195
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization2": {
+        "text": "Urgent Mobilization",
+        "score": 0.9971672892570496,
+        "box": [
+            359,
+            1191,
+            720,
+            1242
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization3": {
+        "text": "Chief Order Effect: Force survivors",
+        "score": 0.990900993347168,
+        "box": [
+            232,
+            1305,
+            812,
+            1345
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization4": {
+        "text": "at all worksites to work for 48",
+        "score": 0.9802142977714539,
+        "box": [
+            233,
+            1351,
+            748,
+            1391
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization5": {
+        "text": "hours (Survivor Time), -1O Mood for",
+        "score": 0.9624808430671692,
+        "box": [
+            234,
+            1396,
+            819,
+            1436
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization6": {
+        "text": "all Survivors.",
+        "score": 0.9343619346618652,
+        "box": [
+            234,
+            1439,
+            453,
+            1481
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization7": {
+        "text": "Cooldown: 8h",
+        "score": 0.9526668190956116,
+        "box": [
+            233,
+            1519,
+            472,
+            1555
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization8": {
+        "text": "Enact",
+        "score": 0.9989480972290039,
+        "box": [
+            487,
+            1666,
+            595,
+            1709
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization9": {
+        "text": "50,000",
+        "score": 0.9820523858070374,
+        "box": [
+            488,
+            1711,
+            643,
+            1765
+        ]
+    }
+}

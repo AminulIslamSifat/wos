@@ -13,7 +13,7 @@ from fastapi import FastAPI
 from paddleocr import PaddleOCR
 from pydantic import BaseModel
 
-from core.core import req_ocr
+from core.core import req_ocr, req_temp_match
 
 from cmd_program.screen_action import take_screenshot
 
@@ -70,6 +70,5 @@ print(rois)
 
 
 
-res = req_ocr(rois=rois, save_result=True)
-for r in res:
-    print(r["text"])
+res = req_temp_match("search")
+print(res)
