@@ -1,0 +1,9 @@
+{
+    "_demo": {
+        "box" : [0, 0],
+        "threshold" : 0.8
+    },
+    "Home.PowerIcon": {
+        "threshold" : 0.1
+    }
+}

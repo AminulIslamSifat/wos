@@ -1,0 +1,252 @@
+{
+    "Home.Arena.Title": {
+        "text": "Arena of Glory",
+        "score": 0.9970447421073914,
+        "box": [
+            134,
+            141,
+            477,
+            216
+        ]
+    },
+    "Home.Arena.Challenge": {
+        "text": "Challenge",
+        "score": 0.9993662238121033,
+        "box": [
+            420,
+            2329,
+            659,
+            2399
+        ]
+    },
+    "Home.Arena.History": {
+        "text": "History",
+        "score": 0.9983500242233276,
+        "box": [
+            99,
+            2416,
+            199,
+            2459
+        ]
+    },
+    "Home.Arena.DefensiveLineup": {
+        "text": "Def. Lineup",
+        "score": 0.9525952935218811,
+        "box": [
+            855,
+            2418,
+            1002,
+            2456
+        ]
+    },
+    "Home.Arena.Challenge.ChallengeList": {
+        "text": "Challenge List",
+        "score": 0.995618462562561,
+        "box": [
+            387,
+            583,
+            734,
+            649
+        ]
+    },
+    "Home.Arena.Challenge.MyPower": {
+        "text": "My Power:  2,099,12",
+        "score": 0.8687713742256165,
+        "box": [
+            304,
+            698,
+            771,
+            759
+        ]
+    },
+    "Home.Arena.Challenge.FirstEnemyPower": {
+        "text": "3.4M",
+        "score": 0.9933135509490967,
+        "box": [
+            266,
+            850,
+            369,
+            894
+        ]
+    },
+    "Home.Arena.Challenge.SecondEnemyPower": {
+        "text": "4.0M",
+        "score": 0.9907292127609253,
+        "box": [
+            265,
+            1041,
+            372,
+            1085
+        ]
+    },
+    "Home.Arena.Challenge.ThirdEnemyPower": {
+        "text": "353,530",
+        "score": 0.9705227017402649,
+        "box": [
+            266,
+            1232,
+            425,
+            1281
+        ]
+    },
+    "Home.Arena.Challenge.FourthEnemyPower": {
+        "text": "1.8M",
+        "score": 0.9915528297424316,
+        "box": [
+            266,
+            1426,
+            361,
+            1471
+        ]
+    },
+    "Home.Arena.Challenge.FifthEnemyPower": {
+        "text": "1.3M",
+        "score": 0.9217012524604797,
+        "box": [
+            266,
+            1616,
+            361,
+            1664
+        ]
+    },
+    "Home.Arena.Challenge.ChallengeCount": {
+        "text": "Daily challenges: 5",
+        "score": 0.950636625289917,
+        "box": [
+            600,
+            1760,
+            641,
+            1807
+        ]
+    },
+    "Home.Arena.Challenge.FreeRefresh": {
+        "text": "Free Refresh",
+        "score": 0.9594573974609375,
+        "box": [
+            386,
+            1863,
+            692,
+            1928
+        ]
+    },
+    "Home.Arena.DefensiveLineup.Title": {
+        "text": "Defensive Squad Lineup",
+        "score": 0.9787318706512451,
+        "box": [
+            134,
+            145,
+            684,
+            220
+        ]
+    },
+    "Home.Arena.DefensiveLineup.QuickDeploy": {
+        "text": "Quick Deploy",
+        "score": 0.9948062896728516,
+        "box": [
+            135,
+            2312,
+            440,
+            2375
+        ]
+    },
+    "Home.Arena.DefensiveLineup.Save": {
+        "text": "Save",
+        "score": 0.9984620213508606,
+        "box": [
+            727,
+            2308,
+            859,
+            2374
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Title": {
+        "text": "Squad Settings",
+        "score": 0.9993806481361389,
+        "box": [
+            134,
+            149,
+            482,
+            218
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.MyPower": {
+        "text": "2,361,773",
+        "score": 0.9808194041252136,
+        "box": [
+            199,
+            290,
+            376,
+            346
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.EnemyPower": {
+        "text": "3,413,484",
+        "score": 0.9943243861198425,
+        "box": [
+            713,
+            287,
+            905,
+            344
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.QuickDeploy": {
+        "text": "Quick Deploy",
+        "score": 0.9995825886726379,
+        "box": [
+            138,
+            2317,
+            437,
+            2367
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Fight": {
+        "text": "Fight",
+        "score": 0.9982673525810242,
+        "box": [
+            724,
+            2308,
+            864,
+            2376
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Fight.Pause.Retreat": {
+        "text": "Retreat",
+        "score": 0.999765932559967,
+        "box": [
+            314,
+            1401,
+            454,
+            1442
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Fight.Pause.Continue": {
+        "text": "Continue",
+        "score": 0.9998624920845032,
+        "box": [
+            611,
+            1400,
+            777,
+            1441
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Fight.End.Title": {
+        "text": "Defeat!",
+        "score": 0.9858356714248657,
+        "box": [
+            313,
+            779,
+            762,
+            901
+        ]
+    },
+    "Home.Arena.Challenge.Challenge.Fight.End.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9902394413948059,
+        "box": [
+            364,
+            2352,
+            715,
+            2389
+        ]
+    }
+}

@@ -1,0 +1,152 @@
+{
+    "Home.Alliance.Title": {
+        "text": "Alliance",
+        "score": 0.9985072612762451,
+        "box": [
+            137,
+            149,
+            329,
+            209
+        ]
+    },
+    "Home.Alliance.Name": {
+        "text": "[LAT]lmperioLatino",
+        "score": 0.9821134209632874,
+        "box": [
+            418,
+            278,
+            770,
+            325
+        ]
+    },
+    "Home.Alliance.LeaderName": {
+        "text": "AngelaLAT",
+        "score": 0.9952857494354248,
+        "box": [
+            650,
+            354,
+            1031,
+            409
+        ]
+    },
+    "Home.Alliance.MemberCount": {
+        "text": "78/100",
+        "score": 0.9994657039642334,
+        "box": [
+            909,
+            521,
+            1023,
+            557
+        ]
+    },
+    "Home.Alliance.War": {
+        "text": "War",
+        "score": 0.9938302636146545,
+        "box": [
+            317,
+            1091,
+            421,
+            1150
+        ]
+    },
+    "Home.Alliance.Chests": {
+        "text": "Chests",
+        "score": 0.9995960593223572,
+        "box": [
+            811,
+            1096,
+            944,
+            1147
+        ]
+    },
+    "Home.Alliance.Territory": {
+        "text": "Territory",
+        "score": 0.9996644258499146,
+        "box": [
+            279,
+            1292,
+            457,
+            1355
+        ]
+    },
+    "Home.Alliance.Battle": {
+        "text": "Battle",
+        "score": 0.9197843074798584,
+        "box": [
+            817,
+            1297,
+            940,
+            1345
+        ]
+    },
+    "Home.Alliance.Shop": {
+        "text": "Shop",
+        "score": 0.9843376874923706,
+        "box": [
+            311,
+            1490,
+            425,
+            1563
+        ]
+    },
+    "Home.Alliance.Tech": {
+        "text": "Tech",
+        "score": 0.9993889331817627,
+        "box": [
+            823,
+            1495,
+            929,
+            1549
+        ]
+    },
+    "Home.Alliance.PowerRankings": {
+        "text": "Power Rankings",
+        "score": 0.996062695980072,
+        "box": [
+            214,
+            1694,
+            522,
+            1755
+        ]
+    },
+    "Home.Alliance.Help": {
+        "text": "Help",
+        "score": 0.9969455003738403,
+        "box": [
+            825,
+            1695,
+            928,
+            1758
+        ]
+    },
+    "Home.Alliance.Members": {
+        "text": "Members",
+        "score": 0.9995595216751099,
+        "box": [
+            207,
+            2391,
+            382,
+            2436
+        ]
+    },
+    "Home.Alliance.Triumph": {
+        "text": "Triumph",
+        "score": 0.9997352957725525,
+        "box": [
+            455,
+            2389,
+            623,
+            2446
+        ]
+    },
+    "Home.Alliance.Settings": {
+        "text": "Settings",
+        "score": 0.9995970726013184,
+        "box": [
+            705,
+            2388,
+            865,
+            2448
+        ]
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "Home.Heroes.Title": {
+        "text": "Heroes",
+        "score": 0.999847948551178,
+        "box": [
+            136,
+            152,
+            302,
+            209
+        ]
+    },
+    "Home.Heroes.FirstHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.9645840525627136,
+        "box": [
+            66,
+            590,
+            174,
+            629
+        ]
+    },
+    "Home.Heroes.SecondHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.9535146951675415,
+        "box": [
+            319,
+            591,
+            424,
+            627
+        ]
+    },
+    "Home.Heroes.ThirdHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.9468072056770325,
+        "box": [
+            567,
+            595,
+            673,
+            625
+        ]
+    },
+    "Home.Heroes.FourthHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.9054864048957825,
+        "box": [
+            816,
+            590,
+            922,
+            629
+        ]
+    },
+    "Home.Heroes10": {
+        "text": "Lv.80",
+        "score": 0.9350689053535461,
+        "box": [
+            69,
+            1014,
+            173,
+            1048
+        ]
+    },
+    "Home.Heroes.FifthHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.97222900390625,
+        "box": [
+            314,
+            1008,
+            424,
+            1052
+        ]
+    },
+    "Home.Heroes.SixthHeroLevel": {
+        "text": "Lv.80",
+        "score": 0.9759402275085449,
+        "box": [
+            568,
+            1012,
+            674,
+            1048
+        ]
+    },
+    "Home.Heroes.DrillCamp": {
+        "text": "Drill Camp",
+        "score": 0.9889768362045288,
+        "box": [
+            149,
+            2323,
+            409,
+            2398
+        ]
+    },
+    "Home.Heroes.RecruitHero": {
+        "text": "Recruit Hero",
+        "score": 0.9593567848205566,
+        "box": [
+            654,
+            2326,
+            952,
+            2388
+        ]
+    }
+}

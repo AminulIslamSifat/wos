@@ -1,0 +1,52 @@
+{
+    "Home.ChiefOrder.UrgentMobilization.Gems": {
+        "text": "285,053",
+        "score": 0.9992026090621948,
+        "box": [
+            603,
+            152,
+            750,
+            200
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization.Currency": {
+        "text": "77.3M",
+        "score": 0.9990726709365845,
+        "box": [
+            910,
+            156,
+            1015,
+            195
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization.Title": {
+        "text": "Urgent Mobilization",
+        "score": 0.9971672892570496,
+        "box": [
+            359,
+            1191,
+            720,
+            1242
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization.Enact": {
+        "text": "Enact",
+        "score": 0.9989480972290039,
+        "box": [
+            487,
+            1666,
+            595,
+            1709
+        ]
+    },
+    "Home.ChiefOrder.UrgentMobilization.Cost": {
+        "text": "50,000",
+        "score": 0.9820523858070374,
+        "box": [
+            488,
+            1711,
+            643,
+            1765
+        ]
+    }
+}

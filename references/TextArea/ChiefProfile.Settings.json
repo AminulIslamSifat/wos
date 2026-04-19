@@ -1,0 +1,112 @@
+{
+     "ChiefProfile.Settings": {
+        "text": "Settings",
+        "score": 0.9993451833724976,
+        "box": [
+            866,
+            2376,
+            1007,
+            2427
+        ]
+    },
+    "ChiefProfile.Settings.Account.Title": {
+        "text": "Account",
+        "score": 0.9993899464607239,
+        "box": [
+            136,
+            150,
+            338,
+            209
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount": {
+        "text": "Change Account",
+        "score": 0.997528076171875,
+        "box": [
+            348,
+            2316,
+            736,
+            2387
+        ]
+    },
+    "ChiefProfile.Settings.GiftCode.Title": {
+        "text": "Redeem Bundle",
+        "score": 0.9690510630607605,
+        "box": [
+            373,
+            1014,
+            706,
+            1066
+        ]
+    },
+    "ChiefProfile.Settings.GiftCode.Close": {
+        "text": "X",
+        "score": 0.8185443878173828,
+        "box": [
+            934,
+            1018,
+            979,
+            1059
+        ]
+    },
+    "ChiefProfile.Settings.GiftCode.TextBox": {
+        "text": "Enter Gift Code",
+        "score": 0.9877538681030273,
+        "box": [
+            151,
+            1235,
+            411,
+            1279
+        ]
+    },
+    "ChiefProfile.Settings.GiftCode.Redeem": {
+        "text": "Redeem",
+        "score": 0.9993345737457275,
+        "box": [
+            442,
+            1450,
+            638,
+            1516
+        ]
+    },
+    "ChiefProfile.Settings.Title": {
+        "text": "Settings",
+        "score": 0.9997256994247437,
+        "box": [
+            131,
+            142,
+            332,
+            220
+        ]
+    },
+    "ChiefProfile.Settings.Account": {
+        "text": "Account",
+        "score": 0.9981905221939087,
+        "box": [
+            740,
+            408,
+            913,
+            456
+        ]
+    },
+    "ChiefProfile.Settings.Characters": {
+        "text": "Characters",
+        "score": 0.99968421459198,
+        "box": [
+            222,
+            600,
+            447,
+            648
+        ]
+    },
+    "ChiefProfile.Settings.GiftCode": {
+        "text": "Gift Code",
+        "score": 0.9392773509025574,
+        "box": [
+            729,
+            785,
+            921,
+            839
+        ]
+    }
+}

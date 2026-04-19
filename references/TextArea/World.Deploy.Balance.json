@@ -1,0 +1,62 @@
+{
+    "World.Deploy.Balance.Title": {
+        "text": "Balance",
+        "score": 0.9995089769363403,
+        "box": [
+            447,
+            775,
+            636,
+            838
+        ]
+    },
+    "World.Deploy.Balance.TotalRatio": {
+        "text": "100%/100%",
+        "score": 0.999629020690918,
+        "box": [
+            426,
+            904,
+            660,
+            959
+        ]
+    },
+    "World.Deploy.Balance.InfantryRatio": {
+        "text": "50",
+        "score": 0.9998807907104492,
+        "box": [
+            860,
+            1100,
+            924,
+            1149
+        ]
+    },
+    "World.Deploy.Balance.LancerRatio": {
+        "text": "20",
+        "score": 0.9999322295188904,
+        "box": [
+            860,
+            1320,
+            924,
+            1369
+        ]
+    },
+    "World.Deploy.Balance.MarksmanRatio": {
+        "text": "30",
+        "score": 0.9997289180755615,
+        "box": [
+            860,
+            1539,
+            924,
+            1588
+        ]
+    },
+    "World.Deploy.Balance.Confirm": {
+        "text": "Confirm",
+        "score": 0.9990646243095398,
+        "box": [
+            440,
+            1768,
+            641,
+            1825
+        ]
+    }
+}

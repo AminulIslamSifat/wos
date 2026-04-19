@@ -1,5 +1,12 @@
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import time
+import json
 import requests
+from pathlib import Path
 from cmd_program.screen_action import tap_screen
 from concurrent.futures import ThreadPoolExecutor
 
@@ -11,35 +18,32 @@ ocr_url = "http://127.0.0.1:8000/ocr"
 template_matching_url = "http://127.0.0.1:8000/template"
 
 
+#------------------- DataBase --------------------------#
+text_area = {}
+template_area = {}
 
-def create_box(coord, radius):
-    """
-    Create a padded search region around a coordinate box or point.
 
-    coord formats:
-        - (x, y)
-        - (x1, y1, x2, y2)
+def init_database():
+    global text_area, template_area
 
-    returns:
-        [x1, y1, x2, y2]
-    """
+    with open("references/icon/template_config.json") as f:
+        template_area = json.load(f)
 
-    def pad_box(x1, y1, x2, y2):
-        return [
-            x1 - radius,
-            y1 - radius,
-            x2 + radius,
-            y2 + radius
-        ]
+    files = [f for f in Path("references/TextArea").rglob("*.json") if f.is_file()]
 
-    if len(coord) == 2:
-        x, y = coord
-        return pad_box(x, y, x, y)
+    for file in files:
+        try:
+            with open(file, "r") as f:
+                data = json.load(f)
 
-    if len(coord) == 4:
-        return pad_box(*coord)
+                if isinstance(data, dict):
+                    text_area.update(data)
+                else:
+                    print(f"Skipped non-dict file: {file}")
 
-    raise RuntimeError(f"Invalid coordinate format: {coord}")
+        except Exception as e:
+            print(f"Error in {file} - {e}")
+
 
 
 
@@ -63,11 +67,12 @@ def req_ocr(img_path=None, save_result=None, rois=None):
 
 
 
-def req_temp_match(name, threshold=None, save_result=None):
+def req_temp_match(name, threshold=0.8, save_result=None, rois=None):
     payload = {
         "name" : name,
         "threshold" : threshold,
-        "save_result": save_result
+        "save_result": save_result,
+        "rois": rois
     }
 
     response = requests.post(template_matching_url, json=payload)
@@ -77,17 +82,34 @@ def req_temp_match(name, threshold=None, save_result=None):
         return None
     
     results = data["results"]
-    result = (results["x"], results["y"])
-    return result
+    return results
 
 
-def tap_on_template(name, threshold=None, save_result=None, wait=None, tap=True, sleep=None):
+
+def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=None, tap=True):
+    rois = None
+    if name in template_area:
+        if threshold == None:
+            threshold = (template_area[name]["threshold"] or 0.8)
+        rois = template_area.get(name,{}).get("box", None)
+    
+    if not threshold:
+        threshold = 0.8
+
     def try_match():
-        coord = req_temp_match(name, threshold, save_result)
+        results = req_temp_match(name, threshold, save_result, rois)
+        if not results:
+            return None
+        result = max(results, key=lambda x:x["score"])
+        coord = result["box"]
+        coord = ((coord[0]+coord[2])//2, (coord[1]+coord[3])//2)
+
         if coord and tap:
             tap_screen(coord)
+
             if sleep:
                 time.sleep(sleep)
+
         return bool(coord)
 
     # --- wait mode ---
@@ -101,8 +123,120 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, tap=True,
     # --- retry mode ---
     for _ in range(3):
         if try_match():
+            print(f"Pressed on - {name}")
+            return True
+        else:
+            print(f"No match found for - {name}")
+
+    return None
+
+
+
+def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sleep=None, skip_ocr=False, tap=True):
+    def normalize_rois(box):
+        if box is None:
+            return None
+
+        # already correct format [[...]]
+        if isinstance(box, list) and len(box) == 1 and isinstance(box[0], list):
+            return box
+
+        # single box → wrap it
+        if isinstance(box, list) and len(box) == 4:
+            return [box]
+
+        print("Invalid ROI format:", box)
+        return None
+
+    def load_config(text, rois=None):
+        if isinstance(text, str):
+            text = [text]
+
+        text_data = {}
+
+        for t in text:
+            if t in text_area:
+                item = text_area[t].copy()
+            else:
+                item = {"text": t, "score": None, "box": None}
+
+            if rois is not None:
+                item["box"] = rois
+
+            text_data[t] = item
+
+        return text_data
+
+
+    def try_match(texts):
+        for key, value in texts.items():
+            target_text = value["text"]
+            box = value["box"]
+
+            if skip_ocr and box is not None:
+                coord = (
+                    (box[0] + box[2]) // 2,
+                    (box[1] + box[3]) // 2
+                )
+                if coord and tap:
+                    tap_screen(coord)
+                    print(f"Pressed on {target_text}, Skipped OCR")
+                if sleep:
+                    time.sleep(sleep)
+                return True
+
+            box = normalize_rois(box)
+            res = req_ocr(img_path, save_result, rois=box)
+
+            if res is None:
+                print("OCR failed")
+                continue
+
+            for item in res:
+                if item["text"].lower() == target_text.lower():
+
+                    use_box = item.get("box")
+                    if not use_box:
+                        continue
+
+                    coord = (
+                        (use_box[0] + use_box[2]) // 2,
+                        (use_box[1] + use_box[3]) // 2
+                    )
+                    if coord and tap:
+                        tap_screen(coord)
+                        print(f"Pressed on {item["text"]}")
+
+                    if sleep:
+                        time.sleep(sleep)
+
+                    return True
+
+        return False
+
+
+    # ✅ FIXED POSITION (outside try_match)
+    texts = load_config(text, rois=rois)
+
+    if not texts:
+        print("No text to press on")
+        return None
+
+    if wait:
+        start = time.time()
+
+        while time.time() - start < wait:
+            if try_match(texts):
+                return True
+
+        print(f"No match found for the text - {texts[text]["text"]}")
+        return None
+
+    for _ in range(3):
+        if try_match(texts):
             return True
 
+    print(f"No match found for the text - {texts[text]["text"]}")
     return None
 
 
@@ -110,9 +244,7 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, tap=True,
 
 
 
-
-
-def tap_on_templates_batch(
+def find_templates_batch(
     names,
     thresholds=None,
     save_results=None,
@@ -163,47 +295,4 @@ def tap_on_templates_batch(
 
 
 
-def tap_on_text(text, img_path = None, save_result=None, rois=None, wait=None, sleep=None):
-    if isinstance(text, str):
-        text = [text]
-
-    def try_match(res):
-        for t in text:
-            box = next((item["box"] for item in res if item["text"].lower()==t.lower()), None)
-            print(box)
-            if box is not None:
-                break
-        if box is None:
-            return None
-        coord = ((box[0]+box[2])//2, (box[1]+box[3])//2)
-        print(coord)
-        tap_screen(coord)
-        if sleep:
-            time.sleep(sleep)
-        return True
-        
-    if not text:
-        print("No text provided")
-        return None
-    
-    res = req_ocr(img_path,save_result,rois)
-    if res is None:
-        print("OCR failed")
-        return None
-    
-    if wait:
-        start = time.time()
-        end = time.time()
-
-        while((end-start)<wait):
-            if try_match(res):
-                return True
-            end = time.time()
-        print("No match found for the text")
-        return None
-
-    for _ in range(3):
-        if try_match(res):
-            return True
-    print("No match found for the text")
-    return None
+init_database()

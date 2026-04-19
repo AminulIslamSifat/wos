@@ -1,0 +1,52 @@
+{
+    "Home.Exploration.Explore.Fight.Victory.Title": {
+        "text": "Victory!",
+        "score": 0.9906752109527588,
+        "box": [
+            353,
+            910,
+            720,
+            1035
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Victory.ReturnToCity": {
+        "text": "Return to City",
+        "score": 0.9679149389266968,
+        "box": [
+            121,
+            1820,
+            447,
+            1881
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Victory.Continue": {
+        "text": "Continue",
+        "score": 0.999603271484375,
+        "box": [
+            652,
+            1820,
+            890,
+            1875
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Victory.AutoChallengeNextStage": {
+        "text": "Auto-Challenge Next Stage",
+        "score": 0.967561662197113,
+        "box": [
+            382,
+            1999,
+            785,
+            2039
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Victory.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9633547067642212,
+        "box": [
+            362,
+            2127,
+            715,
+            2168
+        ]
+    }
+}

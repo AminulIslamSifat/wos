@@ -19,14 +19,20 @@ from cmd_program.screen_action import take_screenshot
 
 
 
-
+t1 = time.time()
 
 data_dict = {}
 
 data = req_ocr()
-for i,d in enumerate(data):
-    data_dict[f"World.Intel{i}"] = d
+for d in data:
+    print(d["text"])
 
-print(data_dict)
-with open("db/World.Intel", "w") as file:
+for i,d in enumerate(data):
+    data_dict[f"World.Heal{i}"] = d
+
+with open("World.Heal1.json", "w") as file:
     json.dump(data_dict, file, indent=4)
+
+
+t2 = time.time()
+print(t2-t1)

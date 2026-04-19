@@ -69,18 +69,3 @@ def take_screenshot(device_id="131393852O003802", save=False):
 
 
 
-
-
-t1 = time.time()
-take_screenshot()
-
-t2 = time.time()
-print(t2-t1)
-
-
-
-
-t1 = time.time()
-get_screenshot()
-t2 = time.time()
-print(t2-t1)

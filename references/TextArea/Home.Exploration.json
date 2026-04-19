@@ -1,0 +1,62 @@
+{
+    "Home.Exploration.Title": {
+        "text": "Exploration",
+        "score": 0.9993129372596741,
+        "box": [
+            137,
+            149,
+            409,
+            215
+        ]
+    },
+    "Home.Exploration.Claim": {
+        "text": "Claim",
+        "score": 0.9889460802078247,
+        "box": [
+            861,
+            1894,
+            987,
+            1948
+        ]
+    },
+    "Home.Exploration.CurrentLevel": {
+        "text": "416",
+        "score": 0.9993631839752197,
+        "box": [
+            498,
+            2090,
+            578,
+            2136
+        ]
+    },
+    "Home.Exploration.Explore": {
+        "text": "Explore",
+        "score": 0.9994411468505859,
+        "box": [
+            444,
+            2271,
+            637,
+            2345
+        ]
+    },
+    "Home.Exploration.Claim.Claim": {
+        "text": "Claim",
+        "score": 0.9983280301094055,
+        "box": [
+            469,
+            1688,
+            613,
+            1745
+        ]
+    },
+    "Home.Exploration.Claim.Claim.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9882391691207886,
+        "box": [
+            343,
+            2291,
+            736,
+            2339
+        ]
+    }
+}

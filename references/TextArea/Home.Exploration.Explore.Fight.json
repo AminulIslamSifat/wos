@@ -1,0 +1,62 @@
+{
+    "Home.Exploration.Explore.Fight.MyPower": {
+        "text": "10.2M",
+        "score": 0.9895964860916138,
+        "box": [
+            141,
+            151,
+            316,
+            226
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Level": {
+        "text": "416",
+        "score": 0.9997873902320862,
+        "box": [
+            497,
+            161,
+            583,
+            212
+        ]
+    },
+    "Home.Exploration.Explore.Fight.EnemyPower": {
+        "text": "14.1M",
+        "score": 0.9909912347793579,
+        "box": [
+            779,
+            165,
+            882,
+            207
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Auto": {
+        "text": "Auto",
+        "score": 0.9970534443855286,
+        "box": [
+            941,
+            1811,
+            1035,
+            1856
+        ]
+    },
+    "Home.Exploration.Explore.Fight.x2": {
+        "text": "x2",
+        "score": 0.9970534443855286,
+        "box": [
+            941,
+            1960,
+            1035,
+            2025
+        ]
+    },
+    "Home.Exploration.Explore.Fight.ReturnToCity": {
+        "text": "Return to City",
+        "score": 0.9945525527000427,
+        "box": [
+            123,
+            1802,
+            456,
+            1880
+        ]
+    }
+}

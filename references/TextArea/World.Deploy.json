@@ -1,0 +1,182 @@
+{
+    "World.Deploy.Title": {
+        "text": "Meat",
+        "score": 0.9999149441719055,
+        "box": [
+            137,
+            149,
+            400,
+            205
+        ]
+    },
+    "World.Deploy.Formation1": {
+        "text": "ATK",
+        "score": 0.9989943504333496,
+        "box": [
+            57,
+            301,
+            134,
+            338
+        ]
+    },
+    "World.Deploy.Formation2": {
+        "text": "BR1",
+        "score": 0.9991200566291809,
+        "box": [
+            181,
+            303,
+            243,
+            337
+        ]
+    },
+    "World.Deploy.Formation3": {
+        "text": "BR2",
+        "score": 0.99786376953125,
+        "box": [
+            284,
+            303,
+            353,
+            336
+        ]
+    },
+    "World.Deploy.Formation4": {
+        "text": "BR3",
+        "score": 0.9952325820922852,
+        "box": [
+            394,
+            301,
+            467,
+            337
+        ]
+    },
+    "World.Deploy.Formation5": {
+        "text": "BR4",
+        "score": 0.9978456497192383,
+        "box": [
+            501,
+            299,
+            578,
+            340
+        ]
+    },
+    "World.Deploy.Formation6": {
+        "text": "GIN",
+        "score": 0.9958665370941162,
+        "box": [
+            627,
+            300,
+            690,
+            338
+        ]
+    },
+    "World.Deploy.Formation7": {
+        "text": "DF1",
+        "score": 0.999363899230957,
+        "box": [
+            738,
+            301,
+            803,
+            338
+        ]
+    },
+    "World.Deploy.Formation8": {
+        "text": "DF",
+        "score": 0.9946961402893066,
+        "box": [
+            841,
+            302,
+            903,
+            339
+        ]
+    },
+    "World.Deploy.TroopCapacity": {
+        "text": "36,940/143,010",
+        "score": 0.9999153017997742,
+        "box": [
+            122,
+            386,
+            386,
+            435
+        ]
+    },
+    "World.Deploy.InfantryAmount": {
+        "text": "12,313",
+        "score": 0.9984149932861328,
+        "box": [
+            651,
+            1081,
+            773,
+            1136
+        ]
+    },
+    "World.Deploy.LancerAmount": {
+        "text": "12,313",
+        "score": 0.9998326897621155,
+        "box": [
+            654,
+            1294,
+            771,
+            1342
+        ]
+    },
+    "World.Deploy.MarksmanAmount": {
+        "text": "12,314",
+        "score": 0.9997132420539856,
+        "box": [
+            651,
+            1502,
+            776,
+            1552
+        ]
+    },
+    "World.Deploy.MarchTime": {
+        "text": "00:01:11",
+        "score": 0.9990965127944946,
+        "box": [
+            756,
+            2247,
+            897,
+            2293
+        ]
+    },
+    "World.Deploy.Deploy": {
+        "text": "Deploy",
+        "score": 0.9912316203117371,
+        "box": [
+            736,
+            2322,
+            914,
+            2405
+        ]
+    },
+    "World.Deploy.WithdrawAll": {
+        "text": "Withdraw All",
+        "score": 0.9600257873535156,
+        "box": [
+            6,
+            2396,
+            202,
+            2431
+        ]
+    },
+    "World.Deploy.Equalize": {
+        "text": "Equalize",
+        "score": 0.999984085559845,
+        "box": [
+            223,
+            2393,
+            373,
+            2441
+        ]
+    },
+    "World.Deploy.Balance": {
+        "text": "Balance",
+        "score": 0.999952495098114,
+        "box": [
+            422,
+            2394,
+            565,
+            2435
+        ]
+    }
+}

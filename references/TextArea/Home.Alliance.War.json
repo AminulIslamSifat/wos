@@ -1,0 +1,52 @@
+{
+    "Home.Alliance.War.Title": {
+        "text": "War",
+        "score": 0.9933276176452637,
+        "box": [
+            133,
+            148,
+            252,
+            208
+        ]
+    },
+    "Home.Alliance.War.Rally": {
+        "text": "Rally",
+        "score": 0.9284232258796692,
+        "box": [
+            150,
+            276,
+            247,
+            331
+        ]
+    },
+    "Home.Alliance.War.Solo": {
+        "text": "Solo",
+        "score": 0.9987581968307495,
+        "box": [
+            496,
+            289,
+            582,
+            338
+        ]
+    },
+    "Home.Alliance.War.Events": {
+        "text": "Events",
+        "score": 0.9996068477630615,
+        "box": [
+            817,
+            291,
+            948,
+            337
+        ]
+    },
+    "Home.Alliance.War.AutoJoin": {
+        "text": "Auto-joining..",
+        "score": 0.9059187173843384,
+        "box": [
+            368,
+            2343,
+            711,
+            2420
+        ]
+    }
+}

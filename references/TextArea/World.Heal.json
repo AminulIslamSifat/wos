@@ -1,0 +1,52 @@
+{
+    "World.Heal.Title": {
+        "text": "Heal Injured",
+        "score": 0.9994679093360901,
+        "box": [
+            379,
+            807,
+            652,
+            868
+        ]
+    },
+    "World.Heal.InjuredAmount": {
+        "text": "23,300/180,300",
+        "score": 0.9979678392410278,
+        "box": [
+            231,
+            939,
+            543,
+            998
+        ]
+    },
+    "World.Heal.QuickSelect": {
+        "text": "Quick Select",
+        "score": 0.9449635744094849,
+        "box": [
+            132,
+            1883,
+            272,
+            2000
+        ]
+    },
+    "World.Heal.Finish": {
+        "text": "Finish",
+        "score": 0.9991945624351501,
+        "box": [
+            403,
+            1891,
+            523,
+            1939
+        ]
+    },
+    "World.Heal.Heal": {
+        "text": "Heal",
+        "score": 0.9993271827697754,
+        "box": [
+            729,
+            1891,
+            825,
+            1941
+        ]
+    }
+}

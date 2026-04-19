@@ -56,19 +56,6 @@ def match_template(img, template, threshold=None, save_result=False):
 
 
 
-path = "cache/chief_profile.json"
-
-with open(path, "r") as file:
-    data = json.load(file)
-
-
-rois = []
-for res in data:
-    rois.append(res["box"])
-
-print(rois)
-
-
-
-res = req_temp_match("search")
-print(res)
+res = req_ocr(save_result=True)
+for r in res:
+    print(f"{r['text']} ---- {r['score']} ----- {r['box']}")

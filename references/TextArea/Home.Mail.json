@@ -1,0 +1,82 @@
+{
+    "Home.Mail.Title": {
+        "text": "Mail",
+        "score": 0.9470533132553101,
+        "box": [
+            138,
+            152,
+            242,
+            205
+        ]
+    },
+    "Home.Mail.Wars": {
+        "text": "Wars",
+        "score": 0.9963416457176208,
+        "box": [
+            76,
+            277,
+            186,
+            324
+        ]
+    },
+    "Home.Mail.Alliance": {
+        "text": "Alliance",
+        "score": 0.9957841634750366,
+        "box": [
+            260,
+            277,
+            412,
+            324
+        ]
+    },
+    "Home.Mail.System": {
+        "text": "System",
+        "score": 0.999539852142334,
+        "box": [
+            472,
+            280,
+            608,
+            330
+        ]
+    },
+    "Home.Mail.Reports": {
+        "text": "Reports",
+        "score": 0.9997686147689819,
+        "box": [
+            672,
+            274,
+            819,
+            325
+        ]
+    },
+    "Home.Mail.Starred": {
+        "text": "Starred",
+        "score": 0.9997264742851257,
+        "box": [
+            879,
+            281,
+            1019,
+            322
+        ]
+    },
+    "Home.Mail.DeleteAllReadMail": {
+        "text": "Delete All Read Mail",
+        "score": 0.9995648860931396,
+        "box": [
+            166,
+            2383,
+            498,
+            2419
+        ]
+    },
+    "Home.Mail.ReadAndClaim": {
+        "text": "Read&Claim All",
+        "score": 0.952751636505127,
+        "box": [
+            712,
+            2380,
+            947,
+            2421
+        ]
+    }
+}

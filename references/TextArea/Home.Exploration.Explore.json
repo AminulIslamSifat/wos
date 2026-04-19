@@ -1,0 +1,62 @@
+{
+    "Home.Exploration.Explore.Title": {
+        "text": "Squad Settings",
+        "score": 0.9678877592086792,
+        "box": [
+            133,
+            147,
+            482,
+            221
+        ]
+    },
+    "Home.Exploration.Explore.Level": {
+        "text": "417",
+        "score": 0.9991810917854309,
+        "box": [
+            496,
+            291,
+            580,
+            345
+        ]
+    },
+    "Home.Exploration.Explore.MyPower": {
+        "text": "10,539,178",
+        "score": 0.9622179269790649,
+        "box": [
+            201,
+            310,
+            387,
+            355
+        ]
+    },
+    "Home.Exploration.Explore.EnemyPower": {
+        "text": "14,492,131",
+        "score": 0.9993916749954224,
+        "box": [
+            694,
+            307,
+            880,
+            357
+        ]
+    },
+    "Home.Exploration.Explore.QuickDeploy": {
+        "text": "Quick Deploy",
+        "score": 0.9977660179138184,
+        "box": [
+            141,
+            2318,
+            438,
+            2368
+        ]
+    },
+    "Home.Exploration.Explore.Fight": {
+        "text": "Fight",
+        "score": 0.998172402381897,
+        "box": [
+            725,
+            2311,
+            860,
+            2376
+        ]
+    }
+}

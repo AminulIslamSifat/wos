@@ -1,0 +1,32 @@
+{
+    "Home.Exploration.Explore.Fight.Pause.Retreat": {
+        "text": "Retreat",
+        "score": 0.9999254941940308,
+        "box": [
+            159,
+            1399,
+            300,
+            1444
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Pause.Restart": {
+        "text": "Restart",
+        "score": 0.9999006986618042,
+        "box": [
+            469,
+            1399,
+            610,
+            1443
+        ]
+    },
+    "Home.Exploration.Explore.Fight.Pause.Continue": {
+        "text": "Continue",
+        "score": 0.9996911883354187,
+        "box": [
+            765,
+            1397,
+            934,
+            1444
+        ]
+    }
+}
