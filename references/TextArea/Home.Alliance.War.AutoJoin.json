@@ -68,5 +68,15 @@
             847,
             2001
         ]
+    },
+    "Home.Alliance.War.AutoJoin.Enable": {
+        "text": "Enable",
+        "score": 0.998887300491333,
+        "box": [
+            668,
+            1936,
+            840,
+            1999
+        ]
     }
 }

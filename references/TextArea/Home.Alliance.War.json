@@ -40,12 +40,22 @@
         ]
     },
     "Home.Alliance.War.AutoJoin": {
-        "text": "Auto-joining..",
+        "text": "Auto-join",
         "score": 0.9059187173843384,
         "box": [
             368,
             2343,
             711,
+            2420
+        ]
+    },
+    "Home.Alliance.War.AutoJoining": {
+        "text": "Auto-joining",
+        "score": 0.9059187173843384,
+        "box": [
+            368,
+            2343,
+            665,
             2420
         ]
     }

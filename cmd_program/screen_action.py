@@ -80,3 +80,23 @@ def take_screenshot(device_id="131393852O003802", save=False):
         cv2.imwrite(f"cache/wos-{int(time.time())}.png", img)
     
     return img
+
+
+
+
+def clear_input(count=6, device_id="13139385O0003802"):
+    run_adb_command(["shell", "input", "keyevent", "123"], device_id)
+
+    for i in range(count):
+        run_adb_command(["shell", "input", "keyevent", "67"], device_id)
+
+
+
+def input_text(text, device_id="131393852O003802", backspace=6):
+    text = text.replace(" ", "%s")
+
+    adb_command = ["shell", "input", "text", text]
+    clear_input(count=backspace, device_id=device_id)
+    run_adb_command(adb_command, device_id)
+    run_adb_command(["shell", "input", "keyevent", "66"], device_id=device_id)
+    print(f"Text Input: {text}")

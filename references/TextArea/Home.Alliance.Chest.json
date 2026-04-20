@@ -9,14 +9,24 @@
             209
         ]
     },
+    "Home.Alliance.Chests.LootChest": {
+        "text": "Loot Chest",
+        "score": 0.9689172506332397,
+        "box": [
+            187,
+            697,
+            390,
+            739
+        ]
+    },
     "Home.Alliance.Chests.AllianceGift": {
         "text": "Alliance Gift",
-        "score": 0.9195088744163513,
+        "score": 0.9891817569732666,
         "box": [
-            677,
-            694,
-            911,
-            741
+            675,
+            692,
+            912,
+            740
         ]
     },
     "Home.Alliance.Chests.Claim": {
@@ -29,7 +39,7 @@
             1103
         ]
     },
-    "Home.Alliance.Chests.ClaimAll": {
+    "Home.Alliance.Chests.LootChest.ClaimAll": {
         "text": "Claim All",
         "score": 0.8800263404846191,
         "box": [
@@ -37,6 +47,26 @@
             2322,
             650,
             2382
+        ]
+    },
+    "Home.Alliance.Chests.LootChest.ClaimAll.Title": {
+        "text": "Rewards",
+        "score": 0.9987489581108093,
+        "box": [
+            395,
+            775,
+            685,
+            844
+        ]
+    },
+    "Home.Alliance.Chests.LootChest.ClaimAll.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9839407801628113,
+        "box": [
+            342,
+            2289,
+            736,
+            2339
         ]
     }
 }

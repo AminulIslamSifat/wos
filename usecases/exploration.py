@@ -11,7 +11,8 @@ from core.core import(
     req_ocr,
     req_temp_match,
     tap_on_template,
-    tap_on_text
+    tap_on_text,
+    req_text
 )
 
 
@@ -59,9 +60,13 @@ def continue_exploring(stopping_level=None):
 
     while True:
         if stopping_level:
-            texts = req_ocr(rois=[[480, 270, 600, 400]])
-            texts = [t["text"] for t in texts if t["score"] > 0.9]
-            level = int(texts[0])
+            try:
+                level = int(req_text("Home.Exploration.CurrentLevel")[0])
+            except Exception as e:
+                print(f"Level Reading Failed - {e}, Ending the task...")
+                recalibrate()
+                return
+
             print(f"Current level - {level}, Will stop at {stopping_level}")
             if level > stopping_level:
                 print("Exploration Completed...")
@@ -80,4 +85,6 @@ def continue_exploring(stopping_level=None):
                 print("Failed the stage, Returning to the Homepage")
                 recalibrate()
                 break
+
+
 

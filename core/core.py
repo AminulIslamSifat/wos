@@ -3,11 +3,12 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+import cv2
 import time
 import json
 import requests
 from pathlib import Path
-from cmd_program.screen_action import tap_screen
+from cmd_program.screen_action import tap_screen, take_screenshot, long_press
 from concurrent.futures import ThreadPoolExecutor
 
 
@@ -74,7 +75,7 @@ def req_temp_match(name, threshold=0.8, save_result=None, rois=None):
         "save_result": save_result,
         "rois": rois
     }
-
+    
     response = requests.post(template_matching_url, json=payload)
     data = response.json()
 
@@ -86,7 +87,7 @@ def req_temp_match(name, threshold=0.8, save_result=None, rois=None):
 
 
 
-def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=None, tap=True, rois=None):
+def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=None, tap=True, rois=None, hold=None):
     if name in template_area:
         if threshold == None:
             threshold = (template_area[name]["threshold"] or 0.8)
@@ -103,7 +104,9 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=Non
         coord = result["box"]
         coord = ((coord[0]+coord[2])//2, (coord[1]+coord[3])//2)
 
-        if coord and tap:
+        if coord and hold:
+            long_press(coord, duration=hold)
+        elif coord and tap:
             tap_screen(coord)
 
             if sleep:
@@ -131,7 +134,7 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=Non
 
 
 
-def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sleep=None, skip_ocr=False, tap=True):
+def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sleep=None, skip_ocr=False, tap=True, hold=None):
     def normalize_rois(box):
         if box is None:
             return None
@@ -177,7 +180,10 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
                     (box[0] + box[2]) // 2,
                     (box[1] + box[3]) // 2
                 )
-                if coord and tap:
+
+                if coord and hold:
+                    long_press(coord, duration=hold)
+                elif coord and tap:
                     tap_screen(coord)
                     print(f"Pressed on {target_text}, Skipped OCR")
                 if sleep:
@@ -202,7 +208,9 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
                         (use_box[0] + use_box[2]) // 2,
                         (use_box[1] + use_box[3]) // 2
                     )
-                    if coord and tap:
+                    if coord and hold:
+                        long_press(coord, duration=hold)
+                    elif coord and tap:
                         tap_screen(coord)
                         print(f"Pressed on {item["text"]}")
 
@@ -241,33 +249,72 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
 
 
 
+def req_text(names, img_path=None, rois=None, save_result=False):
+    def load_config(names, rois=None):
+        if isinstance(names, str):
+            names = [names]
+
+        names_boxes = []
+
+        for name in names:
+            if name in text_area:
+                box = text_area[name]["box"]
+            else:
+                box = [0, 0, 1080, 2460]        #full screen
+
+            if rois is not None:
+                names_boxes = rois
+
+            names_boxes.append(box)
+
+        return names_boxes
+
+    boxes = load_config(names, rois)
+
+    if not boxes:
+        print("No location found")
+        return None
+    
+    res = req_ocr(img_path, save_result, rois=boxes)
+
+    if res is None:
+        print("OCR failed")
+        return None
+
+    texts = [t['text'] for t in res]
+    print(f"Text Found: {texts}")
+    return texts
 
 
-def find_templates_batch(
+
+
+def tap_on_templates_batch(
     names,
     thresholds=None,
     save_results=None,
     wait=None,
-    tap=False
+    tap=True,
+    sleep=None,
+    rois = None
 ):
-    """
-    names: list of template names
-    thresholds: list or None
-    save_results: list or None
-    wait: timeout per batch loop
-    tap: whether to tap when found
-    """
-
     n = len(names)
 
-    thresholds = thresholds or [None] * n
+    thresholds = thresholds or [0.8] * n
     save_results = save_results or [None] * n
-    tap = tap or [None] * n
+    if isinstance(tap, bool):
+        tap = [tap] * n
 
     def match_one(i):
-        coord = req_temp_match(names[i], thresholds[i], save_results[i])
+        coord = req_temp_match(names[i], threshold=thresholds[i], save_result=save_results[i], rois=rois)
         if coord and tap[i]:
+            coord = coord[0]['box']
+            coord = ((coord[0]+coord[2])//2, (coord[1]+coord[3])//2)
             tap_screen(coord)
+            print(f"Pressed on {names[i]}")
+        if not coord:
+            print(f"No match for {names[i]}")
+        if sleep:
+            time.sleep(sleep)
         return bool(coord)
 
     def run_batch():

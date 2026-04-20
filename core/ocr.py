@@ -6,6 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import cv2
 import json
 import time
+import paddle           #Important for paddleocr 2.10.0
 import uvicorn
 import numpy as np
 from pathlib import Path
@@ -18,11 +19,15 @@ from cmd_program.screen_action import take_screenshot
 import paddleocr
 
 
-import paddle
-print(paddleocr.__version__)
-print(paddle.__version__)
+#Printing the version of paddleocr
+print(f"PaddleOCR Version: {paddleocr.__version__}")
+print(f"PaddlePaddle Version: {paddle.__version__}")
 
-
+#Disabling logging from the paddleocr
+import logging
+logging.getLogger("ppocr").setLevel(logging.ERROR)
+logging.getLogger("uvicorn").setLevel(logging.WARNING)
+logging.getLogger("uvicorn.access").setLevel(logging.ERROR)
 
 
 #------------------- Data Models ---------------------------------#
@@ -143,6 +148,8 @@ def match_template(name, threshold=0.8, save_result=None, rois=None):
             continue
 
         result = cv2.matchTemplate(roi_img, template, cv2.TM_CCOEFF_NORMED)
+        _, max_value, _, max_loc = cv2.minMaxLoc(result)
+        print(f"Best Match: {max_loc} ------ Score: {max_value}")
 
         locations = np.where(result >= threshold)
         locations = list(zip(locations[1], locations[0]))  # (x, y)

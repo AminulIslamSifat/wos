@@ -29,6 +29,66 @@
             2387
         ]
     },
+    "ChiefProfile.Settings.Account.ChangeAccount.Title": {
+        "text": "Change Account",
+        "score": 0.9920037984848022,
+        "box": [
+            360,
+            757,
+            723,
+            825
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount.Guest": {
+        "text": "Guest",
+        "score": 0.9993522763252258,
+        "box": [
+            509,
+            943,
+            636,
+            994
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount.Facebook": {
+        "text": " Facebook",
+        "score": 0.8495842814445496,
+        "box": [
+            417,
+            1066,
+            719,
+            1155
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle": {
+        "text": "Sign in with Google",
+        "score": 0.9327179789543152,
+        "box": [
+            380,
+            1215,
+            786,
+            1286
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle.Cancl": {
+        "text": "Cancel",
+        "score": 0.9989598393440247,
+        "box": [
+            261,
+            1984,
+            407,
+            2036
+        ]
+    },
+    "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle.Continue": {
+        "text": "Continue",
+        "score": 0.9997696876525879,
+        "box": [
+            653,
+            1987,
+            838,
+            2033
+        ]
+    },
     "ChiefProfile.Settings.GiftCode.Title": {
         "text": "Redeem Bundle",
         "score": 0.9690510630607605,
@@ -97,6 +157,86 @@
             600,
             447,
             648
+        ]
+    },
+    "ChiefProfile.Settings.Character.Title": {
+        "text": "Characters",
+        "score": 0.9997318983078003,
+        "box": [
+            420,
+            576,
+            662,
+            627
+        ]
+    },
+    "ChiefProfile.Settings.Characters.CreateNewCharacter": {
+        "text": "Create new character",
+        "score": 0.9867741465568542,
+        "box": [
+            327,
+            720,
+            693,
+            764
+        ]
+    },
+    "ChiefProfile.Settings.Characters.FirstState": {
+        "text": "Server #3429",
+        "score": 0.9684574604034424,
+        "box": [
+            202,
+            940,
+            475,
+            991
+        ]
+    },
+    "ChiefProfile.Settings.Characters.FirstCharacterName": {
+        "text": "[LAT]Shadow",
+        "score": 0.9667043685913086,
+        "box": [
+            337,
+            1053,
+            900,
+            1096
+        ]
+    },
+    "ChiefProfile.Settings.Characters.SecondCharacterName": {
+        "text": "[LAT]Shadowy",
+        "score": 0.9827242493629456,
+        "box": [
+            330,
+            1280,
+            900,
+            1327
+        ]
+    },
+    "ChiefProfile.Settings.Characters.Login.Title": {
+        "text": "Login",
+        "score": 0.9985774755477905,
+        "box": [
+            472,
+            970,
+            608,
+            1037
+        ]
+    },
+    "ChiefProfile.Settings.Characters.Login.Cancel": {
+        "text": "Cancel",
+        "score": 0.9995412230491638,
+        "box": [
+            234,
+            1509,
+            395,
+            1562
+        ]
+    },
+    "ChiefProfile.Settings.Characters.Login.Confirm": {
+        "text": "Confirm",
+        "score": 0.9992508292198181,
+        "box": [
+            669,
+            1506,
+            867,
+            1563
         ]
     },
     "ChiefProfile.Settings.GiftCode": {

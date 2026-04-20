@@ -1,5 +1,6 @@
+import time
 import requests
-from core.core import req_ocr, tap_on_template, tap_on_text
+from core.core import req_ocr, tap_on_template, tap_on_text, tap_on_templates_batch
 from cmd_program.screen_action import tap_screen
 
 
@@ -22,21 +23,26 @@ def recalibrate():
                 coord = ((box[0]+box[2])//2, (box[1]+box[3])//2)
                 tap_screen(coord)
                 is_home = True
+                time.sleep(2)
                 break
             
         if is_home:
             print("On homepage")
+            time.sleep(1)
             break
-        
-        found = tap_on_template("Global.Back")
-        if found:
-            continue
+
+        # found = tap_on_templates_batch(
+        #     ["Global.Back", "Global.Close", "FirstPurchase.Close"],
+        #     sleep = 1
+        # )
+
+        found = tap_on_template("Global.Back", sleep=1)
         if not found:
-            found = tap_on_template("Global.Close")
+            found = tap_on_template("Global.Close", sleep=1)
         if not found:
-            found = tap_on_text("Tap anywhere to exit")
+            found = tap_on_template("FirstPurchase.Close", sleep=1)
         if not found:
-            tap_screen(540, 1900)
+            found = tap_on_text("Tap anywhere to exit", sleep=1)
 
 
     

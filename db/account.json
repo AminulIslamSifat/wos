@@ -1,91 +1,72 @@
 {
-    "_demo.mail@gmail.com" : {
-        "player" : [
-            {
-                "name" : "xxxxx",
-                "id" : 123456789
-            },
-            {
-                "name" : "yyyyy",
-                "id" : 123456788
-            }
-        ]
-    },
-
     "aminulislamsifat19@gmail.com" : {
+        "priority": 1,
         "player" : [
             {
                 "name" : "shadow",
-                "id" : 11
+                "id" : "578380047"
             },
             {
                 "name" : "shadowy",
-                "id" : 12
+                "id" : "588462952"
             }
         ]
     },
 
     "aminulislamsifat5@gmail.com" : {
+        "priority": 2,
         "player" : [
             {
-                "name" : "shadow",
-                "id" : 11
+                "name" : "The Fool",
+                "id" : "581237326"
             },
             {
-                "name" : "shadowy",
-                "id" : 12
+                "name" : "Justice",
+                "id" : "653288400"
             }
         ]
     },
 
     "darkdevil1996120@gmail.com" : {
+        "priority": 3,
         "player" : [
             {
-                "name" : "shadow",
-                "id" : 11
-            },
-            {
-                "name" : "shadowy",
-                "id" : 12
+                "name" : "The Magician",
+                "id" : "662244367"
             }
         ]
     },
 
     "ais.wos.001@gmail.com" : {
+        "priority": 4,
         "player" : [
             {
-                "name" : "shadow",
-                "id" : 11
-            },
-            {
-                "name" : "shadowy",
-                "id" : 12
+                "name" : "Death",
+                "id" : "662566035"
             }
         ]
     },
 
     "ais.wos.0002@gmail.com" : {
+        "priority": 5,
         "player" : [
             {
-                "name" : "shadow",
-                "id" : 11
-            },
-            {
-                "name" : "shadowy",
-                "id" : 12
+                "name" : "Judgement",
+                "id" : "11"
             }
         ]
     },
 
     "ais.wos.0003@gmail.com" : {
+        "priority": 6,
         "player" : [
             {
-                "name" : "shadow",
-                "id" : 11
+                "name" : "The Moon",
+                "id" : "11"
             },
             {
                 "name" : "shadowy",
-                "id" : 12
+                "id" : "12"
             }
         ]
     }

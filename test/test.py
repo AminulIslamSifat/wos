@@ -13,7 +13,7 @@ from fastapi import FastAPI
 from paddleocr import PaddleOCR
 from pydantic import BaseModel
 
-from core.core import req_ocr, req_temp_match
+from core.core import req_ocr, req_temp_match, req_text, tap_on_text, tap_on_template
 
 from cmd_program.screen_action import take_screenshot
 
@@ -56,6 +56,6 @@ def match_template(img, template, threshold=None, save_result=False):
 
 
 
-res = req_ocr(save_result=True)
-for r in res:
-    print(f"{r['text']} ---- {r['score']} ----- {r['box']}")
+
+res = tap_on_template("FirstPurchase.Close", threshold=0.8, save_result=True)
+print(res)
