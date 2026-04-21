@@ -1,14 +1,19 @@
-from core.core import (
-    req_ocr,
-    req_temp_match,
-    tap_on_template,
-    tap_on_text,
-    req_text
-)
 import time
 from core.recalibrate import recalibrate
-from cmd_program.screen_action import swipe_screen, tap_screen, input_text
 
+from core.core import (
+    req_ocr,
+    req_text,
+    tap_on_text,
+    req_temp_match,
+    tap_on_template,
+    tap_on_templates_batch
+)
+from cmd_program.screen_action import(
+    tap_screen,
+    swipe_screen,
+    input_text
+)
 
 
 def gather(remove_hero=False, equalize=True):
@@ -69,7 +74,18 @@ def gather(remove_hero=False, equalize=True):
             print(f"Reading Error - {e}")
             remaining_march = remaining_march - 1
     
+    text = req_text("World.City")
+    try:
+        text = text[0]
+    except Exception as e:
+        print("The search tab may still opened, Trying to recover...")
+    if text.lower() != "city":
+        tap_screen(540, 1230)
     print("Completed the gathering task, Returning to homepage...")
     recalibrate()
 
 
+
+
+def recall_current_gathering(lowest_time=240):
+    return

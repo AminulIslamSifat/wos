@@ -75,3 +75,9 @@ def change_character(next_name):
 
 
 
+players = req_text(
+    ["ChiefProfile.Settings.Characters.FirstCharacterName",
+    "ChiefProfile.Settings.Characters.SecondCharacterName"]
+)
+names = [player.split(']')[1].lower() for player in players]
+print(names)

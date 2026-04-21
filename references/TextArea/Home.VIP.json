@@ -1,0 +1,112 @@
+{
+    "Home.VIP.Title": {
+        "text": "VIP",
+        "score": 0.9950528740882874,
+        "box": [
+            136,
+            153,
+            223,
+            203
+        ]
+    },
+    "Home.VIP.Level": {
+        "text": "6",
+        "score": 0.998156726360321,
+        "box": [
+            664,
+            323,
+            690,
+            354
+        ]
+    },
+    "Home.VIP.Claim": {
+        "text": "Claim",
+        "score": 0.9949367642402649,
+        "box": [
+            813,
+            1747,
+            934,
+            1803
+        ]
+    },
+    "Home.VIP.RemainingVIPTime": {
+        "text": "60d 00:44:19",
+        "score": 0.9361606240272522,
+        "box": [
+            400,
+            2306,
+            677,
+            2347
+        ]
+    },
+    "Home.VIP.ObtainMore.Gems": {
+        "text": "20,448",
+        "score": 0.9995997548103333,
+        "box": [
+            881,
+            141,
+            1013,
+            188
+        ]
+    },
+    "Home.VIP.ObtainMore.Title": {
+        "text": "Obtain more",
+        "score": 0.9995021820068359,
+        "box": [
+            408,
+            505,
+            675,
+            557
+        ]
+    },
+    "Home.VIP.ObtainMore.24HourPrice": {
+        "text": "1,000",
+        "score": 0.9906110763549805,
+        "box": [
+            839,
+            1115,
+            945,
+            1162
+        ]
+    },
+    "Home.VIP.ObtainMore.7DaysPrice": {
+        "text": "3,000",
+        "score": 0.9839468002319336,
+        "box": [
+            836,
+            1329,
+            948,
+            1373
+        ]
+    },
+    "Home.VIP.ObtainMore.30DaysPrice": {
+        "text": "10,000",
+        "score": 0.9930679202079773,
+        "box": [
+            823,
+            1539,
+            955,
+            1589
+        ]
+    },
+    "Home.VIP.CollectChest.ClickToContinue": {
+        "text": "Click to continue",
+        "score": 0.9968643188476562,
+        "box": [
+            385,
+            2315,
+            692,
+            2360
+        ]
+    },
+    "Home.VIP.Claim.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9697917699813843,
+        "box": [
+            343,
+            2291,
+            736,
+            2339
+        ]
+    }
+}

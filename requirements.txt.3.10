@@ -1,7 +1,0 @@
-numpy==1.24.4
-opencv-python==4.11.0.86
-paddlepaddle==3.2.0
-paddleocr==3.0.0
-requests==2.33.1
-fastapi==0.135.3
-uvicorn==0.44.0

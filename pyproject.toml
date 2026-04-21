@@ -1,0 +1,16 @@
+[project]
+name = "wos"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "adbnativeblitz>=0.11",
+    "adbutils>=2.8.9",
+    "fastapi==0.135.3",
+    "opencv-python>=4.11.0.86",
+    "paddleocr==2.10.0",
+    "paddlepaddle==3.2.0",
+    "setuptools>=80.4.0",
+    "uvicorn>=0.44.0",
+]

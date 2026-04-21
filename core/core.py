@@ -306,37 +306,56 @@ def tap_on_templates_batch(
 
     def match_one(i):
         coord = req_temp_match(names[i], threshold=thresholds[i], save_result=save_results[i], rois=rois)
-        if coord and tap[i]:
-            coord = coord[0]['box']
-            coord = ((coord[0]+coord[2])//2, (coord[1]+coord[3])//2)
-            tap_screen(coord)
-            print(f"Pressed on {names[i]}")
-        if not coord:
-            print(f"No match for {names[i]}")
-        if sleep:
-            time.sleep(sleep)
-        return bool(coord)
+        if coord:
+            return coord
 
     def run_batch():
         with ThreadPoolExecutor(max_workers=n) as ex:
             return list(ex.map(match_one, range(n)))
+    
+    results = []
 
     # --- wait mode ---
     if wait:
         start = time.time()
         while time.time() - start < wait:
             result = run_batch()
-            if any(result):
-                return result
-        return [False] * n
+            resutls = []
+            for i, coord in enumerate(result):
+                if coord:
+                    if tap[i]:
+                        box = coord[0]['box']
+                        coord_xy = ((box[0]+box[2])//2, (box[1]+box[3])//2)
+                        tap_screen(coord_xy)
+                        print(f"Pressed on {names[i]}")
+                        if sleep:
+                            time.sleep(sleep)
+                    results.append(True)
+                else:
+                    results.append(False)
+            if any(results):
+                return results
 
     # --- retry mode ---
     for _ in range(3):
         result = run_batch()
-        if any(result):
-            return result
+        resutls = []
+        for i, coord in enumerate(result):
+            if coord:
+                if tap[i]:
+                    box = coord[0]['box']
+                    coord_xy = ((box[0]+box[2])//2, (box[1]+box[3])//2)
+                    tap_screen(coord_xy)
+                    print(f"Pressed on {names[i]}")
+                    if sleep:
+                        time.sleep(sleep)
+                results.append(True)
+            else:
+                results.append(False)
+        if any(results):
+            return results
 
-    return [False] * n
+    return results
 
 
 

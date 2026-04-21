@@ -30,6 +30,10 @@ from usecases.alliance import(
     collect_chests,
     help
 )
+from usecases.vip import (
+    collect_vip_rewards,
+    buy_vip_time
+)
 from core.recalibrate import recalibrate
 from core.change_player import change_account, change_character
 
@@ -143,6 +147,7 @@ def run_bot():
         collect_chests()
         tech_contribution()
         help()
+        collect_vip_rewards()
         if current_player_id == "578380047":
             gather(remove_hero=True, equalize=False)
         gather(remove_hero=False, equalize=True)
@@ -172,10 +177,11 @@ def run_bot():
                 collect_chests()
                 tech_contribution()
                 help()
+                collect_vip_rewards()
 
-        if current_player.id == "578380047":
-            gather(remove_hero=True, equalize=False)
-        gather(remove_hero=False, equalize=True)
+                if current_player.id == "578380047":
+                    gather(remove_hero=True, equalize=False)
+                gather(remove_hero=False, equalize=True)
 
 
         print(f"Progressing to the next email: {next_email}")

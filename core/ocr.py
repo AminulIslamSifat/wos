@@ -83,7 +83,7 @@ def init_services():
     root_dir = Path(TEMPLATE_PATH)
     print(root_dir)
     for file_path in root_dir.rglob("*.png"):
-        if file_path.is_file:
+        if file_path.is_file():
             fn = os.path.splitext(file_path.name)[0]
             img = cv2.imread(file_path)
             if img is not None:
@@ -394,7 +394,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
         cv2.imwrite(f"test/debug/full_res_{int(time.time())}.png", debug_img)
 
     for res in all_results:
-        print(f"{res['text']} ------- Box: {res["box"]} ------- Score: {res["score"]}")
+        print(f"{res['text']} ------- Box: {res['box']} ------- Score: {res['score']}")
         
     return all_results
 
@@ -438,7 +438,7 @@ init_services()
 
 if __name__ == "__main__":
     uvicorn.run(
-        "core.ocr:app",
+        app,
         host="127.0.0.1",
         port=8000
     )
