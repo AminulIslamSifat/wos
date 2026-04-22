@@ -53,67 +53,67 @@
         "text": "My Power:  2,099,12",
         "score": 0.8687713742256165,
         "box": [
-            304,
+            280,
             698,
-            771,
+            900,
             759
         ]
     },
     "Home.Arena.Challenge.FirstEnemyPower": {
-        "text": "3.4M",
-        "score": 0.9933135509490967,
+        "text": "72,800",
+        "score": 0.9806797504425049,
         "box": [
-            266,
-            850,
-            369,
-            894
+            237,
+            882,
+            408,
+            938
         ]
     },
     "Home.Arena.Challenge.SecondEnemyPower": {
-        "text": "4.0M",
-        "score": 0.9907292127609253,
+       "text": "166,500",
+        "score": 0.9890565276145935,
         "box": [
-            265,
-            1041,
-            372,
-            1085
+            267,
+            1078,
+            424,
+            1128
         ]
     },
     "Home.Arena.Challenge.ThirdEnemyPower": {
-        "text": "353,530",
-        "score": 0.9705227017402649,
+        "text": "72,800",
+        "score": 0.9691238403320312,
         "box": [
-            266,
-            1232,
-            425,
-            1281
+            253,
+            1269,
+            407,
+            1323
         ]
     },
     "Home.Arena.Challenge.FourthEnemyPower": {
-        "text": "1.8M",
-        "score": 0.9915528297424316,
+        "text": "166,500",
+        "score": 0.9866270422935486,
         "box": [
-            266,
-            1426,
-            361,
-            1471
+            264,
+            1459,
+            423,
+            1513
         ]
     },
     "Home.Arena.Challenge.FifthEnemyPower": {
-        "text": "1.3M",
-        "score": 0.9217012524604797,
+        "text": "95,600",
+        "score": 0.9795166850090027,
         "box": [
-            266,
-            1616,
-            361,
-            1664
+            230,
+            1650,
+            411,
+            1708
         ]
     },
     "Home.Arena.Challenge.ChallengeCount": {
         "text": "Daily challenges: 5",
         "score": 0.950636625289917,
         "box": [
-            600,
+            610,
             1760,
             641,
             1807
@@ -243,10 +243,10 @@
         "text": "Tap anywhere to exit",
         "score": 0.9902394413948059,
         "box": [
-            364,
-            2352,
-            715,
-            2389
+            360,
+            2361,
+            717,
+            2399
         ]
     }
 }

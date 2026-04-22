@@ -70,13 +70,23 @@
         ]
     },
     "Home.Mail.ReadAndClaim": {
-        "text": "Read&Claim All",
+        "text": "Claim All",
         "score": 0.952751636505127,
         "box": [
-            712,
+            840,
             2380,
-            947,
+            1000,
             2421
+        ]
+    },
+    "Home.Mail.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9175482988357544,
+        "box": [
+            343,
+            2290,
+            735,
+            2336
         ]
     }
 }

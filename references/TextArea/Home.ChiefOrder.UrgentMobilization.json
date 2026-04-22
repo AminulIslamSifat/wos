@@ -29,16 +29,7 @@
             1242
         ]
     },
-    "Home.ChiefOrder.UrgentMobilization.Enact": {
-        "text": "Enact",
-        "score": 0.9989480972290039,
-        "box": [
-            487,
-            1666,
-            595,
-            1709
-        ]
-    },
+    
     "Home.ChiefOrder.UrgentMobilization.Cost": {
         "text": "50,000",
         "score": 0.9820523858070374,

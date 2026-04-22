@@ -295,7 +295,7 @@ def tap_on_templates_batch(
     wait=None,
     tap=True,
     sleep=None,
-    rois = None
+    rois=None
 ):
     n = len(names)
 
@@ -304,59 +304,48 @@ def tap_on_templates_batch(
     if isinstance(tap, bool):
         tap = [tap] * n
 
+    # ✅ Fix 1: return (i, result) tuple so index is never lost
     def match_one(i):
-        coord = req_temp_match(names[i], threshold=thresholds[i], save_result=save_results[i], rois=rois)
-        if coord:
-            return coord
+        results = req_temp_match(names[i], threshold=thresholds[i], save_result=save_results[i], rois=rois)
+        if results:
+            best = max(results, key=lambda x: x["score"])
+            return (i, best)   # always a clean (index, dict) pair
+        return None
 
+    # ✅ Fix 3: create executor ONCE outside any loop
     def run_batch():
         with ThreadPoolExecutor(max_workers=n) as ex:
-            return list(ex.map(match_one, range(n)))
-    
-    results = []
+            raw = list(ex.map(match_one, range(n)))
+        return [r for r in raw if r is not None]  # filter out None
+
+    def pick_best_and_tap(cleaned_results):
+        # cleaned_results is a list of (i, result_dict)
+        i, best = max(cleaned_results, key=lambda x: x[1]["score"])
+        box = best["box"]  # ✅ Fix 2: always access like this, no [0] indexing
+        coord_xy = ((box[0] + box[2]) // 2, (box[1] + box[3]) // 2)
+        if tap[i]:
+            tap_screen(coord_xy)
+            print(f"Pressed on {names[i]}")
+            if sleep:
+                time.sleep(sleep)
+        return True
 
     # --- wait mode ---
     if wait:
         start = time.time()
         while time.time() - start < wait:
-            result = run_batch()
-            resutls = []
-            for i, coord in enumerate(result):
-                if coord:
-                    if tap[i]:
-                        box = coord[0]['box']
-                        coord_xy = ((box[0]+box[2])//2, (box[1]+box[3])//2)
-                        tap_screen(coord_xy)
-                        print(f"Pressed on {names[i]}")
-                        if sleep:
-                            time.sleep(sleep)
-                    results.append(True)
-                else:
-                    results.append(False)
-            if any(results):
-                return results
+            cleaned = run_batch()
+            if cleaned:
+                return pick_best_and_tap(cleaned)
+        return False
 
     # --- retry mode ---
     for _ in range(3):
-        result = run_batch()
-        resutls = []
-        for i, coord in enumerate(result):
-            if coord:
-                if tap[i]:
-                    box = coord[0]['box']
-                    coord_xy = ((box[0]+box[2])//2, (box[1]+box[3])//2)
-                    tap_screen(coord_xy)
-                    print(f"Pressed on {names[i]}")
-                    if sleep:
-                        time.sleep(sleep)
-                results.append(True)
-            else:
-                results.append(False)
-        if any(results):
-            return results
+        cleaned = run_batch()
+        if cleaned:
+            return pick_best_and_tap(cleaned)
 
-    return results
-
+    return False
 
 
 

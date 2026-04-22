@@ -16,15 +16,50 @@ from cmd_program.screen_action import(
 )
 
 
-def gather(remove_hero=False, equalize=True):
+def gather(remove_hero=False, equalize=True, lowest_time=14400):
     print("Started Gathering...")
     search_box = [[0, 1940, 1080,1980]]
     gathering_nodes = ["meat", "wood", "coal", "iron", "coal"]
 
-    recalibrate()
-    time.sleep(2)
+    title = req_text("World.City")
+    try:
+        title = title[0].lower()
+    except Exception as e:
+        print(f"Reading Error - {e}")
+    if title != "city":
+        recalibrate()
+        tap_on_text("Home.World", sleep=2)
 
-    tap_on_text("Home.World", sleep=2)
+    recalling = recall_current_gathering(lowest_time=lowest_time)
+    while(recalling):
+        return_times = req_text(
+                [
+                "World.FirstMarchTime",
+                "World.SecondMarchTime",
+                "World.ThirdMarchTime", 
+                "World.FourthMarchTime", 
+                "World.FifthMarchTime"
+            ]
+        )
+        times = []
+        for i, return_time in enumerate(return_times):
+            try:
+                return_time = return_time.split(':')
+                return_time = [int(t) for t in return_time]
+                return_time = return_time[0]*3600 + return_time[1]*60 + return_time[2]
+                times.append(return_time)
+            except Exception as e:
+                print(f"Couldn't read the time properly - {e}")
+
+        waiting_time = max(times) if len(times)>0 else 0
+        if waiting_time > 600:
+            recalling = recall_current_gathering(lowest_time=lowest_time)
+        elif waiting_time == 0:
+            recalling = False
+            break
+        print(f"Waiting for {waiting_time} seconds for the troops to return home...")
+        time.sleep(waiting_time)
+        
 
     try:
         data = req_text('World.MarchQueue')[0].split('/')
@@ -87,5 +122,31 @@ def gather(remove_hero=False, equalize=True):
 
 
 
-def recall_current_gathering(lowest_time=240):
-    return
+def recall_current_gathering(lowest_time=14400):
+    title = req_text("World.City")
+    recalling = False
+    try:
+        title = title[0].lower()
+    except Exception as e:
+        print(f"Reading Error - {e}")
+    if title != "city":
+        recalibrate()
+        tap_on_text("Home.World", sleep=2)
+    
+    time = req_text("World.FirstMarchTime")
+    try:
+        time = time[0].split(':')
+        time = [int(t) for t in time]
+        time = time[0]*3600 + time[1]*60 + time[2]
+    except Exception as e:
+        print(f"Couldn't read the time properly - {e}")
+    
+    if not isinstance(time, int) or time < lowest_time:
+        found = tap_on_template("World.Recall", sleep=1)
+        recalling = True
+        while found:
+            tap_on_text("World.Recall.Confirm", sleep=1)
+            found = tap_on_template("World.Recall",sleep=1)
+    
+    return recalling
+            

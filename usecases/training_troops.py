@@ -25,3 +25,7 @@ def train_lancer():
 
 def train_marksman():
     return
+
+
+text = req_text("Global.SidePanel")
+print(text)

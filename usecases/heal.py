@@ -1,0 +1,41 @@
+import time
+
+import time
+from core.recalibrate import recalibrate
+
+from core.core import (
+    req_ocr,
+    req_text,
+    tap_on_text,
+    req_temp_match,
+    tap_on_template,
+    tap_on_templates_batch
+)
+from cmd_program.screen_action import(
+    tap_screen,
+    swipe_screen,
+    input_text
+)
+
+
+
+
+def heal():
+    title = req_text("World.City")
+    try:
+        title = title[0].lower()
+    except Exception as e:
+        print(f"Reading Error - {e}")
+    if title != "city":
+        recalibrate()
+        tap_on_text("Home.World", sleep=2)
+
+    status = tap_on_template("World.Heal", sleep=1)
+    if status:
+        tap_on_text("World.Heal.QuickSelect")
+        tap_on_text("World.Heal.Heal", sleep=1)
+        tap_on_text("World.Heal.Help", sleep=1)
+        tap_on_text("World.City")
+    else:
+        print("No troops to heal, Continuing to the next task...")
+    return True

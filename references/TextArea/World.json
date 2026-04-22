@@ -68,5 +68,35 @@
             1015,
             2453
         ]
+    },
+    "World.Recall.Title": {
+        "text": "Recall",
+        "score": 0.9994792342185974,
+        "box": [
+            469,
+            969,
+            611,
+            1027
+        ]
+    },
+    "World.Recall.Cancel": {
+        "text": "Cancel",
+        "score": 0.9991603493690491,
+        "box": [
+            227,
+            1480,
+            399,
+            1541
+        ]
+    },
+    "World.Recall.Confirm": {
+        "text": "Confirm",
+        "score": 0.9976161122322083,
+        "box": [
+            665,
+            1477,
+            880,
+            1544
+        ]
     }
 }

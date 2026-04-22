@@ -20,7 +20,7 @@
         ]
     },
     "Home.ChiefOrder.UrgentMobilization": {
-        "text": "Urgent Mobiization",
+        "text": "Urgent Mobilization",
         "score": 0.9621757864952087,
         "box": [
             176,
@@ -77,6 +77,16 @@
             1987,
             822,
             2024
+        ]
+    },
+    "Home.ChiefOrder.Enact": {
+        "text": "Enact",
+        "score": 0.9989480972290039,
+        "box": [
+            487,
+            1666,
+            595,
+            1709
         ]
     }
 }

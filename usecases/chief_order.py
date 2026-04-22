@@ -20,5 +20,31 @@ from cmd_program.screen_action import(
 
 
 
-def activate_chief_order(name):
-    return
+def activate_chief_order():
+    recalibrate()
+    tap_on_template("Home.ChiefOrder", sleep=1)
+
+    order_list = {"UrgentMobilization": 50000, "ProductiveDay": 50000, "RushJob":150000}
+    for key, value in order_list.items():
+        currency = req_text("Home.ChiefOrder.Currency")
+        try:
+            currency = currency[0].replace(",", "").replace(".", "")
+            if currency.lower().endswith("m") and currency[:-1].isdigit():
+                currency = int(currency[:-1])*1000000
+        except Exception as e:
+            print(f"Currency Reading Error - {e}")
+            currency = 0
+
+        if currency > value:
+            status = tap_on_text(f"Home.ChiefOrder.{key}", sleep=1)
+            status1 =  None
+            if status:
+                status1 = tap_on_text("Home.ChiefOrder.Enact", sleep=4)
+            if status1:
+                tap_on_template("Home.ChiefOrder", sleep=1)
+            elif status and not status1:
+                tap_on_template("Global.Back", sleep=1)
+    print("Finished publishing chief order, ending the task...")
+    return True
+
+

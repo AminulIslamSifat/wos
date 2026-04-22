@@ -57,5 +57,5 @@ def match_template(img, template, threshold=None, save_result=False):
 
 
 
-res = tap_on_template("FirstPurchase.Close", threshold=0.8, save_result=True)
+res = tap_on_template("Global.SidePanel", threshold=0.6)
 print(res)

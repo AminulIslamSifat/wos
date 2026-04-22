@@ -32,8 +32,6 @@ def recalibrate():
         found = tap_on_templates_batch(
             ["Global.Back", "Global.Close", "FirstPurchase.Close"]
         )
-        if any(found):
-            found = True
 
         # found = tap_on_template("Global.Back", sleep=1)
         # if not found:
@@ -43,7 +41,7 @@ def recalibrate():
         if not found:
             found = tap_on_text("Tap anywhere to exit", sleep=1)
         if not found:
-            found = tap_on_text("Tap to continue", sleep=1)
+            found = tap_on_text("Click to continue", sleep=1)
         if not found:
             text = req_text("Home.World")
             try:

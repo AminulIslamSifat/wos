@@ -20,22 +20,29 @@ from cmd_program.screen_action import(
 
 def arena():
     attempt = 0
+    challenge_icons = [
+        {'box': [883, 815, 986, 920]}, 
+        {'box': [883, 1007, 986, 1112]}, 
+        {'box': [883, 1200, 986, 1305]}, 
+        {'box': [883, 1392, 986, 1497]}, 
+        {'box': [883, 1585, 986, 1690]}
+    ]
     recalibrate()
     print("Starting the fight in Arena of Glory...")
 
     print("Swiping down the screen to find arena")
-    for i in range(5):
+    for i in range(7):
         swipe_screen(1000, 1200, 100, 1200)
-        time.sleep(0.3)
-    for i in range(6):
+        time.sleep(0.5)
+    for i in range(8):
         swipe_screen(540, 2000, 540, 1000)
-        time.sleep(0.3)
+        time.sleep(0.5)
     for i in range(2):
-        swipe_screen(540, 1000, 450, 1900)
-        time.sleep(0.3)
+        swipe_screen(540, 1000, 420, 1800)
+        time.sleep(0.5)
 
     time.sleep(2)
-    available = tap_on_template("Home.Arena", threshold=0.6, sleep=1)
+    available = tap_on_template("Home.Arena", threshold=0.5, sleep=1)
     if not available:
         print("Arena challenge is not availabe, Ending the task")
         return
@@ -56,18 +63,41 @@ def arena():
         except Exception as e:
             print(f"Attempt counting error -{e}")
 
-        tap_on_template("Home.Arena.Challenge.Challenge", sleep=1)
+        powers = []
+        res = req_ocr(rois=[[220, 815, 986, 1690]])
+        try:
+            for item in res:
+                text = item.get("text", "")
+                text = text.replace(",", "").replace(".", "")
+                if text.endswith("M") and text[:-1].isdigit():
+                    powers.append(int(text[:-1])*100000)
+                elif text.isdigit() and int(text) > 50000:
+                    powers.append(int(text))
+        except Exception as e:
+            print(f"Power Reading Error - {e}")
+
+        if powers:
+            lowest_power = min(powers) if len(powers) > 0 else 0
+            i = powers.index(lowest_power)
+            tap_on_template("Home.Arena.Challenge.Challenge", rois=[challenge_icons[i]["box"]], sleep=1)
+        else:
+            tap_on_template("Home.Arena.Challenge.Challenge", sleep=1)
+
         tap_on_text("Home.Arena.Challenge.Challenge.QuickDeploy")
         tap_on_text("Home.Arena.Challenge.Challenge.Fight", sleep=4)
         tap_on_template("Home.Arena.Challenge.Challenge.Fight.Pause", sleep=1)
-        tap_on_template("Home.Arena.Challenge.Challenge.Fight.Pause.Retreat")
-        res = tap_on_text("Home.Arena.Challenge.Challenge.Fight.End.TapAnywhereToExit", wait=5, sleep=1)
+        tap_on_template("Home.Arena.Challenge.Challenge.Fight.Pause.Retreat", sleep=1)
+        text = req_text("Home.Arena.Challenge.Challenge.Fight.End.Title")
+        try:
+            text = text[0]
+        except Exception as e:
+            print(f"Title Reading Error - {e}")
+        if text:
+            tap_on_text("Home.Arena.Challenge.Challenge.Fight.End.TapAnywhereToExit", sleep=1)
+            tap_on_text("Home.Arena.Challenge.FreeRefresh", sleep=1)
+        else:
+            tap_on_text("Home.Arena.Challenge.Challenge.Fight.End.TapAnywhereToExit", wait=5, sleep=1)
         
     print("Finished the task - Arena Of Glory, Returning to homepage...")
     recalibrate()
 
-
-
-
-
-arena()

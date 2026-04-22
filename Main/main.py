@@ -34,6 +34,15 @@ from usecases.vip import (
     collect_vip_rewards,
     buy_vip_time
 )
+from usecases.heal import (
+    heal
+)
+from usecases.arena import (
+    arena
+)
+from usecases.mail import (
+    collect_mail_rewards
+)
 from core.recalibrate import recalibrate
 from core.change_player import change_account, change_character
 
@@ -142,12 +151,18 @@ def run_bot():
                     next_name = player.get("name")
 
         #----- Task -----
+        #Home
+        collect_vip_rewards()
         claim_exploration_idle_income()
+        collect_mail_rewards()
+        arena()
+        #Alliance
         auto_join()
         collect_chests()
         tech_contribution()
         help()
-        collect_vip_rewards()
+        #World
+        heal()
         if current_player_id == "578380047":
             gather(remove_hero=True, equalize=False)
         gather(remove_hero=False, equalize=True)
