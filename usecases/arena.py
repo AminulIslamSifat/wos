@@ -18,8 +18,8 @@ from cmd_program.screen_action import(
 
 
 
-def arena():
-    attempt = 0
+
+def challenge_lowest_power():
     challenge_icons = [
         {'box': [883, 815, 986, 920]}, 
         {'box': [883, 1007, 986, 1112]}, 
@@ -27,9 +27,30 @@ def arena():
         {'box': [883, 1392, 986, 1497]}, 
         {'box': [883, 1585, 986, 1690]}
     ]
-    recalibrate()
-    print("Starting the fight in Arena of Glory...")
+    powers = []
+    res = req_ocr(rois=[[220, 815, 986, 1690]])
+    try:
+        for item in res:
+            text = item.get("text", "")
+            text = text.replace(",", "").replace(".", "")
+            if text.endswith("M") and text[:-1].isdigit():
+                powers.append(int(text[:-1])*100000)
+            elif text.isdigit() and int(text) > 50000:
+                powers.append(int(text))
+    except Exception as e:
+        print(f"Power Reading Error - {e}")
 
+    if powers:
+        lowest_power = min(powers) if len(powers) > 0 else 0
+        i = powers.index(lowest_power)
+        tap_on_template("Home.Arena.Challenge.Challenge", rois=[challenge_icons[i]["box"]], sleep=1)
+    else:
+        tap_on_template("Home.Arena.Challenge.Challenge", sleep=1)
+
+
+
+
+def find_arena():
     print("Swiping down the screen to find arena")
     for i in range(7):
         swipe_screen(1000, 1200, 100, 1200)
@@ -37,15 +58,28 @@ def arena():
     for i in range(8):
         swipe_screen(540, 2000, 540, 1000)
         time.sleep(0.5)
-    for i in range(2):
-        swipe_screen(540, 1000, 420, 1800)
+    for i in range(3):
+        swipe_screen(540, 1000, 420, 1850)
         time.sleep(0.5)
+        available = tap_on_template("Home.Arena", threshold=0.5, sleep=1)
+        if available:
+           break 
 
-    time.sleep(2)
-    available = tap_on_template("Home.Arena", threshold=0.5, sleep=1)
     if not available:
+        return None
+    return True
+
+
+
+def arena():
+    attempt = 0
+    recalibrate()
+    print("Starting the fight in Arena of Glory...")
+
+    availabe = find_arena()
+    if not availabe:
         print("Arena challenge is not availabe, Ending the task")
-        return
+        return None
     tap_on_text("Home.Arena.Challenge", sleep=1)
 
     res = req_ocr(rois=[[300, 1725, 665, 1830]])
@@ -59,29 +93,11 @@ def arena():
         res = req_ocr(rois=[[300, 1725, 665, 1830]])
         try:
             attempt = int(res[0]['text'].split(":")[1])-1
-            print(f"Remainng Challenge {attempt}")
+            print(f"Remaining Challenge {attempt}")
         except Exception as e:
             print(f"Attempt counting error -{e}")
 
-        powers = []
-        res = req_ocr(rois=[[220, 815, 986, 1690]])
-        try:
-            for item in res:
-                text = item.get("text", "")
-                text = text.replace(",", "").replace(".", "")
-                if text.endswith("M") and text[:-1].isdigit():
-                    powers.append(int(text[:-1])*100000)
-                elif text.isdigit() and int(text) > 50000:
-                    powers.append(int(text))
-        except Exception as e:
-            print(f"Power Reading Error - {e}")
-
-        if powers:
-            lowest_power = min(powers) if len(powers) > 0 else 0
-            i = powers.index(lowest_power)
-            tap_on_template("Home.Arena.Challenge.Challenge", rois=[challenge_icons[i]["box"]], sleep=1)
-        else:
-            tap_on_template("Home.Arena.Challenge.Challenge", sleep=1)
+        challenge_lowest_power()
 
         tap_on_text("Home.Arena.Challenge.Challenge.QuickDeploy")
         tap_on_text("Home.Arena.Challenge.Challenge.Fight", sleep=4)

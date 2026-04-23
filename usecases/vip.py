@@ -22,10 +22,13 @@ def collect_vip_rewards():
     recalibrate()
     tap_on_text("Home.VIPLevel", sleep=1)
 
-    tap_on_template("Home.VIP.CollectChest", sleep=2)
-    tap_on_text("Home.VIP.CollectChest.ClickToContinue", sleep=1)
-    tap_on_text("Home.VIP.Claim",sleep=1)
-    tap_on_text("Home.VIP.Claim.TapAnywhereToExit", sleep=1)
+    status = tap_on_template("Home.VIP.CollectChest", sleep=2)
+    if status:
+        tap_screen(550, 2150)  #The click to continue button does not work here...
+        time.sleep(1)
+    status = tap_on_text("Home.VIP.Claim",sleep=1)
+    if status:
+        tap_on_text("Home.VIP.Claim.TapAnywhereToExit", sleep=1)
     recalibrate()
     return True
 

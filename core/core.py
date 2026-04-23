@@ -282,7 +282,6 @@ def req_text(names, img_path=None, rois=None, save_result=False):
         return None
 
     texts = [t['text'] for t in res]
-    print(f"Text Found: {texts}")
     return texts
 
 
@@ -295,9 +294,14 @@ def tap_on_templates_batch(
     wait=None,
     tap=True,
     sleep=None,
-    rois=None
+    rois=None,
+    parallel=False,
+    max_workers=2,
 ):
     n = len(names)
+
+    if n == 0:
+        return False
 
     thresholds = thresholds or [0.8] * n
     save_results = save_results or [None] * n
@@ -312,10 +316,13 @@ def tap_on_templates_batch(
             return (i, best)   # always a clean (index, dict) pair
         return None
 
-    # ✅ Fix 3: create executor ONCE outside any loop
     def run_batch():
-        with ThreadPoolExecutor(max_workers=n) as ex:
-            raw = list(ex.map(match_one, range(n)))
+        if parallel and n > 1:
+            workers = max(1, min(max_workers, n))
+            with ThreadPoolExecutor(max_workers=workers) as ex:
+                raw = list(ex.map(match_one, range(n)))
+        else:
+            raw = [match_one(i) for i in range(n)]
         return [r for r in raw if r is not None]  # filter out None
 
     def pick_best_and_tap(cleaned_results):

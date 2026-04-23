@@ -16,20 +16,9 @@ from cmd_program.screen_action import(
 )
 
 
-def gather(remove_hero=False, equalize=True, lowest_time=14400):
-    print("Started Gathering...")
-    search_box = [[0, 1940, 1080,1980]]
-    gathering_nodes = ["meat", "wood", "coal", "iron", "coal"]
 
-    title = req_text("World.City")
-    try:
-        title = title[0].lower()
-    except Exception as e:
-        print(f"Reading Error - {e}")
-    if title != "city":
-        recalibrate()
-        tap_on_text("Home.World", sleep=2)
 
+def wait_till_return(lowest_time=14400):
     recalling = recall_current_gathering(lowest_time=lowest_time)
     while(recalling):
         return_times = req_text(
@@ -59,7 +48,24 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
             break
         print(f"Waiting for {waiting_time} seconds for the troops to return home...")
         time.sleep(waiting_time)
-        
+
+
+
+def gather(remove_hero=False, equalize=True, lowest_time=14400):
+    print("Started Gathering...")
+    search_box = [[0, 1940, 1080,1980]]
+    gathering_nodes = ["meat", "wood", "coal", "iron", "coal"]
+
+    title = req_text("World.City")
+    try:
+        title = title[0].lower()
+    except Exception as e:
+        print(f"Reading Error - {e}")
+    if title != "city":
+        recalibrate()
+        tap_on_text("Home.World", sleep=2)
+
+    wait_till_return(lowest_time=lowest_time)
 
     try:
         data = req_text('World.MarchQueue')[0].split('/')
@@ -73,7 +79,10 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
     
     while remaining_march>0 and occupied_march < 5:
         print(f"Remaining march queue: {remaining_march} ----- Occupied March: {occupied_march}")
-        tap_on_template("World.Search", sleep=1, threshold=0.6)
+        status = tap_on_template("World.Search", sleep=1, threshold=0.6)
+        if not status:
+            print("Seach Icon not found, Exiting the task...")
+            return
         found = tap_on_text(gathering_nodes[i], rois=search_box, sleep=1)
         if found is None:
             swipe_screen(1000, 1920, 0, 1920)
@@ -91,8 +100,12 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
             print(f"Level reading Error, Continuing without reading the level...")
 
         #from here its needs to be optimized
-        tap_on_text("World.Search.Search", sleep=3)
-        tap_on_text("World.Search.Gather", sleep=1)
+        status = tap_on_text("World.Search.Search", sleep=3)
+        if status:
+            status = tap_on_text("World.Search.Gather", sleep=1)
+        if not status:
+            print("Gather button is not found, Exiting the task...")
+            return
         if remove_hero:
             tap_on_template("World.Deploy.RemoveHero", threshold=0.6, rois=[[300, 500, 400, 650]]) #removing hero
         if equalize:

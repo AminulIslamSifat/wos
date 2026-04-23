@@ -57,5 +57,5 @@ def match_template(img, template, threshold=None, save_result=False):
 
 
 
-res = tap_on_template("Global.SidePanel", threshold=0.6)
+res = tap_on_text("[LAT]The Fool")
 print(res)

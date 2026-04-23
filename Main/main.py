@@ -115,9 +115,8 @@ def player_initialization():
 
     if current_player_id is None or current_email is None:
         print("No player data found for this ID, Exiting this character...")
-        return None
+        raise RuntimeError("Player Initialization Failed, Stopping the Bot...")
 
-    
     current_player = Player(name, id, state, current_email, stamina)
     print(f"    Email: {current_email}\n    Name:{name}\n    ID: {id}\n    Furnace Level: {furnace}\n    Stamina: {stamina}\n    State: {state}")
     
@@ -128,6 +127,23 @@ def player_initialization():
 init_database()
 
 
+
+def run_task(current_player_id):
+    collect_vip_rewards()
+    claim_exploration_idle_income()
+    collect_mail_rewards()
+    arena()
+    #Alliance
+    auto_join()
+    collect_chests()
+    tech_contribution()
+    help()
+    #World
+    heal()
+    if current_player_id == "578380047":
+        gather(remove_hero=True, equalize=False)
+    else:
+        gather(remove_hero=False, equalize=True)
 
 
 
@@ -151,23 +167,8 @@ def run_bot():
                     next_name = player.get("name")
 
         #----- Task -----
-        #Home
-        collect_vip_rewards()
-        claim_exploration_idle_income()
-        collect_mail_rewards()
-        arena()
-        #Alliance
-        auto_join()
-        collect_chests()
-        tech_contribution()
-        help()
-        #World
-        heal()
-        if current_player_id == "578380047":
-            gather(remove_hero=True, equalize=False)
-        gather(remove_hero=False, equalize=True)
-
-
+        run_task(current_player_id)
+        
         #----- Changing Account -----
         current_email_players = None
         for email, info in player_data:
@@ -187,17 +188,7 @@ def run_bot():
                 processed_ids.add(current_player.id.lower())
 
                 # run tasks again
-                claim_exploration_idle_income()
-                auto_join()
-                collect_chests()
-                tech_contribution()
-                help()
-                collect_vip_rewards()
-
-                if current_player.id == "578380047":
-                    gather(remove_hero=True, equalize=False)
-                gather(remove_hero=False, equalize=True)
-
+                run_task(current_player_id)
 
         print(f"Progressing to the next email: {next_email}")
         status = change_account(next_email)

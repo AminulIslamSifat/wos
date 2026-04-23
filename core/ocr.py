@@ -8,6 +8,7 @@ import json
 import time
 import paddle           #Important for paddleocr 2.10.0
 import uvicorn
+import threading
 import numpy as np
 from pathlib import Path
 from typing import Optional
@@ -17,6 +18,7 @@ from paddleocr import PaddleOCR
 from concurrent.futures import ThreadPoolExecutor
 from cmd_program.screen_action import take_screenshot
 import paddleocr
+
 
 
 #Printing the version of paddleocr
@@ -48,13 +50,59 @@ class TemplateMatchRequest(BaseModel):
 
 #------------------- Configuration ------------------------------#
 SCREENSHOT_TTL = 0.1
-CPU_THREADS = os.cpu_count() or 1
+CPU_THREADS = min(os.cpu_count() or 1, 4)
 TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "references", "icon"))
 
 
 #---------------------- Globals ---------------------------------#
 app = FastAPI()
 _template_cache = {}
+_capture_lock = threading.Lock()
+_ocr_lock = threading.Lock()
+_ocr_init_lock = threading.Lock()
+
+
+def _build_ocr_engine():
+    paddle.set_device("cpu")
+    return PaddleOCR(
+        use_angle_cls=False,
+        lang='en',
+        use_gpu=False,
+        det_limit_side_len=1024,
+        cpu_threads=CPU_THREADS,
+        ir_optim=True,
+        layout=False,
+        table=False,
+        formula=False,
+    )
+
+
+def _capture_frame(img_path=None):
+    if img_path:
+        return cv2.imread(img_path)
+    # ADB screencap can become unstable under concurrent calls.
+    with _capture_lock:
+        return take_screenshot()
+
+
+def _reinitialize_ocr_engine():
+    global ocr
+    with _ocr_init_lock:
+        ocr = _build_ocr_engine()
+
+
+def _call_ocr_with_recovery(image):
+    global ocr
+    with _ocr_lock:
+        try:
+            return ocr.ocr(image, cls=False)
+        except RuntimeError as e:
+            # Paddle sometimes throws this when predictor state gets unstable.
+            if "could not execute a primitive" not in str(e):
+                raise
+            print("OCR primitive execution failed. Reinitializing OCR engine and retrying once...")
+            _reinitialize_ocr_engine()
+            return ocr.ocr(image, cls=False)
 
 
 #----------------------- Functions -------------------------------#
@@ -67,18 +115,7 @@ def init_services():
     #         use_textline_orientation=False
     #     )
     
-    paddle.set_device("cpu")
-    ocr = PaddleOCR(
-        use_angle_cls=False,
-        lang='en',
-        use_gpu=False,
-        det_limit_side_len=1024,
-        cpu_threads=CPU_THREADS,
-        ir_optim=True,
-        layout=False,
-        table=False,
-        formula=False,
-    )
+    ocr = _build_ocr_engine()
 
     root_dir = Path(TEMPLATE_PATH)
     print(root_dir)
@@ -115,7 +152,7 @@ def match_template(name, threshold=0.8, save_result=None, rois=None):
         template = _template_cache[name]
 
     try:
-        img = take_screenshot()
+        img = _capture_frame()
     except Exception as e:
         raise RuntimeError(f"Error loading image - {e}")
 
@@ -277,9 +314,27 @@ def match_template(name, threshold=0.8, save_result=None, rois=None):
 #     return all_results
 
 
-
-
 def run_ocr(img_path=None, save_result=False, rois=None):
+    #Printing the OCR result a bit beautifully
+    def print_ocr_results(results):
+        if not results:
+            print("No OCR results found.")
+            return
+
+        print("\n" + "="*70)
+        print(f"{'TEXT':<25} | {'SCORE':<6} | {'BOX'}")
+        print("="*70)
+
+        for res in results:
+            text = res["text"][:25]  # trim long text
+            score = f"{res['score']:.2f}"
+            box = res["box"]
+
+            print(f"{text:<25} | {score:<6} | {box}")
+
+        print("="*70 + "\n")
+
+    #A function to add extra padding around the rois, OCR always fail for tiny image    
     def add_padding(img, pad=50):
         h, w, k = img.shape
         avg_color = img.mean(axis=(0, 1))
@@ -287,10 +342,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
         new_img[pad:pad+h, pad:pad+w] = img
         return new_img, pad
     try:
-        if img_path:
-            img = cv2.imread(img_path)
-        else:
-            img = take_screenshot()
+        img = _capture_frame(img_path)
     except Exception as e:
         print(f"Error - {e}")
 
@@ -318,7 +370,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                 
             cropped, pad_val = add_padding(raw_crop, pad=50)
 
-            output = ocr.ocr(cropped, cls=False)
+            output = _call_ocr_with_recovery(cropped)
             
             if not output or not output[0]:
                 # If save_result is true, save the empty crop to see what OCR saw
@@ -360,7 +412,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                 cv2.imwrite(f"test/debug/roi_crop_{int(time.time())}_{i}.png", cropped)
 
     else:
-        output = ocr.ocr(img, cls=False)
+        output = _call_ocr_with_recovery(img)
         if output and output[0]:
             for line in output[0]:
                 if not line: continue
@@ -393,8 +445,7 @@ def run_ocr(img_path=None, save_result=False, rois=None):
         
         cv2.imwrite(f"test/debug/full_res_{int(time.time())}.png", debug_img)
 
-    for res in all_results:
-        print(f"{res['text']} ------- Box: {res['box']} ------- Score: {res['score']}")
+    print_ocr_results(all_results)
         
     return all_results
 

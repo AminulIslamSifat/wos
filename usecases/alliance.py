@@ -67,8 +67,9 @@ def collect_chests():
         tap_on_text("Home.Alliance", sleep=1)
     tap_on_text("Home.Alliance.Chests", sleep=1)
     tap_on_text("Home.Alliance.Chests.LootChest",sleep=1)
-    tap_on_text("Home.Alliance.Chests.LootChest.ClaimAll", sleep=1)
-    tap_on_text("Home.Alliance.Chests.LootChest.ClaimAll.TapAnywhereToExit", sleep=1)
+    status = tap_on_text("Home.Alliance.Chests.LootChest.ClaimAll", sleep=1)
+    if status:
+        tap_on_text("Home.Alliance.Chests.LootChest.ClaimAll.TapAnywhereToExit", sleep=1)
     tap_on_template("Global.Back", sleep=1)
     return True
 
