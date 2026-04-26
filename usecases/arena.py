@@ -105,7 +105,7 @@ def arena():
         tap_on_template("Home.Arena.Challenge.Challenge.Fight.Pause.Retreat", sleep=1)
         text = req_text("Home.Arena.Challenge.Challenge.Fight.End.Title")
         try:
-            text = text[0]
+            text = text[0][0]
         except Exception as e:
             print(f"Title Reading Error - {e}")
         if text:
@@ -116,4 +116,6 @@ def arena():
         
     print("Finished the task - Arena Of Glory, Returning to homepage...")
     recalibrate()
+
+
 

@@ -23,7 +23,7 @@ from cmd_program.screen_action import(
 def tech_contribution():
     title = req_text("Home.Alliance.Title")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Title Reading Error, Ignoring the read...")
     if title != "alliance":
@@ -39,7 +39,7 @@ def tech_contribution():
 def auto_join():
     title = req_text("Home.Alliance.Title")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Title Reading Error, Ignoring the read...")
     if title != "alliance":
@@ -59,7 +59,7 @@ def auto_join():
 def collect_chests():
     title = req_text("Home.Alliance.Title")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Title Reading Error, Ignoring the read...")
     if title != "alliance":
@@ -76,7 +76,7 @@ def collect_chests():
 def help():
     title = req_text("Home.Alliance.Title")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Title Reading Error, Ignoring the read...")
     if title != "alliance":

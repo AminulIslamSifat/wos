@@ -48,5 +48,75 @@
             122,
             2406
         ]
+    },
+    "World.Intel.Beast.Title": {
+        "text": "Beast Hunting Lv.10",
+        "score": 0.9920936226844788,
+        "box": [
+            311,
+            764,
+            767,
+            812
+        ]
+    },
+    "World.Intel.Beast.View": {
+        "text": "View",
+        "score": 0.9970570206642151,
+        "box": [
+            473,
+            1699,
+            604,
+            1765
+        ]
+    },
+    "World.Intel.Beast.View.Attack": {
+        "text": "Attack",
+        "score": 0.998689591884613,
+        "box": [
+            494,
+            1225,
+            586,
+            1252
+        ]
+    },
+    "World.Intel.Survivor.View.Rescue": {
+        "text": "Rescue",
+        "score": 0.998539924621582,
+        "box": [
+            491,
+            1222,
+            589,
+            1255
+        ]
+    },
+    "World.Intel.Survivor.View": {
+        "text": "View",
+        "score": 0.9956033229827881,
+        "box": [
+            474,
+            1625,
+            606,
+            1687
+        ]
+    },
+     "World.Intel.Exploration.View": {
+        "text": "View",
+        "score": 0.9974797964096069,
+        "box": [
+            473,
+            1699,
+            604,
+            1765
+        ]
+    },
+    "World.Intel.Exploration.View.Explore": {
+        "text": "Explore",
+        "score": 0.9987884163856506,
+        "box": [
+            484,
+            1222,
+            594,
+            1254
+        ]
     }
 }

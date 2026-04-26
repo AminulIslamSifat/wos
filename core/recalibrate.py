@@ -15,7 +15,7 @@ def recalibrate():
         text = req_text("Home.World")
 
         try:
-            text = text[0].lower()
+            text = text[0][0].lower()
         except Exception as e:
             print("Finding The Homepage...")
 
@@ -29,12 +29,16 @@ def recalibrate():
             print("On homepage")
             time.sleep(1)
             break
-
         found = tap_on_templates_batch(
-            ["Global.Back", "Global.Close", "FirstPurchase.Close"],
-            sleep = 1
+            [
+                "Global.Back",
+                "Global.Close", 
+                "FirstPurchase.Close",
+                
+            ],
+            sleep = 1,
+            parallel = True
         )
-
         # found = tap_on_template("Global.Back", sleep=1)
         # if not found:
         #     found = tap_on_template("Global.Close", sleep=1)
@@ -49,7 +53,7 @@ def recalibrate():
         if not found:
             text = req_text("Home.World")
             try:
-                text = text[0]
+                text = text[0][0]
             except Exception as e:
                 print(f"Error... {e}")
             if text:

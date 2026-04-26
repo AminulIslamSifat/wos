@@ -1,0 +1,142 @@
+{
+    "id" : "00000000",
+    "name" : "example",
+    "state" :  3429,
+    "gems" : 0,
+    "power" : 0,
+    "stamina" : 0,
+    "priority" : null,
+
+    "resources": {
+        "wood" : 0,
+        "meat" : 0,
+        "coal" : 0,
+        "iron" : 0
+    },
+
+    "CurrentPage" : null,
+    "vip" : {
+        "level" : "0",
+        "remaining_time": "45:45:45",
+        "is_vip_add_available" : false,
+        "last_visit" : "44:44:44",
+        "cooldown" : 86400,
+        "priority" : null
+    },
+
+    "exploration": {
+        "level" : 245,
+        "cooldown" : 32400,
+        "last_visit" : "44:44:44",
+        "priority" : null
+    },
+
+    "alliance" : {
+        "name": "xxx",
+        "token" : 0,
+        "last_visit" : "44:44:44",
+        "auto_join": {
+            "is_done": true,
+            "priority" : null,
+            "cooldown" : 28800,
+            "last_visit" : "44:44:44"
+        },
+        "tech" : {
+            "is_done" : false,
+            "priority" : null,
+            "cooldown": 2500,
+            "last_visit" : "44:44:44"
+        },
+        "chest":{
+            "is_done" : false,
+            "priority" : null,
+            "cooldown": 2500,
+            "last_visit" : "44:44:44"
+        },
+        "help" : {
+            "is_done" : false,
+            "priority" : null,
+            "cooldown": 2500,
+            "last_visit" : "44:44:44"
+        }
+    },
+    "arena" : {
+        "remaining_challenge" : 5,
+        "priority" : null,
+        "cooldown" : 84600,
+        "last_visit" : "44:44:44"
+    },
+    "chief_order": {
+        "currency" : 0,
+        "priority" : null,
+        "cooldown" : 84600,
+        "last_visit" : "44:44:44"
+    },
+    "gather" : {
+        "current_march" : 0,
+        "possible_march" : 4,
+        "priority" : null,
+        "cooldown" : 28800,
+        "last_visit" : "44:44:44"
+    },
+    "heal" : {
+        "is_healing" : false,
+        "remaining_time" : 0,
+        "priority" : null
+    },
+    "intel" : {
+        "is_done" : false,
+        "current_march" : 0,
+        "possible_march" : 4,
+        "priority" : null,
+        "cooldown" : 28800,
+        "last_visit" : "44:44:44"
+    },
+    "labrynth" : {
+        "is_done" : false,
+        "priority" : null,
+        "cooldown" : 84600,
+        "last_visit" : "44:44:44"
+    },
+    "mail" : {
+        "is_done" : false,
+        "priority" : null,
+        "cooldown" : 84600,
+        "last_visit" : "44:44:44"
+    },
+    "pet" : {
+        "ally_treasure" : {
+            "is_claimed" : false,
+            "priority" : null,
+            "cooldown" : 84600,
+            "last_visit" : "44:44:44"
+        },
+        "adventure" : {
+            "completed" : 0,
+            "priority" : null,
+            "cooldown" : 84600,
+            "last_visit" : "44:44:44"
+        }
+    },
+
+    "training_troops" : {
+        "infantry" : {
+            "is_done" : false,
+            "priority" : null,
+            "cooldown" : 84600,
+            "last_visit" : "44:44:44"
+        },
+        "lancer" : {
+            "is_done" : false,
+            "priority" : null,
+            "cooldown" : 84600,
+            "last_visit" : "44:44:44"
+        },
+        "marksman" : {
+            "is_done" : false,
+            "priority" : null,
+            "cooldown" : 84600,
+            "last_visit" : "44:44:44"
+        }
+    }
+}

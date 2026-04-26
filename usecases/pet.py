@@ -16,10 +16,22 @@ from cmd_program.screen_action import(
 )
 
 def collect_ally_treasure():
-    return
+    recalibrate()
+    tap_on_template("Home.Pet", sleep=1)
+    tap_on_template("Home.Pet.BeastCage", sleep=1)
+    tap_on_template("Home.Pet.BeastCage.Adventure", sleep=1)
+    tap_on_template("Home.Pet.BeastCage.Adventure.AllyTreasure", sleep=1)
+    tap_on_template("Home.Pet.BeastCage.Adventure.AllyTreasure.ClaimAll", sleep=1)
+    tap_on_text("Tap anywhere to exit", sleep=1)
+    return True
 
 def start_pet_exploration():
-    return
+    recalibrate()
+    tap_on_template("Home.Pet", sleep=1)
+    tap_on_template("Home.Pet.BeastCage", sleep=1)
+    tap_on_template("Home.Pet.BeastCage.Adventure", sleep=1)
+    #some more logic
+    return True
 
 def activate_reward_pet_skill():
     return

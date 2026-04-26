@@ -23,7 +23,7 @@ from cmd_program.screen_action import(
 def heal():
     title = req_text("World.City")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Reading Error - {e}")
     if title != "city":

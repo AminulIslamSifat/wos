@@ -1,0 +1,73 @@
+{
+    "Home.Missions.Title": {
+        "text": "Growth",
+        "score": 0.9994170665740967,
+        "box": [
+            451,
+            490,
+            629,
+            543
+        ]
+    },
+    
+    "Home.Missions.GrowthMissions.Claim": {
+        "text": "Claim",
+        "score": 0.9820044040679932,
+        "box": [
+            830,
+            1180,
+            960,
+            1218
+        ]
+    },
+    "Home.Missions.GrowthMissions": {
+        "text": "Growth Missions",
+        "score": 0.9914776086807251,
+        "box": [
+            209,
+            2003,
+            519,
+            2052
+        ]
+    },
+    "Home.Missions.DailyMissions": {
+        "text": "Daily Missions",
+        "score": 0.9910581707954407,
+        "box": [
+            586,
+            2008,
+            849,
+            2056
+        ]
+    },
+    "Home.Missions.DailyMissions.Claim": {
+        "text": "Claim",
+        "score": 0.9968546628952026,
+        "box": [
+            838,
+            1172,
+            953,
+            1221
+        ]
+    },
+    "Home.Missions.DailyMissions.ClaimAll": {
+        "text": "Claim All",
+        "score": 0.9056848287582397,
+        "box": [
+            460,
+            1852,
+            624,
+            1893
+        ]
+    },
+    "Home.Missions.TapAnywhereToExit": {
+        "text": "Tap anywhere to exit",
+        "score": 0.9932486414909363,
+        "box": [
+            342,
+            2289,
+            733,
+            2340
+        ]
+    }
+}

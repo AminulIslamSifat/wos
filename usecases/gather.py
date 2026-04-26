@@ -33,12 +33,15 @@ def wait_till_return(lowest_time=14400):
         times = []
         for i, return_time in enumerate(return_times):
             try:
-                return_time = return_time.split(':')
+                return_time = return_time[0].split(':')
                 return_time = [int(t) for t in return_time]
                 return_time = return_time[0]*3600 + return_time[1]*60 + return_time[2]
                 times.append(return_time)
             except Exception as e:
                 print(f"Couldn't read the time properly - {e}")
+
+        if len(times) <= 1:
+            break
 
         waiting_time = max(times) if len(times)>0 else 0
         if waiting_time > 600:
@@ -58,7 +61,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
 
     title = req_text("World.City")
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Reading Error - {e}")
     if title != "city":
@@ -68,7 +71,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
     wait_till_return(lowest_time=lowest_time)
 
     try:
-        data = req_text('World.MarchQueue')[0].split('/')
+        data = req_text('World.MarchQueue')[0][0].split('/')
         remaining_march = int(data[1]) - int(data[0])
         occupied_march = int(data[0])
     except Exception as e:
@@ -91,7 +94,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
         
         level = req_text("World.Search.ItemLevel")
         try:
-            level = level[0]
+            level = level[0][0]
             if level != "8":
                 tap_screen(910, 2120)
                 time.sleep(1)
@@ -115,7 +118,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
         i = i+1
 
         try:
-            data = req_text('World.MarchQueue')[0].split('/')
+            data = req_text('World.MarchQueue')[0][0].split('/')
             remaining_march = int(data[1]) - int(data[0])
             occupied_march = int(data[0])
         except Exception as e:
@@ -124,7 +127,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
     
     text = req_text("World.City")
     try:
-        text = text[0]
+        text = text[0][0]
     except Exception as e:
         print("The search tab may still opened, Trying to recover...")
     if text.lower() != "city":
@@ -139,7 +142,7 @@ def recall_current_gathering(lowest_time=14400):
     title = req_text("World.City")
     recalling = False
     try:
-        title = title[0].lower()
+        title = title[0][0].lower()
     except Exception as e:
         print(f"Reading Error - {e}")
     if title != "city":
@@ -148,18 +151,18 @@ def recall_current_gathering(lowest_time=14400):
     
     time = req_text("World.FirstMarchTime")
     try:
-        time = time[0].split(':')
+        time = time[0][0].split(':')
         time = [int(t) for t in time]
         time = time[0]*3600 + time[1]*60 + time[2]
     except Exception as e:
         print(f"Couldn't read the time properly - {e}")
     
     if not isinstance(time, int) or time < lowest_time:
-        found = tap_on_template("World.Recall", sleep=1)
+        found = tap_on_template("World.Recall", threshold=0.9, sleep=1)
         recalling = True
         while found:
             tap_on_text("World.Recall.Confirm", sleep=1)
-            found = tap_on_template("World.Recall",sleep=1)
+            found = tap_on_template("World.Recall", threshold = 0.9, sleep=1)
     
     return recalling
             

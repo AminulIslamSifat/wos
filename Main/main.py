@@ -50,6 +50,18 @@ from usecases.training_troops import(
     train_infantry,
     train_marksman
 )
+from usecases.intel import (
+    intel
+)
+from usecases.collect import (
+    collect_missions_reward,
+    collect_life_essence,
+    collect_from_events
+)
+from usecases.chief_order import(
+    activate_chief_order
+)
+
 from core.recalibrate import recalibrate
 from core.change_player import change_account, change_character
 
@@ -154,7 +166,7 @@ def player_initialization():
     time.sleep(2)
     global current_player
     try:
-        page_title = req_text("ChiefProfile.Title")[0]
+        page_title = req_text("ChiefProfile.Title")[0][0]
         if page_title.lower() != "Chief Profile".lower():
             print("Failed to load chief profile")
             return None
@@ -163,8 +175,8 @@ def player_initialization():
         return None
 
     data = req_text(["ChiefProfile.PlayerName", "ChiefProfile.PlayerID", "ChiefProfile.FurnaceLevel", "ChiefProfile.Stamina", "ChiefProfile.State"])
-    name, id, furnace, state = (data[0].split(']')[1], data[1].split(':')[1], data[2], data[4].split('#')[1])
-    stamina = data[3].split('/')[0]
+    name, id, furnace, state = (data[0][0].split(']')[1], data[1][0].split(':')[1], data[2][0], data[4][0].split('#')[1])
+    stamina = data[3][0].split('/')[0]
     
     current_player_id = None
     current_email = None
@@ -210,10 +222,13 @@ def get_players_by_email(target_email):
 
 def run_task(current_player_id):
     collect_vip_rewards()
+    collect_from_events()
     claim_exploration_idle_income()
     collect_mail_rewards()
+    collect_life_essence()
     train()
     arena()
+    activate_chief_order()
     #Alliance
     auto_join()
     collect_chests()
@@ -225,6 +240,7 @@ def run_task(current_player_id):
         gather(remove_hero=True, equalize=False)
     else:
         gather(remove_hero=False, equalize=True)
+    collect_missions_reward()
 
 
 

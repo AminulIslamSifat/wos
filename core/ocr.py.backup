@@ -6,7 +6,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # Disable remote model source probing during PaddleOCR init to avoid startup delays.
 os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
 
-
 # --- AGGRESSIVE GARBAGE COLLECTION FLAGS ---
 # These MUST be set before importing paddle or paddleocr to affect the C++ backend
 os.environ["FLAGS_eager_delete_tensor_gb"] = "0.0"
@@ -14,12 +13,12 @@ os.environ["FLAGS_fast_eager_deletion_mode"] = "True"
 os.environ["FLAGS_allocator_strategy"] = "naive_best_fit"
 # -------------------------------------------
 
-
 import cv2
 import json
 import time
 import gc
 import ctypes
+import uuid
 import paddle           #Important for paddleocr 2.10.0
 import uvicorn
 import threading
@@ -38,6 +37,7 @@ import paddleocr
 #Printing the version of paddleocr
 print(f"PaddleOCR Version: {paddleocr.__version__}")
 print(f"PaddlePaddle Version: {paddle.__version__}")
+
 
 #Disabling logging from the paddleocr
 import logging
@@ -72,8 +72,14 @@ class ClearCacheRequest(BaseModel):
 SCREENSHOT_TTL = 0.1
 CPU_THREADS = min(os.cpu_count() or 1, 4)
 TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "references", "icon"))
-RAM_CAP_GB = float(os.getenv("OCR_RAM_CAP_GB", "3.0"))
+RAM_CAP_GB = float(os.getenv("OCR_RAM_CAP_GB", "3.5"))
 RAM_CAP_BYTES = int(RAM_CAP_GB * 1024 * 1024 * 1024)
+RAM_SPIKE_DELTA_MB = int(os.getenv("OCR_RAM_SPIKE_DELTA_MB", "350"))
+RAM_SPIKE_DELTA_BYTES = RAM_SPIKE_DELTA_MB * 1024 * 1024
+RAM_SPIKE_LOG_PATH = os.getenv(
+    "OCR_RAM_SPIKE_LOG_PATH",
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "db", "ocr_ram_spikes.log")),
+)
 
 # Keep oneDNN primitive cache bounded on CPU workloads.
 os.environ.setdefault("ONEDNN_PRIMITIVE_CACHE_CAPACITY", "10")
@@ -88,6 +94,202 @@ _capture_lock = threading.Lock()
 _ocr_lock = threading.Lock()
 _ocr_init_lock = threading.Lock()
 _ram_guard_lock = threading.Lock()
+_ram_track_lock = threading.Lock()
+_last_rss_bytes = 0
+_last_rss_context = "init"
+_last_rss_ts = 0.0
+
+
+def _guess_cause(context):
+    if context.startswith("run_ocr"):
+        return "OCR inference workload"
+    if context.startswith("template"):
+        return "Template matching workload"
+    return "General OCR service workload"
+
+
+def _log_ram_event(event, context, cause, rss_before, rss_after=None, details=None):
+    try:
+        os.makedirs(os.path.dirname(RAM_SPIKE_LOG_PATH), exist_ok=True)
+        record = {
+            "ts": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "event": event,
+            "context": context,
+            "cause": cause,
+            "rss_before_mb": round(rss_before / (1024 * 1024), 2),
+            "rss_after_mb": round(rss_after / (1024 * 1024), 2) if rss_after is not None else None,
+            "cap_gb": RAM_CAP_GB,
+            "details": details,
+        }
+        with open(RAM_SPIKE_LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record) + "\n")
+    except Exception:
+        # Keep OCR flow resilient even if logging fails.
+        pass
+
+
+def _begin_ram_call(kind, context, request_name=None, meta=None):
+    start_ts = time.time()
+    start_rss = _get_process_rss_bytes()
+    call = {
+        "call_id": str(uuid.uuid4()),
+        "kind": kind,
+        "context": context,
+        "request_name": request_name,
+        "meta": meta or {},
+        "start_ts": start_ts,
+        "start_rss": start_rss,
+    }
+    _log_ram_event(
+        event="ram_call_start",
+        context=context,
+        cause=_guess_cause(context),
+        rss_before=start_rss,
+        details={
+            "call_id": call["call_id"],
+            "kind": kind,
+            "request_name": request_name,
+            "meta": call["meta"],
+        },
+    )
+    return call
+
+
+def _shape_to_list(image):
+    if image is None:
+        return None
+
+    shape = getattr(image, "shape", None)
+    if shape is None:
+        return None
+
+    return [int(value) for value in shape]
+
+
+def _fingerprint_rois(rois, width, height):
+    if not rois:
+        return [
+            {
+                "roi": [0, 0, int(width), int(height)],
+                "size": [int(width), int(height)],
+                "area": int(width * height),
+                "source": "full_frame",
+            }
+        ]
+
+    fingerprint = []
+    for roi in rois:
+        clamped = clamp_roi(roi, width, height)
+        if not clamped:
+            continue
+
+        x1, y1, x2, y2 = clamped
+        roi_width = int(x2 - x1)
+        roi_height = int(y2 - y1)
+        fingerprint.append(
+            {
+                "roi": [int(x1), int(y1), int(x2), int(y2)],
+                "size": [roi_width, roi_height],
+                "area": int(roi_width * roi_height),
+            }
+        )
+
+    return fingerprint
+
+
+def _log_call_input_fingerprint(call, image=None, rois=None, extra=None):
+    if image is None:
+        return
+
+    height, width = image.shape[:2]
+    details = {
+        "call_id": call["call_id"],
+        "kind": call["kind"],
+        "request_name": call["request_name"],
+        "image_shape": _shape_to_list(image),
+        "image_size": [int(width), int(height)],
+        "roi_count": len(rois) if rois else 0,
+        "rois": _fingerprint_rois(rois, width, height),
+    }
+
+    if extra:
+        details.update(extra)
+
+    _log_ram_event(
+        event="ram_call_input",
+        context=call["context"],
+        cause=_guess_cause(call["context"]),
+        rss_before=_get_process_rss_bytes(),
+        details=details,
+    )
+
+
+def _end_ram_call(call, outcome="ok", error=None, result_count=None):
+    end_ts = time.time()
+    end_rss = _get_process_rss_bytes()
+    delta_mb = round((end_rss - call["start_rss"]) / (1024 * 1024), 2)
+    _log_ram_event(
+        event="ram_call_end",
+        context=call["context"],
+        cause=_guess_cause(call["context"]),
+        rss_before=call["start_rss"],
+        rss_after=end_rss,
+        details={
+            "call_id": call["call_id"],
+            "kind": call["kind"],
+            "request_name": call["request_name"],
+            "meta": call["meta"],
+            "outcome": outcome,
+            "error": error,
+            "result_count": result_count,
+            "duration_sec": round(end_ts - call["start_ts"], 2),
+            "delta_mb": delta_mb,
+        },
+    )
+
+
+def _track_ram_spike(context):
+    global _last_rss_bytes, _last_rss_context, _last_rss_ts
+
+    now = time.time()
+    rss_now = _get_process_rss_bytes()
+    if rss_now <= 0:
+        return rss_now
+
+    with _ram_track_lock:
+        _log_ram_event(
+            event="ram_trace",
+            context=context,
+            cause=_guess_cause(context),
+            rss_before=rss_now,
+            details={
+                "delta_mb": round((rss_now - _last_rss_bytes) / (1024 * 1024), 2) if _last_rss_bytes > 0 else None,
+                "last_context": _last_rss_context,
+                "since_last_sec": round(now - _last_rss_ts, 2) if _last_rss_ts > 0 else None,
+            },
+        )
+
+        if _last_rss_bytes > 0:
+            delta = rss_now - _last_rss_bytes
+            if delta >= RAM_SPIKE_DELTA_BYTES:
+                _log_ram_event(
+                    event="ram_spike",
+                    context=context,
+                    cause=_guess_cause(context),
+                    rss_before=_last_rss_bytes,
+                    rss_after=rss_now,
+                    details={
+                        "delta_mb": round(delta / (1024 * 1024), 2),
+                        "delta_from_context": _last_rss_context,
+                        "delta_seconds": round(now - _last_rss_ts, 2),
+                    },
+                )
+
+        _last_rss_bytes = rss_now
+        _last_rss_context = context
+        _last_rss_ts = now
+
+    return rss_now
 
 
 def _get_process_rss_bytes():
@@ -115,7 +317,7 @@ def _trim_allocator():
 
 def _enforce_ram_cap(context="runtime"):
     """Try to keep process RSS under configured cap by recycling OCR engine."""
-    rss_before = _get_process_rss_bytes()
+    rss_before = _track_ram_spike(context)
     if rss_before <= RAM_CAP_BYTES:
         return
 
@@ -129,13 +331,33 @@ def _enforce_ram_cap(context="runtime"):
             f"RAM guard triggered in {context}: "
             f"rss={rss_before / (1024**3):.2f}GB cap={RAM_CAP_GB:.2f}GB. Recycling OCR engine..."
         )
+        _log_ram_event(
+            event="ram_cap_trigger",
+            context=context,
+            cause=_guess_cause(context),
+            rss_before=rss_before,
+        )
 
         _reinitialize_ocr_engine()
         gc.collect()
         _trim_allocator()
 
         rss_after = _get_process_rss_bytes()
+        _log_ram_event(
+            event="ram_cap_post_recycle",
+            context=context,
+            cause=_guess_cause(context),
+            rss_before=rss_before,
+            rss_after=rss_after,
+        )
         if rss_after > RAM_CAP_BYTES:
+            _log_ram_event(
+                event="ram_cap_exceeded",
+                context=context,
+                cause=_guess_cause(context),
+                rss_before=rss_before,
+                rss_after=rss_after,
+            )
             raise MemoryError(
                 f"RAM cap exceeded after recycle in {context}. "
                 f"rss={rss_after / (1024**3):.2f}GB cap={RAM_CAP_GB:.2f}GB"
@@ -236,6 +458,18 @@ def clamp_roi(roi, width, height):
 
 
 def match_template(name, img = None, threshold=0.8, save_result=None, rois=None, parallel=None, session_id=None):
+    ram_call = _begin_ram_call(
+        kind="template",
+        context="template",
+        request_name=name,
+        meta={
+            "parallel": bool(parallel),
+            "save_result": bool(save_result),
+            "rois_count": len(rois) if rois else 0,
+            "session_id_present": bool(session_id),
+        },
+    )
+
     if name not in _template_cache:
         template = cv2.imread(name)
     else:
@@ -245,11 +479,29 @@ def match_template(name, img = None, threshold=0.8, save_result=None, rois=None,
         try:
             img = _capture_frame()
         except Exception as e:
+            _end_ram_call(ram_call, outcome="capture_error", error=str(e), result_count=0)
             raise RuntimeError(f"Error loading image - {e}")
     else:
         img = _get_cached_image(session_id)
 
+    _log_call_input_fingerprint(
+        ram_call,
+        image=img,
+        rois=rois,
+        extra={
+            "template_name": name,
+            "template_shape": _shape_to_list(template),
+            "parallel": bool(parallel),
+            "session_id_present": bool(session_id),
+        },
+    )
+
     if template is None:
+        _end_ram_call(ram_call, outcome="no_template", result_count=0)
+        return None
+
+    if img is None:
+        _end_ram_call(ram_call, outcome="no_image", result_count=0)
         return None
 
     if len(img.shape) != len(template.shape):
@@ -323,6 +575,7 @@ def match_template(name, img = None, threshold=0.8, save_result=None, rois=None,
                           (0, 0, 255), 2)
         cv2.imwrite(f"test/debug/{time.time()}.png", debug_img)
 
+    _end_ram_call(ram_call, outcome="ok", result_count=len(matches))
     return matches
 
 
@@ -408,13 +661,23 @@ def match_template(name, img = None, threshold=0.8, save_result=None, rois=None,
 
 
 def run_ocr(img_path=None, save_result=False, rois=None):
+    ram_call = _begin_ram_call(
+        kind="ocr",
+        context="run_ocr",
+        request_name=os.path.basename(img_path) if img_path else "screen_capture",
+        meta={
+            "save_result": bool(save_result),
+            "rois_count": len(rois) if rois else 0,
+            "img_path_provided": bool(img_path),
+        },
+    )
+
     #Printing the OCR result a bit beautifully
     def print_ocr_results(results):
         if not results:
             print("No OCR results found.")
             return
 
-        print(results)
         print("\n" + "="*70)
         print(f"{'TEXT':<25} | {'SCORE':<6} | {'BOX'}")
         print("="*70)
@@ -435,50 +698,45 @@ def run_ocr(img_path=None, save_result=False, rois=None):
         new_img = np.full((h + 2*pad, w + 2*pad, k), avg_color, dtype=img.dtype)
         new_img[pad:pad+h, pad:pad+w] = img
         return new_img, pad
-
-    def print_timing_summary(capture_time_s, ocr_time_s, post_time_s):
-        print("\n" + "=" * 70)
-        print("TIMINGS")
-        print("=" * 70)
-        print(f"Screenshot Capture Time : {capture_time_s * 1000:.2f} ms")
-        print(f"OCR Inference Time      : {ocr_time_s * 1000:.2f} ms")
-        print(f"Post Processing Time    : {post_time_s * 1000:.2f} ms")
-        print("=" * 70 + "\n")
-
     _enforce_ram_cap("run_ocr:start")
 
-    capture_time_s = 0.0
-    ocr_time_s = 0.0
-    post_time_s = 0.0
-
     try:
-        capture_start = time.perf_counter()
         img = _capture_frame(img_path)
-        capture_time_s = time.perf_counter() - capture_start
     except Exception as e:
         print(f"Error - {e}")
+        _end_ram_call(ram_call, outcome="capture_error", error=str(e), result_count=0)
+        return []
 
     if img is None:
+        _end_ram_call(ram_call, outcome="no_image", result_count=0)
         return []
+
+    _log_call_input_fingerprint(
+        ram_call,
+        image=img,
+        rois=rois,
+        extra={
+            "img_path_provided": bool(img_path),
+            "save_result": bool(save_result),
+            "pad_px": 50,
+        },
+    )
 
     all_results = []
     h, w = img.shape[:2]
-    print(f"Height: {h}, Width: {w}")
     
     # Ensure debug directory exists if saving
     if save_result and not os.path.exists("test/debug"):
         os.makedirs("test/debug", exist_ok=True)
 
     if rois:
+        tt = 0
         for i, roi in enumerate(rois):
             roi = clamp_roi(roi, w, h) 
             if not roi:
                 continue
 
             x1, y1, x2, y2 = roi
-            #a slight adjustment so that it could take scrcpy image to with a res of 1080x2456
-            y1 = y1 - 14
-            y2 = y2 - 7
             # Only pad if the crop actually has dimensions
             raw_crop = img[y1:y2, x1:x2]
             if raw_crop.size == 0:
@@ -486,9 +744,10 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                 
             cropped, pad_val = add_padding(raw_crop, pad=50)
 
-            ocr_start = time.perf_counter()
+            t1 = time.time()
             output = _call_ocr_with_recovery(cropped)
-            ocr_time_s += time.perf_counter() - ocr_start
+            t2 = time.time()
+            tt += t2-t1
             
             if not output or not output[0]:
                 # If save_result is true, save the empty crop to see what OCR saw
@@ -496,7 +755,6 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                     cv2.imwrite(f"test/debug/roi_empty_{int(time.time())}_{i}.png", cropped)
                 continue
                 
-            post_start = time.perf_counter()
             lines = output[0]
             offset_x = x1 - pad_val
             offset_y = y1 - pad_val
@@ -530,15 +788,12 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                 # Save the specific crop being processed
                 cv2.imwrite(f"test/debug/roi_crop_{int(time.time())}_{i}.png", cropped)
 
-            post_time_s += time.perf_counter() - post_start
-
     else:
-        ocr_start = time.perf_counter()
+        t1 = time.time()
         output = _call_ocr_with_recovery(img)
-        ocr_time_s += time.perf_counter() - ocr_start
-
+        t2 = time.time()
+        tt = t2 - t1
         if output and output[0]:
-            post_start = time.perf_counter()
             for line in output[0]:
                 if not line: continue
                 
@@ -557,11 +812,9 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                         "score": score,
                         "box": [xmin, ymin, xmax, ymax]
                     })
-            post_time_s += time.perf_counter() - post_start
 
     # 👉 SAVE FULL RESULT IMAGE
     if save_result and all_results:
-        post_start = time.perf_counter()
         debug_img = img.copy()
         for res in all_results:
             b = res["box"]
@@ -571,22 +824,19 @@ def run_ocr(img_path=None, save_result=False, rois=None):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
         
         cv2.imwrite(f"test/debug/full_res_{int(time.time())}.png", debug_img)
-        post_time_s += time.perf_counter() - post_start
 
     print_ocr_results(all_results)
-    print_timing_summary(capture_time_s, ocr_time_s, post_time_s)
+    print(f"({tt} s)")
     _enforce_ram_cap("run_ocr:end")
-        
+
+    _end_ram_call(ram_call, outcome="ok", result_count=len(all_results))
     return all_results
 
 
 @app.post("/ocr")
 def ocr_endpoint(req:OCRRequest):
     try:
-        start_time = time.perf_counter()
         results = run_ocr(req.img_path, req.save_result, req.rois)
-        finish_time = time.perf_counter()
-        print(f"({finish_time-start_time}s)")
     except MemoryError as e:
         return {
             "success": False,
@@ -606,7 +856,6 @@ def ocr_endpoint(req:OCRRequest):
         "count" : len(results),
         "results" : results
     }
-
 
 
 @app.post("/template")

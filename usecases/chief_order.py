@@ -28,7 +28,7 @@ def activate_chief_order():
     for key, value in order_list.items():
         currency = req_text("Home.ChiefOrder.Currency")
         try:
-            currency = currency[0].replace(",", "").replace(".", "")
+            currency = currency[0][0].replace(",", "").replace(".", "")
             if currency.lower().endswith("m") and currency[:-1].isdigit():
                 currency = int(currency[:-1])*1000000
         except Exception as e:

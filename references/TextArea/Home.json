@@ -128,5 +128,25 @@
             1029,
             2441
         ]
+    },
+    "Home.ChiefStamina.ObtainMore.Claim": {
+        "text": "Claim",
+        "score": 0.9899139404296875,
+        "box": [
+            816,
+            878,
+            924,
+            923
+        ]
+    },
+    "Home.ChiefStamina.ObtainMore.Use": {
+        "text": "Use",
+        "score": 0.9985271096229553,
+        "box": [
+            833,
+            1092,
+            905,
+            1137
+        ]
     }
 }

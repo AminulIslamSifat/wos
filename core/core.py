@@ -5,8 +5,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import cv2
 import time
+import uuid
 import json
 import requests
+from itertools import repeat
 from pathlib import Path
 from rapidfuzz import fuzz
 from cmd_program.screen_action import tap_screen, take_screenshot, long_press
@@ -18,6 +20,12 @@ from concurrent.futures import ThreadPoolExecutor
 
 ocr_url = "http://127.0.0.1:8000/ocr"
 template_matching_url = "http://127.0.0.1:8000/template"
+cache_clearing_url = "http://127.0.0.1:8000/clear_cache"
+
+OCR_HTTP_TIMEOUT_SEC = float(os.getenv("OCR_HTTP_TIMEOUT_SEC", "8"))
+OCR_REPLAY_WAIT_SEC = float(os.getenv("OCR_REPLAY_WAIT_SEC", "35"))
+OCR_REPLAY_BACKOFF_START_SEC = float(os.getenv("OCR_REPLAY_BACKOFF_START_SEC", "0.35"))
+OCR_REPLAY_BACKOFF_MAX_SEC = float(os.getenv("OCR_REPLAY_BACKOFF_MAX_SEC", "2.5"))
 
 
 #------------------- DataBase --------------------------#
@@ -47,6 +55,38 @@ def init_database():
             print(f"Error in {file} - {e}")
 
 
+def _post_json_with_replay(url, payload, request_name, wait_sec=OCR_REPLAY_WAIT_SEC):
+    """Replay the same request payload until OCR service recovers or timeout is hit."""
+    start = time.time()
+    attempt = 0
+    backoff = OCR_REPLAY_BACKOFF_START_SEC
+
+    while True:
+        attempt += 1
+        try:
+            response = requests.post(url, json=payload, timeout=OCR_HTTP_TIMEOUT_SEC)
+            response.raise_for_status()
+            data = response.json()
+
+            if isinstance(data, dict) and data.get("success") is True:
+                return data
+
+            # OCR service reachable but still reports failure (e.g., restarting/recycling).
+            err = data.get("error") if isinstance(data, dict) else "non-dict response"
+            print(f"{request_name} attempt {attempt} returned failure: {err}")
+
+        except (requests.RequestException, ValueError) as e:
+            print(f"{request_name} attempt {attempt} failed: {e}")
+
+        elapsed = time.time() - start
+        if elapsed >= wait_sec:
+            print(f"{request_name} replay timed out after {elapsed:.1f}s")
+            return None
+
+        time.sleep(backoff)
+        backoff = min(backoff * 2, OCR_REPLAY_BACKOFF_MAX_SEC)
+
+
 
 
 
@@ -58,10 +98,8 @@ def req_ocr(img_path=None, save_result=None, rois=None):
         "rois": rois
     }
 
-    response = requests.post(ocr_url, json=payload)
-    data = response.json()
-
-    if data["success"] != True:
+    data = _post_json_with_replay(ocr_url, payload, "OCR request")
+    if not data:
         return None
     
     result = data["results"]
@@ -69,18 +107,20 @@ def req_ocr(img_path=None, save_result=None, rois=None):
 
 
 
-def req_temp_match(name, threshold=0.8, save_result=None, rois=None):
+
+
+def req_temp_match(name, threshold=0.8, save_result=None, rois=None, parallel=None, session_id=None):
     payload = {
         "name" : name,
         "threshold" : threshold,
         "save_result": save_result,
-        "rois": rois
+        "rois": rois,
+        "parallel" : parallel,
+        "session_id" : session_id
     }
     
-    response = requests.post(template_matching_url, json=payload)
-    data = response.json()
-
-    if data["success"] != True:
+    data = _post_json_with_replay(template_matching_url, payload, "Template request")
+    if not data:
         return None
     
     results = data["results"]
@@ -88,7 +128,28 @@ def req_temp_match(name, threshold=0.8, save_result=None, rois=None):
 
 
 
-def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=None, tap=True, rois=None, hold=None):
+def req_cache_clear(session_id):
+    payload = {
+        "session_id" : session_id
+    }
+    try:
+        requests.post(cache_clearing_url, json=payload, timeout=OCR_HTTP_TIMEOUT_SEC)
+    except requests.RequestException as e:
+        print(f"Cache clear skipped (OCR unavailable): {e}")
+
+
+def tap_on_template(
+    name, 
+    threshold=None, 
+    save_result=None, 
+    wait=None, 
+    sleep=None, 
+    tap=True, 
+    rois=None, 
+    hold=None
+    ):
+    
+    passed_threshold = threshold
     if name in template_area:
         if threshold == None:
             threshold = (template_area[name]["threshold"] or 0.8)
@@ -98,7 +159,12 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=Non
         threshold = 0.8
 
     def try_match():
-        results = req_temp_match(name, threshold, save_result, rois)
+        results = req_temp_match(
+            name,
+            threshold=threshold,
+            save_result=save_result,
+            rois=rois,
+        )
         if not results:
             return None
         result = max(results, key=lambda x:x["score"])
@@ -130,13 +196,31 @@ def tap_on_template(name, threshold=None, save_result=None, wait=None, sleep=Non
             return True
         else:
             print(f"No match found for - {name}")
+        if passed_threshold == None:
+            threshold = (threshold - 0.05) if (threshold - 0.05) > 0.6 else threshold
 
     return None
 
 
 
-def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sleep=None, skip_ocr=False, tap=True, hold=None, threshold=0.8):
+def tap_on_text(
+    text, 
+    img_path=None, 
+    save_result=None, 
+    rois=None, 
+    wait=None, 
+    sleep=None, 
+    skip_ocr=False, 
+    tap=True, 
+    hold=None, 
+    threshold=0.8,
+    align=None
+    ):
+
+    if align == None or not isinstance(align, list) or len(align) != 2:
+        align = [0, 0]
     threshold = threshold * 100 or 80
+
     def normalize_rois(box):
         if box is None:
             return None
@@ -179,8 +263,8 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
 
             if skip_ocr and box is not None:
                 coord = (
-                    (box[0] + box[2]) // 2,
-                    (box[1] + box[3]) // 2
+                    (box[0] + box[2] + align[0]) // 2,
+                    (box[1] + box[3] + align[1]) // 2
                 )
 
                 if coord and hold:
@@ -208,8 +292,8 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
                         continue
 
                     coord = (
-                        (use_box[0] + use_box[2]) // 2,
-                        (use_box[1] + use_box[3]) // 2
+                        (use_box[0] + use_box[2] + align[0]) // 2,
+                        (use_box[1] + use_box[3] + align[1]) // 2
                     )
                     if coord and hold:
                         long_press(coord, duration=hold)
@@ -236,8 +320,8 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
                         continue
 
                     coord = (
-                        (use_box[0] + use_box[2]) // 2,
-                        (use_box[1] + use_box[3]) // 2
+                        (use_box[0] + use_box[2] + align[0]) // 2,
+                        (use_box[1] + use_box[3] + align[1]) // 2
                     )
                     if coord and hold:
                         long_press(coord, duration=hold)
@@ -279,7 +363,7 @@ def tap_on_text(text, img_path=None, save_result=None, rois=None, wait=None, sle
 
 
 
-def req_text(names, img_path=None, rois=None, save_result=False):
+def req_text(names, img_path=None, rois=None, save_result=False, coord=None):
     def load_config(names, rois=None):
         if isinstance(names, str):
             names = [names]
@@ -311,7 +395,9 @@ def req_text(names, img_path=None, rois=None, save_result=False):
         print("OCR failed")
         return None
 
-    texts = [t['text'] for t in res]
+    texts = []
+    for t in res:
+        texts.append([t['text'], t['box']])
     return texts
 
 
@@ -326,12 +412,14 @@ def tap_on_templates_batch(
     sleep=None,
     rois=None,
     parallel=False,
-    max_workers=2,
+    max_workers=8,
 ):
     n = len(names)
 
     if n == 0:
         return False
+
+    passed_threshold = thresholds
 
     thresholds = thresholds or [0.8] * n
     save_results = save_results or [None] * n
@@ -339,20 +427,28 @@ def tap_on_templates_batch(
         tap = [tap] * n
 
     # ✅ Fix 1: return (i, result) tuple so index is never lost
-    def match_one(i):
-        results = req_temp_match(names[i], threshold=thresholds[i], save_result=save_results[i], rois=rois)
+    def match_one(i, session_id):
+        results = req_temp_match(
+            names[i],
+            threshold=thresholds[i], 
+            save_result=save_results[i], 
+            rois=rois,
+            parallel=True,
+            session_id = session_id
+        )
         if results:
             best = max(results, key=lambda x: x["score"])
             return (i, best)   # always a clean (index, dict) pair
         return None
 
-    def run_batch():
+    def run_batch(session_id):
         if parallel and n > 1:
             workers = max(1, min(max_workers, n))
             with ThreadPoolExecutor(max_workers=workers) as ex:
-                raw = list(ex.map(match_one, range(n)))
+                # session_id is a string; repeat it so each worker gets the full id.
+                raw = list(ex.map(match_one, range(n), repeat(session_id)))
         else:
-            raw = [match_one(i) for i in range(n)]
+            raw = [match_one(i, session_id) for i in range(n)]
         return [r for r in raw if r is not None]  # filter out None
 
     def pick_best_and_tap(cleaned_results):
@@ -369,16 +465,30 @@ def tap_on_templates_batch(
 
     # --- wait mode ---
     if wait:
+        session_id = str(uuid.uuid4())
         start = time.time()
-        while time.time() - start < wait:
-            cleaned = run_batch()
-            if cleaned:
-                return pick_best_and_tap(cleaned)
+        try:
+            while time.time() - start < wait:
+                cleaned = run_batch(session_id)
+                if cleaned:
+                    return pick_best_and_tap(cleaned)
+        finally:
+            if parallel:
+                req_cache_clear(session_id)
         return False
 
     # --- retry mode ---
     for _ in range(3):
-        cleaned = run_batch()
+        session_id = str(uuid.uuid4())
+
+        try:
+            cleaned = run_batch(session_id)
+        finally:
+            if parallel:
+                req_cache_clear(session_id)
+
+        if passed_threshold == None:
+            thresholds = [t - 0.05 if (t - 0.05) > 0.6 else t for t in thresholds]
         if cleaned:
             return pick_best_and_tap(cleaned)
 

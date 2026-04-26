@@ -31,6 +31,9 @@ def train():
         return None
 
     tap_on_text("Infantry", rois=[side_panel], sleep=1)
+    for i in range(3):
+        tap_screen(540, 1200)
+        time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], sleep=1)
 
     tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
@@ -63,6 +66,9 @@ def train_infantry(Amount=None):
         return None
 
     tap_on_text("Infantry", rois=[side_panel], sleep=1)
+    for i in range(3):
+        tap_screen(540, 1200)
+        time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], sleep=1)
 
     tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
@@ -71,7 +77,7 @@ def train_infantry(Amount=None):
     while(trained < Amount):
         training_amount = req_text("Home.TroopTraining.TrainingAmount")
         try:
-            training_amount = int(training_amount[0])
+            training_amount = int(training_amount[0][0])
             trained += training_amount
         except Exception as e:
             print(f"Training Amount can't be read, Only training for one time - {e}")
@@ -98,6 +104,9 @@ def train_lancer(Amount=None):
         return None
 
     tap_on_text("Lancer", rois=[side_panel], sleep=1)
+    for i in range(3):
+        tap_screen(540, 1200)
+        time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], sleep=1)
     
     tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
@@ -106,7 +115,7 @@ def train_lancer(Amount=None):
     while(trained < Amount):
         training_amount = req_text("Home.TroopTraining.TrainingAmount")
         try:
-            training_amount = int(training_amount[0])
+            training_amount = int(training_amount[0][0])
             trained += training_amount
         except Exception as e:
             print(f"Training Amount can't be read, Only training for one time - {e}")
@@ -133,6 +142,9 @@ def train_marksman(Amount=None):
         return None
 
     tap_on_text("Marksman", rois=[side_panel], sleep=1)
+    for i in range(3):
+        tap_screen(540, 1200)
+        time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], sleep=1)
 
     tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
@@ -141,7 +153,7 @@ def train_marksman(Amount=None):
     while(trained < Amount):
         training_amount = req_text("Home.TroopTraining.TrainingAmount")
         try:
-            training_amount = int(training_amount[0])
+            training_amount = int(training_amount[0][0])
             trained += training_amount
         except Exception as e:
             print(f"Training Amount can't be read, Only training for one time - {e}")

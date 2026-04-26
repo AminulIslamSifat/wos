@@ -37,7 +37,7 @@ def collect_vip_rewards():
 def buy_vip_time(day=30):
     title = req_text("Home.VIP.Title")
     try:
-        title = title[0]
+        title = title[0][0]
     except Exception as e:
         print(f"Error while reading page title - {e}, Continuing...")
     
