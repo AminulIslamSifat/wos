@@ -13,33 +13,45 @@ The bot operates on a **Research -> Strategy -> Execution** loop:
 3.  **Local OCR Server:** A dedicated FastAPI server handles heavy lifting for image processing, allowing the main bot logic to remain lightweight and fast.
 4.  **FSM (Finite State Machine):** (In development) A navigation graph that allows the bot to calculate the shortest path between game screens (e.g., jumping from "World Map" directly to "Alliance Tech").
 
+## 🚨 ATTENTION: RESOLUTION LOCK 🚨
+
+> [!CAUTION]
+> **THIS BOT IS HARDCODED FOR 1080x2460 RESOLUTION.**
+> 
+> If your device/emulator is set to **ANY OTHER** resolution or aspect ratio:
+> 1.  **ROI Detection will FAIL.**
+> 2.  **Clicks will land in the WRONG locations.**
+> 3.  **The bot will get lost and may perform unintended actions.**
+
+### 🛠️ The Fix (In Progress)
+We are developing an **Auto-Calibration Suite**. In a future update, the bot will automatically detect your resolution on the first run, perform a "World Tour" of all game screens, and dynamically rewrite the reference coordinates in `references/TextArea` to match your device.
+
 ---
 
-## 🚀 Quickstart (Linux)
+## 🚀 Quickstart (Arch Linux)
 
 ### 1. System Dependencies
 Install the required tools for high-speed screen mirroring:
 ```bash
-sudo apt update
-sudo apt install scrcpy v4l2loopback-dkms v4l2loopback-utils adb
+sudo pacman -Syu scrcpy v4l2loopback-dkms v4l2loopback-utils android-tools uv
 ```
 
 ### 2. Setup V4L2 Loopback
-To enable the high-speed stream into the OCR engine, you must initialize the virtual video device:
+To enable the high-speed stream into the OCR engine, you must initialize the virtual video device (Recommended). If the device is not initialized then the ocr program will handle this specifically:
 ```bash
 sudo modprobe v4l2loopback video_nr=10 card_label="scrcpy" exclusive_caps=1
 ```
 
-### 3. Environment Setup
-We recommend using `uv` for lightning-fast dependency management:
+### 3. Starting the OCR server
+We use `uv` for lightning-fast dependency management, This will install dependancy and run the server:
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+cd wos
+uv run core/ocr.py
+```
 
-# Start the OCR Server (In a separate terminal)
-python core/ocr.py
-
-# Run the Bot
+### Run the Bot
+Run this in a separate terminal window, to start the bot. Make sure you are in a known terminal. If the WOS app is not opened, the bot will open the application automatically.gi
+```bash
 python Main/main.py
 ```
 
