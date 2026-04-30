@@ -115,7 +115,33 @@ uv run core/ocr.py
 
 This installs dependencies and launches the FastAPI OCR server on `localhost:8000`.
 
-### 4️⃣ Launch the Bot
+### 4️⃣ Configure Your Accounts
+
+Copy the example account configuration and add your real data:
+
+```bash
+cp db/account.json.example db/account.json
+```
+
+Then edit `db/account.json` with your actual credentials:
+
+```json
+{
+  "your_email@gmail.com": {
+    "priority": 1,
+    "player": [
+      {
+        "id": "12345678",
+        "name": "Your Chief Name"
+      }
+    ]
+  }
+}
+```
+
+**Get your Player ID:** Open the game → Chief Profile → Find the ID number in the top-left corner.
+
+### 5️⃣ Launch the Bot
 
 In a separate terminal window:
 
