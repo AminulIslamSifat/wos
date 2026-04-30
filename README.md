@@ -52,6 +52,7 @@ uv run core/ocr.py
 ### Run the Bot
 Run this in a separate terminal window, to start the bot. Make sure you are in a known terminal. If the WOS app is not opened, the bot will open the application automatically.gi
 ```bash
+cd wos
 python Main/main.py
 ```
 
