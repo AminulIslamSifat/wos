@@ -74,7 +74,7 @@ from usecases.labyrinth import labyrinth
 from core.recalibrate import recalibrate
 from core.change_player import change_account, change_character
 
-from usecases.gather import gather
+from Main.task_menu import prompt_task_selection, run_selected_tasks
 
 
 
@@ -255,37 +255,13 @@ def get_players_by_email(target_email):
 
 
 
-def run_task(current_player_id):
-    collect_vip_rewards()
-    #collect_from_events()
-    claim_exploration_idle_income()
-    continue_exploring()
-    collect_mail_rewards()
-    collect_life_essence()
-    train()
-    arena()
-    activate_chief_order()
-    collect_ally_treasure()
-    start_pet_exploration()
-    labyrinth()
-    #Alliance
-    auto_join()
-    collect_chests()
-    tech_contribution()
-    help()
-    collect_triumph()
-    #World
-    heal()
-    if current_player_id == "578380047":
-        gather(remove_hero=True, equalize=False)
-    else:
-        gather(remove_hero=False, equalize=True)
-    collect_missions_reward()
+def run_task(current_player_id, selected_tasks):
+    run_selected_tasks(current_player_id, selected_tasks)
 
 
 
 
-def run_bot():
+def run_bot(selected_tasks):
     completion_records = load_completion_log()
 
     while True:
@@ -311,7 +287,7 @@ def run_bot():
                     print(f"Skipping {current_player.name} ({current_player.id}) - completed recently at {last_time}")
                 else:
                     print(f"Running tasks for: {current_player.name} ({current_player.id})")
-                    run_task(current_player.id)
+                    run_task(current_player.id, selected_tasks)
                     mark_player_completed(current_player.id, completion_records)
                     print(f"Marked completed: {current_player.id} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                 processed_ids.add(active_id)
@@ -341,4 +317,5 @@ def run_bot():
 
 
 if __name__=="__main__":
-    run_bot()
+    selected_tasks = prompt_task_selection()
+    run_bot(selected_tasks)
