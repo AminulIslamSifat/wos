@@ -3,40 +3,40 @@
         "text": "Defeat!",
         "score": 0.9983393549919128,
         "box": [
-            365,
-            922,
-            717,
-            1023
+            33.8,
+            37.48,
+            66.39,
+            41.59
         ]
     },
     "Home.Exploration.Explore.Fight.Defeat.Retry": {
         "text": "Retry",
         "score": 0.9991763234138489,
         "box": [
-            717,
-            1806,
-            862,
-            1883
+            66.39,
+            73.41,
+            79.81,
+            76.54
         ]
     },
     "Home.Exploration.Explore.Fight.Defeat.TapAnywhereToExit": {
         "text": "Tap anywhere to exit",
         "score": 0.9915912747383118,
         "box": [
-            361,
-            2333,
-            718,
-            2383
+            33.43,
+            94.84,
+            66.48,
+            96.87
         ]
     },
     "Home.Exploration.Explore.Fight.ReturnToCity": {
         "text": "Return to City",
         "score": 0.9945525527000427,
         "box": [
-            123,
-            1802,
-            456,
-            1880
+            11.39,
+            73.25,
+            42.22,
+            76.42
         ]
     }
 }

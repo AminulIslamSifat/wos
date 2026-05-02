@@ -22,15 +22,15 @@ from core.recalibrate import recalibrate
 
 def change_account(next_email):
     recalibrate()
-    tap_screen(100, 170)
+    tap_screen(9.26, 6.9)
     tap_on_text("ChiefProfile.Settings", wait=2)
     tap_on_text("ChiefProfile.Settings.Account", wait = 2, sleep=2)
     tap_on_text("ChiefProfile.Settings.Account.ChangeAccount", wait=5, sleep=0.5)
     tap_on_text("ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle", wait=5)
     status = tap_on_text(next_email, wait=5)
     if not status:
-        swipe_screen(550, 1800, 550, 400)
-        status = tap_on_text(next_email, wait=10)
+        swipe_screen(50.93, 73.17, 50.93, 16.26)
+        status = tap_on_text(next_email, wait=10, threshold=1.0)
         if not status:
             print("Email not found, Exiting...")
             return None
@@ -43,7 +43,7 @@ def change_account(next_email):
 
 def change_character(next_name):
     recalibrate()
-    tap_screen(100, 170)
+    tap_screen(9.26, 6.9)
     tap_on_text("ChiefProfile.Title", wait=2, tap=False)
     time.sleep(1)
     text = req_text("ChiefProfile.Title")[0][0]
@@ -62,7 +62,7 @@ def change_character(next_name):
         print("Character not found, Exiting...")
         return None
     index = names.index(next_name.lower())
-    status = tap_on_text(players[index][0], rois=[0, 1000, 1080, 1450])
+    status = tap_on_text(players[index][0], rois=[0, 40.65, 100, 59.02])
     
     if not status:
         print("Finding player failed")

@@ -33,7 +33,7 @@ def collect_ally_treasure():
 
 
 def start_pet_exploration():
-    exploration_roi = [0, 400, 1080, 2200]
+    exploration_roi = [0, 16.26, 100, 89.43]
 
     def center(box):
         x1, y1, x2, y2 = box
@@ -71,7 +71,7 @@ def start_pet_exploration():
             print("No adventure Completed")
             break
         if tap_on_text("Home.Pet.BeastCage.Adventure.Completed", wait=2, tap=False):
-            tap_screen(560, 1540)
+            tap_screen(51.85, 62.60)
             tap_on_text("Tap anywhere to exit", wait=4, sleep=0.5)
             tap_on_template("Global.Close", wait=2)
 
@@ -138,7 +138,7 @@ def start_pet_exploration():
                 continue
             status = tap_on_text("Home.Pet.BeastCage.Adventure.Completed", wait=2, tap=False)
             if status:
-                tap_screen(560, 1540)
+                tap_screen(51.85, 62.60)
                 tap_on_text("Tap anywhere to exit", wait=2, sleep=0.5)
                 tap_on_template("Global.Close", wait=2)
                 continue

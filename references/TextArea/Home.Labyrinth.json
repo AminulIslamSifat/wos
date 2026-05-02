@@ -3,190 +3,200 @@
         "text": "The Labyrinth.",
         "score": 0.9483665227890015,
         "box": [
-            137,
-            153,
-            461,
-            209
+            12.69,
+            6.22,
+            42.69,
+            8.5
         ]
     },
     "Home.Labyrinth.Currency": {
         "text": "4,100",
         "score": 0.9889651536941528,
         "box": [
-            916,
-            165,
-            1005,
-            199
+            84.81,
+            6.71,
+            93.06,
+            8.09
         ]
     },
     "Home.Labyrinth.Shop": {
         "text": "Shop",
         "score": 0.9978275895118713,
         "box": [
-            959,
-            630,
-            1040,
-            670
+            88.8,
+            25.61,
+            96.3,
+            27.24
         ]
     },
     "Home.Labyrinth.CaveOfMonster": {
         "text": "Cave of Monsters",
         "score": 0.9608515501022339,
         "box": [
-            178,
-            1026,
-            446,
-            1063
+            16.48,
+            41.71,
+            41.3,
+            43.21
         ]
     },
     "Home.Labyrinth.CharmMine": {
         "text": "Charm Mine",
         "score": 0.9687446355819702,
         "box": [
-            665,
-            1244,
-            851,
-            1283
+            61.57,
+            50.57,
+            78.8,
+            52.15
         ]
     },
     "Home.Labyrinth.ResearchCenter": {
         "text": "Research Center ",
         "score": 0.9548789858818054,
         "box": [
-            106,
-            1494,
-            400,
-            1530
+            9.81,
+            60.73,
+            37.04,
+            62.2
         ]
     },
     "Home.Labyrinth.GearForge": {
         "text": "Gear Forge ",
         "score": 0.9528344869613647,
         "box": [
-            735,
-            1655,
-            955,
-            1696
+            68.06,
+            67.28,
+            88.43,
+            68.94
+        ]
+    },
+    "Home.Labyrinth.GaiaHeart": {
+        "text": "Gaia Heart ",
+        "score": 0.9182129502296448,
+        "box": [
+            33.89,
+            76.5,
+            53.8,
+            78.41
         ]
     },
     "Home.Labyrinth.Raid": {
         "text": "Raid",
         "score": 0.9989238381385803,
         "box": [
-            489,
-            2336,
-            593,
-            2382
+            45.28,
+            94.96,
+            54.91,
+            96.83
         ]
     },
     "Home.Labyrinth.Raid.Claim": {
         "text": "Claim",
         "score": 0.8709729313850403,
         "box": [
-            472,
-            1593,
-            612,
-            1643
+            43.7,
+            64.76,
+            56.67,
+            66.79
         ]
     },
     "Home.Labyrinth.Challenge": {
         "text": "Challenge",
         "score": 0.9993806481361389,
         "box": [
-            426,
-            2331,
-            654,
-            2392
+            39.44,
+            94.76,
+            60.56,
+            97.24
         ]
     },
     "Home.Labyrinth.Challenge.Deploy": {
         "text": "Deploy",
         "score": 0.9989638328552246,
         "box": [
-            739,
-            2328,
-            907,
-            2394
+            68.43,
+            94.63,
+            83.98,
+            97.32
         ]
     },
     "Home.Labyrinth.Challenge.Skip": {
         "text": "Skip",
         "score": 0.8980574011802673,
         "box": [
-            889,
-            347,
-            1035,
-            406
+            82.31,
+            14.11,
+            95.83,
+            16.5
         ]
     },
     "Home.Labyrinth.Challenge.Victory.Title": {
         "text": "Victory!",
         "score": 0.9912329912185669,
         "box": [
-            385,
-            817,
-            703,
-            905
+            35.65,
+            33.21,
+            65.09,
+            36.79
         ]
     },
     "Home.Labyrinth.Challenge.Victory.Next": {
         "text": "Next",
         "score": 0.9993053674697876,
         "box": [
-            725,
-            1592,
-            845,
-            1651
+            67.13,
+            64.72,
+            78.24,
+            67.11
         ]
     },
     "Home.Labyrinth.Challenge.Victory.NextChapter": {
         "text": "Next Chapter",
         "score": 0.9858787655830383,
         "box": [
-            634,
-            1595,
-            936,
-            1653
+            58.7,
+            64.84,
+            86.67,
+            67.2
         ]
     },
     "Home.Labyrinth.Challenge.Victory.AutoChallngeNextStage": {
         "text": "Auto-Challenge Next Stage",
         "score": 0.9671233892440796,
         "box": [
-            381,
-            1772,
-            784,
-            1818
+            35.28,
+            72.03,
+            72.59,
+            73.9
         ]
     },
     "Home.Labyrinth.Challenge.Victory.TapAnywhereToClose": {
         "text": "Tap anywhere to close",
         "score": 0.9883118867874146,
         "box": [
-            337,
-            2096,
-            745,
-            2147
+            31.2,
+            85.2,
+            68.98,
+            87.28
         ]
     },
     "Home.Labyrinth.Challenge.Defeat.Title": {
         "text": "Defeat!",
         "score": 0.9974702596664429,
         "box": [
-            392,
-            820,
-            685,
-            902
+            36.3,
+            33.33,
+            63.43,
+            36.67
         ]
     },
     "Home.Labyrinth.Challenge.Defeat.Retry": {
         "text": "Retry",
         "score": 0.9994155764579773,
         "box": [
-            716,
-            1797,
-            854,
-            1868
+            66.3,
+            73.05,
+            79.07,
+            75.93
         ]
     }
 }

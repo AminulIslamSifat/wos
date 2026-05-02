@@ -14,7 +14,7 @@ class GameFSM:
                 "backpack": {"action": "text", "target": "Home.Backpack"},
                 "shop": {"action": "text", "target": "Home.Shop"},
                 "vip": {"action": "text", "target": "Home.VIPLevel"},
-                "chief_profile": {"action": "coord", "target": [50, 150]}, # Top left avatar
+                "chief_profile": {"action": "coord", "target": [4.63, 6.1]}, # Top left avatar
             },
             "world": {
                 "main_city": {"action": "text", "target": "World.City"},

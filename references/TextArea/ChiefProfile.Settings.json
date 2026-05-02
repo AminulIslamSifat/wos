@@ -1,252 +1,252 @@
 {
-     "ChiefProfile.Settings": {
+    "ChiefProfile.Settings": {
         "text": "Settings",
         "score": 0.9993451833724976,
         "box": [
-            866,
-            2376,
-            1007,
-            2427
+            80.19,
+            96.59,
+            93.24,
+            98.66
         ]
     },
     "ChiefProfile.Settings.Account.Title": {
         "text": "Account",
         "score": 0.9993899464607239,
         "box": [
-            136,
-            150,
-            338,
-            209
+            12.59,
+            6.1,
+            31.3,
+            8.5
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount": {
         "text": "Change Account",
         "score": 0.997528076171875,
         "box": [
-            348,
-            2316,
-            736,
-            2387
+            32.22,
+            94.15,
+            68.15,
+            97.03
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.Title": {
         "text": "Change Account",
         "score": 0.9920037984848022,
         "box": [
-            360,
-            757,
-            723,
-            825
+            33.33,
+            30.77,
+            66.94,
+            33.54
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.Guest": {
         "text": "Guest",
         "score": 0.9993522763252258,
         "box": [
-            509,
-            943,
-            636,
-            994
+            47.13,
+            38.33,
+            58.89,
+            40.41
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.Facebook": {
         "text": " Facebook",
         "score": 0.8495842814445496,
         "box": [
-            417,
-            1066,
-            719,
-            1155
+            38.61,
+            43.33,
+            66.57,
+            46.95
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle": {
         "text": "Sign in with Google",
         "score": 0.9327179789543152,
         "box": [
-            380,
-            1215,
-            786,
-            1286
+            35.19,
+            49.39,
+            72.78,
+            52.28
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle.Cancl": {
         "text": "Cancel",
         "score": 0.9989598393440247,
         "box": [
-            261,
-            1984,
-            407,
-            2036
+            24.17,
+            80.65,
+            37.69,
+            82.76
         ]
     },
     "ChiefProfile.Settings.Account.ChangeAccount.SignInWithGoogle.Continue": {
         "text": "Continue",
         "score": 0.9997696876525879,
         "box": [
-            653,
-            1987,
-            838,
-            2033
+            60.46,
+            80.77,
+            77.59,
+            82.64
         ]
     },
     "ChiefProfile.Settings.GiftCode.Title": {
         "text": "Redeem Bundle",
         "score": 0.9690510630607605,
         "box": [
-            373,
-            1014,
-            706,
-            1066
+            34.54,
+            41.22,
+            65.37,
+            43.33
         ]
     },
     "ChiefProfile.Settings.GiftCode.Close": {
         "text": "X",
         "score": 0.8185443878173828,
         "box": [
-            934,
-            1018,
-            979,
-            1059
+            86.48,
+            41.38,
+            90.65,
+            43.05
         ]
     },
     "ChiefProfile.Settings.GiftCode.TextBox": {
         "text": "Enter Gift Code",
         "score": 0.9877538681030273,
         "box": [
-            151,
-            1235,
-            411,
-            1279
+            13.98,
+            50.2,
+            38.06,
+            51.99
         ]
     },
     "ChiefProfile.Settings.GiftCode.Redeem": {
         "text": "Redeem",
         "score": 0.9993345737457275,
         "box": [
-            442,
-            1450,
-            638,
-            1516
+            40.93,
+            58.94,
+            59.07,
+            61.63
         ]
     },
     "ChiefProfile.Settings.Title": {
         "text": "Settings",
         "score": 0.9997256994247437,
         "box": [
-            131,
-            142,
-            332,
-            220
+            12.13,
+            5.77,
+            30.74,
+            8.94
         ]
     },
     "ChiefProfile.Settings.Account": {
         "text": "Account",
         "score": 0.9981905221939087,
         "box": [
-            740,
-            408,
-            913,
-            456
+            68.52,
+            16.59,
+            84.54,
+            18.54
         ]
     },
     "ChiefProfile.Settings.Characters": {
         "text": "Characters",
         "score": 0.99968421459198,
         "box": [
-            222,
-            600,
-            447,
-            648
+            20.56,
+            24.39,
+            41.39,
+            26.34
         ]
     },
     "ChiefProfile.Settings.Character.Title": {
         "text": "Characters",
         "score": 0.9997318983078003,
         "box": [
-            420,
-            576,
-            662,
-            627
+            38.89,
+            23.41,
+            61.3,
+            25.49
         ]
     },
     "ChiefProfile.Settings.Characters.CreateNewCharacter": {
         "text": "Create new character",
         "score": 0.9867741465568542,
         "box": [
-            327,
-            720,
-            693,
-            764
+            30.28,
+            29.27,
+            64.17,
+            31.06
         ]
     },
     "ChiefProfile.Settings.Characters.FirstState": {
         "text": "Server #3429",
         "score": 0.9684574604034424,
         "box": [
-            202,
-            940,
-            475,
-            991
+            18.7,
+            38.21,
+            43.98,
+            40.28
         ]
     },
     "ChiefProfile.Settings.Characters.FirstCharacterName": {
         "text": "[LAT]Shadow",
         "score": 0.9667043685913086,
         "box": [
-            320,
-            1053,
-            900,
-            1096
+            29.63,
+            42.8,
+            83.33,
+            44.55
         ]
     },
     "ChiefProfile.Settings.Characters.SecondCharacterName": {
         "text": "[LAT]Shadowy",
         "score": 0.9827242493629456,
         "box": [
-            320,
-            1280,
-            900,
-            1327
+            29.63,
+            52.03,
+            83.33,
+            53.94
         ]
     },
     "ChiefProfile.Settings.Characters.Login.Title": {
         "text": "Login",
         "score": 0.9985774755477905,
         "box": [
-            472,
-            970,
-            608,
-            1037
+            43.7,
+            39.43,
+            56.3,
+            42.15
         ]
     },
     "ChiefProfile.Settings.Characters.Login.Cancel": {
         "text": "Cancel",
         "score": 0.9995412230491638,
         "box": [
-            234,
-            1509,
-            395,
-            1562
+            21.67,
+            61.34,
+            36.57,
+            63.5
         ]
     },
     "ChiefProfile.Settings.Characters.Login.Confirm": {
         "text": "Confirm",
         "score": 0.9992508292198181,
         "box": [
-            669,
-            1506,
-            867,
-            1563
+            61.94,
+            61.22,
+            80.28,
+            63.54
         ]
     },
     "ChiefProfile.Settings.GiftCode": {
         "text": "Gift Code",
         "score": 0.9392773509025574,
         "box": [
-            729,
-            785,
-            921,
-            839
+            67.5,
+            31.91,
+            85.28,
+            34.11
         ]
     }
 }

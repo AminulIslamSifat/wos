@@ -1,0 +1,173 @@
+{
+    "Home.Labyrinth.Challenge.Defeat.0": {
+        "text": "The Labyrinth",
+        "score": 0.9994451999664307,
+        "box": [
+            137,
+            153,
+            461,
+            209
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.1": {
+        "text": "7,420",
+        "score": 0.9764875173568726,
+        "box": [
+            911,
+            165,
+            1010,
+            199
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.2": {
+        "text": "Rules",
+        "score": 0.9970752000808716,
+        "box": [
+            960,
+            332,
+            1035,
+            373
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.3": {
+        "text": "Leaderboar",
+        "score": 0.9972759485244751,
+        "box": [
+            928,
+            484,
+            1070,
+            511
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.4": {
+        "text": "d",
+        "score": 0.9711613059043884,
+        "box": [
+            988,
+            518,
+            1010,
+            540
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.5": {
+        "text": "Shop",
+        "score": 0.9985877275466919,
+        "box": [
+            962,
+            636,
+            1039,
+            669
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.6": {
+        "text": "Research Center",
+        "score": 0.978348433971405,
+        "box": [
+            108,
+            1499,
+            357,
+            1530
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.7": {
+        "text": "20:15:28",
+        "score": 0.9323098659515381,
+        "box": [
+            162,
+            1537,
+            301,
+            1571
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.8": {
+        "text": "Gear Forge",
+        "score": 0.9470154643058777,
+        "box": [
+            735,
+            1654,
+            912,
+            1696
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.9": {
+        "text": "20:15:28",
+        "score": 0.936367392539978,
+        "box": [
+            752,
+            1698,
+            890,
+            1732
+        ]
+    },
+   
+    "Home.Labyrinth.Challenge.Defeat.12": {
+        "text": "200",
+        "score": 0.9985611438751221,
+        "box": [
+            164,
+            2324,
+            241,
+            2358
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.13": {
+        "text": "300",
+        "score": 0.9993024468421936,
+        "box": [
+            338,
+            2329,
+            405,
+            2355
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.14": {
+        "text": "400",
+        "score": 0.998181164264679,
+        "box": [
+            504,
+            2329,
+            579,
+            2355
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.15": {
+        "text": "500",
+        "score": 0.9992601275444031,
+        "box": [
+            675,
+            2329,
+            740,
+            2355
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.16": {
+        "text": "700",
+        "score": 0.9988129734992981,
+        "box": [
+            846,
+            2326,
+            906,
+            2355
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.17": {
+        "text": "900",
+        "score": 0.9991423487663269,
+        "box": [
+            1010,
+            2326,
+            1078,
+            2358
+        ]
+    },
+    "Home.Labyrinth.Challenge.Defeat.18": {
+        "text": "500/700",
+        "score": 0.9978559613227844,
+        "box": [
+            39,
+            2367,
+            166,
+            2401
+        ]
+    }
+}

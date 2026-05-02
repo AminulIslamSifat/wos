@@ -98,7 +98,7 @@ def beast_intel():
             parallel = parallel
         )
         if status:
-            tap_screen(860, 1740)
+            tap_screen(79.63, 70.73)
 
             found = tap_on_text("World.Intel.Beast.View", wait=1, sleep=1)
             if not found:
@@ -139,7 +139,7 @@ def survivor_intel():
             parallel = parallel
         )
         if status:
-            tap_screen(860, 1740)
+            tap_screen(79.63, 70.73)
             found = tap_on_text("World.Intel.Survivor.View", wait=1, sleep=1)
             if not found:
                 continue
@@ -166,7 +166,7 @@ def exploration_intel():
             parallel = parallel
         )
         if status:
-            tap_screen(860, 1740)
+            tap_screen(79.63, 70.73)
 
             found = tap_on_text("World.Intel.Exploration.View", wait=1, sleep=1)
             if not found:

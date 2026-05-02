@@ -11,6 +11,7 @@ from pathlib import Path
 from rapidfuzz import fuzz
 from cmd_program.screen_action import tap_screen, take_screenshot, long_press
 from concurrent.futures import ThreadPoolExecutor
+from core.coord_utils import box_percent_to_pixel
 
 
 
@@ -53,6 +54,46 @@ def init_database():
             print(f"Error in {file} - {e}")
 
 
+def _convert_rois_percent_to_pixel(rois):
+    """Convert ROI coordinates from percentages to pixels.
+    
+    Handles formats:
+    - None: returns None
+    - Single box (4 elements): converts to pixel coordinates
+    - List of boxes: converts each box
+    """
+    if rois is None:
+        return None
+    
+    if isinstance(rois, list):
+        if len(rois) == 0:
+            return rois
+        
+        # Check if it's a single box [x1, y1, x2, y2]
+        if len(rois) == 4 and isinstance(rois[0], (int, float)):
+            # Check if any value is > 100 (likely already pixels)
+            if any(v > 100 for v in rois):
+                return rois
+            # Convert from percentage to pixels
+            return box_percent_to_pixel(rois)
+        
+        # Check if it's a list of boxes [[x1,y1,x2,y2], ...]
+        if isinstance(rois[0], list):
+            result = []
+            for box in rois:
+                if len(box) == 4:
+                    # Check if already in pixels
+                    if any(v > 100 for v in box):
+                        result.append(box)
+                    else:
+                        result.append(box_percent_to_pixel(box))
+                else:
+                    result.append(box)
+            return result
+    
+    return rois
+
+
 def _post_json_with_replay(url, payload, request_name, wait_sec=OCR_REPLAY_WAIT_SEC):
     """Replay the same request payload until OCR service recovers or timeout is hit."""
     start = time.time()
@@ -90,6 +131,9 @@ def _post_json_with_replay(url, payload, request_name, wait_sec=OCR_REPLAY_WAIT_
 
 
 def req_ocr(img_path=None, save_result=None, rois=None, name=None, expected_text = None):
+    # Convert percentage-based ROIs to pixels
+    rois = _convert_rois_percent_to_pixel(rois)
+    
     payload = {
         "img_path": img_path,
         "save_result" : save_result,
@@ -110,6 +154,9 @@ def req_ocr(img_path=None, save_result=None, rois=None, name=None, expected_text
 
 
 def req_temp_match(name, threshold=0.8, save_result=None, rois=None, parallel=None, session_id=None):
+    # Convert percentage-based ROIs to pixels
+    rois = _convert_rois_percent_to_pixel(rois)
+    
     payload = {
         "name" : name,
         "threshold" : threshold,
@@ -157,6 +204,8 @@ def tap_on_template(
     
     if not threshold:
         threshold = 0.8
+    # remember original threshold for time-based decay
+    _orig_threshold = threshold
 
     def try_match():
         results = req_temp_match(
@@ -185,22 +234,34 @@ def tap_on_template(
     if wait:
         start = time.time()
         while time.time() - start < wait:
+            elapsed = time.time() - start
+            if passed_threshold == None:
+                steps = int(elapsed / 0.4)
+                threshold = _orig_threshold - steps * 0.05
+                if threshold < 0.6:
+                    threshold = 0.6
+
             if try_match():
                 return True
-            if passed_threshold == None:
-                threshold = (threshold - 0.05) if (threshold - 0.05) > 0.6 else threshold
+
         return None
 
     # --- retry mode ---
+    start = time.time()
     for _ in range(3):
+        elapsed = time.time() - start
+        if passed_threshold == None:
+            steps = int(elapsed / 0.4)
+            threshold = _orig_threshold - steps * 0.05
+            if threshold < 0.6:
+                threshold = 0.6
+
         if try_match():
             print(f"Pressed on - {name}")
             return True
         else:
             print(f"No match found for - {name}")
         time.sleep(1)
-        if passed_threshold == None:
-            threshold = (threshold - 0.05) if (threshold - 0.05) > 0.6 else threshold
 
     return None
 
@@ -261,7 +322,7 @@ def tap_on_text(
         return text_data
 
 
-    def try_match(texts):
+    def try_match(texts, expand_px=0):
         for key, value in texts.items():
             target_text = value["text"]
             box = value["box"]
@@ -304,7 +365,7 @@ def tap_on_text(
                         long_press(coord, duration=hold)
                     elif coord and tap:
                         tap_screen(coord)
-                        print(f"Pressed on {item["text"]}")
+                        print(f"Pressed on {item['text']}")
 
                     if sleep:
                         time.sleep(sleep)
@@ -332,11 +393,67 @@ def tap_on_text(
                         long_press(coord, duration=hold)
                     elif coord and tap:
                         tap_screen(coord)
-                        print(f"Pressed on {best_match["text"]}")
+                        print(f"Pressed on {best_match['text']}")
 
                     if sleep:
                         time.sleep(sleep)
                     return True
+
+            # If not found and expansion requested, try once with expanded ROI (pixels)
+            if expand_px and box is not None:
+                # normalize_rois produces [[x1,y1,x2,y2]] for a single box
+                try:
+                    inner = box[0] if isinstance(box, list) and len(box) > 0 else None
+                    if inner and len(inner) == 4:
+                        pixel_box = _convert_rois_percent_to_pixel(inner)
+                        x1, y1, x2, y2 = pixel_box
+                        ex = int(expand_px)
+                        expanded = [max(0, x1 - ex), max(0, y1 - ex), x2 + ex, y2 + ex]
+                        res2 = req_ocr(img_path, save_result, rois=[expanded], name=name, expected_text=target_text)
+                        if res2:
+                            # exact match
+                            for item in res2:
+                                if item["text"].lower() == target_text.lower():
+                                    use_box = item.get("box")
+                                    if not use_box:
+                                        continue
+                                    coord = (
+                                        (use_box[0] + use_box[2] + align[0]) // 2,
+                                        (use_box[1] + use_box[3] + align[1]) // 2
+                                    )
+                                    if coord and hold:
+                                        long_press(coord, duration=hold)
+                                    elif coord and tap:
+                                        tap_screen(coord)
+                                        print(f"Pressed on {item['text']}")
+                                    if sleep:
+                                        time.sleep(sleep)
+                                    return True
+
+                            # fuzzy match on expanded region
+                            for item in res2:
+                                fuzzy_score = fuzz.ratio(item["text"].lower(), target_text.lower())
+                                item["fuzzy_score"] = fuzzy_score
+                            sorted_res2 = sorted(res2, key=lambda item: item["fuzzy_score"], reverse=True)
+                            sorted_res2 = [item for item in sorted_res2 if item["fuzzy_score"] > threshold]
+                            best_match2 = max(sorted_res2, key=lambda item: item["fuzzy_score"], default=None)
+                            if best_match2:
+                                use_box = best_match2.get("box")
+                                if use_box:
+                                    coord = (
+                                        (use_box[0] + use_box[2] + align[0]) // 2,
+                                        (use_box[1] + use_box[3] + align[1]) // 2
+                                    )
+                                    if coord and hold:
+                                        long_press(coord, duration=hold)
+                                    elif coord and tap:
+                                        tap_screen(coord)
+                                        print(f"Pressed on {best_match2['text']}")
+                                    if sleep:
+                                        time.sleep(sleep)
+                                    return True
+                except Exception:
+                    pass
 
         return False
 
@@ -352,15 +469,20 @@ def tap_on_text(
         start = time.time()
 
         while time.time() - start < wait:
-            if try_match(texts):
+            elapsed = time.time() - start
+            steps = int(elapsed / 0.4)
+            expand_px = steps * 5 if steps > 0 else 0
+            if try_match(texts, expand_px=expand_px):
                 return True
             time.sleep(0.1)
 
-        print(f"No match found for the text - {texts[text]["text"]}")
+        print(f"No match found for the text - {texts[text]['text']}")
         return None
 
-    for _ in range(3):
-        if try_match(texts):
+    for i in range(3):
+        # increase expansion by 5px each retry (5, 10, 15)
+        expand_px = (i + 1) * 5
+        if try_match(texts, expand_px=expand_px):
             return True
         time.sleep(1)
 
@@ -395,7 +517,7 @@ def req_text(names=None, img_path=None, rois=None, save_result=False, coord=None
                 title += name + ", "
                 box = text_area[name]["box"]
             else:
-                box = [0, 0, 1080, 2460]        #full screen
+                box = [0, 0, 100, 100]  # Full screen in percentage (100% width, 100% height)
 
             if rois is not None:
                 names_boxes = rois
@@ -446,6 +568,8 @@ def tap_on_templates_batch(
     save_results = save_results or [None] * n
     if isinstance(tap, bool):
         tap = [tap] * n
+    # remember original thresholds for time-based decay
+    _orig_thresholds = list(thresholds)
 
     # ✅ Fix 1: return (i, result) tuple so index is never lost
     def match_one(i, session_id):
@@ -490,28 +614,35 @@ def tap_on_templates_batch(
         start = time.time()
         try:
             while time.time() - start < wait:
+                elapsed = time.time() - start
+                if passed_threshold == None:
+                    steps = int(elapsed / 0.4)
+                    thresholds = [max(orig - steps * 0.05, 0.6) for orig in _orig_thresholds]
+
                 cleaned = run_batch(session_id)
                 if cleaned:
                     return pick_best_and_tap(cleaned)
-                if passed_threshold == None:
-                    thresholds = [t - 0.05 if (t - 0.05) > 0.6 else t for t in thresholds]
         finally:
             if parallel:
                 req_cache_clear(session_id)
         return False
 
     # --- retry mode ---
+    start = time.time()
     for _ in range(3):
         session_id = str(uuid.uuid4())
 
         try:
+            elapsed = time.time() - start
+            if passed_threshold == None:
+                steps = int(elapsed / 0.4)
+                thresholds = [max(orig - steps * 0.05, 0.6) for orig in _orig_thresholds]
+
             cleaned = run_batch(session_id)
         finally:
             if parallel:
                 req_cache_clear(session_id)
 
-        if passed_threshold == None:
-            thresholds = [t - 0.05 if (t - 0.05) > 0.6 else t for t in thresholds]
         if cleaned:
             return pick_best_and_tap(cleaned)
 
@@ -590,7 +721,7 @@ def tap_on_closest_text(
                 tap_screen(target_center)
                 if sleep:
                     time.sleep(sleep)
-                print(f"Distance: {distance(center(closest_target["box"]), base_center)}")
+                print(f"Distance: {distance(center(closest_target['box']), base_center)}")
                 return True
             else:
                 return None

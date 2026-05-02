@@ -78,7 +78,7 @@ def collect_chests():
     while status:
         status = tap_on_text("claim", wait=2, sleep=1, threshold=1.0)
         if not status:
-            swipe_screen(550, 1200, 550, 800)
+            swipe_screen(50.93, 48.78, 50.93, 32.52)
             status = tap_on_text("claim", wait=2, sleep=1, threshold=1.0)
 
     tap_on_template("Home.Alliance.Chests.HonorChest", wait=2)

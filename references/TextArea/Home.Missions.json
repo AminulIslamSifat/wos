@@ -3,71 +3,70 @@
         "text": "Growth",
         "score": 0.9994170665740967,
         "box": [
-            451,
-            490,
-            629,
-            543
+            41.76,
+            19.92,
+            58.24,
+            22.07
         ]
     },
-    
     "Home.Missions.GrowthMissions.Claim": {
         "text": "Claim",
         "score": 0.9820044040679932,
         "box": [
-            830,
-            1180,
-            960,
-            1218
+            76.85,
+            47.97,
+            88.89,
+            49.51
         ]
     },
     "Home.Missions.GrowthMissions": {
         "text": "Growth Missions",
         "score": 0.9914776086807251,
         "box": [
-            209,
-            2003,
-            519,
-            2052
+            19.35,
+            81.42,
+            48.06,
+            83.41
         ]
     },
     "Home.Missions.DailyMissions": {
         "text": "Daily Missions",
         "score": 0.9910581707954407,
         "box": [
-            586,
-            2008,
-            849,
-            2056
+            54.26,
+            81.63,
+            78.61,
+            83.58
         ]
     },
     "Home.Missions.DailyMissions.Claim": {
         "text": "Claim",
         "score": 0.9968546628952026,
         "box": [
-            838,
-            1172,
-            953,
-            1221
+            77.59,
+            47.64,
+            88.24,
+            49.63
         ]
     },
     "Home.Missions.DailyMissions.ClaimAll": {
         "text": "Claim All",
         "score": 0.9056848287582397,
         "box": [
-            460,
-            1852,
-            624,
-            1893
+            42.59,
+            75.28,
+            57.78,
+            76.95
         ]
     },
     "Home.Missions.TapAnywhereToExit": {
         "text": "Tap anywhere to exit",
         "score": 0.9932486414909363,
         "box": [
-            342,
-            2289,
-            733,
-            2340
+            31.67,
+            93.05,
+            67.87,
+            95.12
         ]
     }
 }

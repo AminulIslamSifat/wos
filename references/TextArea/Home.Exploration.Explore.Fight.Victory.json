@@ -3,50 +3,50 @@
         "text": "Victory!",
         "score": 0.9906752109527588,
         "box": [
-            353,
-            910,
-            720,
-            1035
+            32.69,
+            36.99,
+            66.67,
+            42.07
         ]
     },
     "Home.Exploration.Explore.Fight.Victory.ReturnToCity": {
         "text": "Return to City",
         "score": 0.9679149389266968,
         "box": [
-            121,
-            1820,
-            447,
-            1881
+            11.2,
+            73.98,
+            41.39,
+            76.46
         ]
     },
     "Home.Exploration.Explore.Fight.Victory.Continue": {
         "text": "Continue",
         "score": 0.999603271484375,
         "box": [
-            652,
-            1820,
-            890,
-            1875
+            60.37,
+            73.98,
+            82.41,
+            76.22
         ]
     },
     "Home.Exploration.Explore.Fight.Victory.AutoChallengeNextStage": {
         "text": "Auto-Challenge Next Stage",
         "score": 0.967561662197113,
         "box": [
-            382,
-            1999,
-            785,
-            2039
+            35.37,
+            81.26,
+            72.69,
+            82.89
         ]
     },
     "Home.Exploration.Explore.Fight.Victory.TapAnywhereToExit": {
         "text": "Tap anywhere to exit",
         "score": 0.9633547067642212,
         "box": [
-            362,
-            2127,
-            715,
-            2168
+            33.52,
+            86.46,
+            66.2,
+            88.13
         ]
     }
 }

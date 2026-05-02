@@ -3,80 +3,80 @@
         "text": "46,006 ",
         "score": 0.9225990176200867,
         "box": [
-            585,
-            143,
-            769,
-            203
+            54.17,
+            5.81,
+            71.2,
+            8.25
         ]
     },
     "Home.Alliance.Tech.Contribute.Gems": {
         "text": "343,232+",
         "score": 0.9538639783859253,
         "box": [
-            876,
-            145,
-            1059,
-            201
+            81.11,
+            5.89,
+            98.06,
+            8.17
         ]
     },
     "Home.Alliance.Tech.Contribute.Title": {
         "text": "Long Live Our Alliance",
         "score": 0.9923179745674133,
         "box": [
-            274,
-            590,
-            795,
-            664
+            25.37,
+            23.98,
+            73.61,
+            26.99
         ]
     },
     "Home.Alliance.Tech.Contribute.Attempts": {
         "text": "Attempts: 25/25",
         "score": 0.992963433265686,
         "box": [
-            621,
-            1741,
-            909,
-            1792
+            57.5,
+            70.77,
+            84.17,
+            72.85
         ]
     },
     "Home.Alliance.Tech.Contribute.GemContribute": {
         "text": "Contribute",
         "score": 0.9996458292007446,
         "box": [
-            217,
-            1818,
-            411,
-            1871
+            20.09,
+            73.9,
+            38.06,
+            76.06
         ]
     },
     "Home.Alliance.Tech.Contribute.GemContributeCost": {
         "text": "10",
         "score": 0.9998323917388916,
         "box": [
-            309,
-            1869,
-            369,
-            1920
+            28.61,
+            75.98,
+            34.17,
+            78.05
         ]
     },
     "Home.Alliance.Tech.Contribute.FreeContribute": {
         "text": "Contribute",
         "score": 0.9989210963249207,
         "box": [
-            670,
-            1822,
-            862,
-            1868
+            62.04,
+            74.07,
+            79.81,
+            75.93
         ]
     },
     "Home.Alliance.Tech.Contribute.FreeContributionCost": {
         "text": "10,000",
         "score": 0.9777953028678894,
         "box": [
-            714,
-            1865,
-            865,
-            1925
+            66.11,
+            75.81,
+            80.09,
+            78.25
         ]
     }
 }

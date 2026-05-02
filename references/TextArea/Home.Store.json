@@ -3,60 +3,60 @@
         "text": "Custom Armament Chest",
         "score": 0.9953939318656921,
         "box": [
-            359,
-            351,
-            648,
-            392
+            33.24,
+            14.27,
+            60.0,
+            15.93
         ]
     },
     "Home.Store.CustomPetChest": {
         "text": "Custom Pet Chest",
         "score": 0.9738060832023621,
         "box": [
-            680,
-            358,
-            926,
-            389
+            62.96,
+            14.55,
+            85.74,
+            15.81
         ]
     },
     "Home.Store.DailyDeals": {
         "text": "DailyDeals",
         "score": 0.960034191608429,
         "box": [
-            533,
-            356,
-            682,
-            389
+            49.35,
+            14.47,
+            63.15,
+            15.81
         ]
     },
     "Home.Store.ArtisansTrove": {
         "text": "Artisan's Trove",
         "score": 0.9762185215950012,
         "box": [
-            99,
-            355,
-            309,
-            392
+            9.17,
+            14.43,
+            28.61,
+            15.93
         ]
     },
     "Home.Store.ArtisansTrove.Claimable": {
         "text": "Claimable",
         "score": 0.9972419738769531,
         "box": [
-            877,
-            584,
-            1029,
-            617
+            81.2,
+            23.74,
+            95.28,
+            25.08
         ]
     },
     "Home.Store.DailyDeals.Free": {
         "text": "Free",
         "score": 0.9978373646736145,
         "box": [
-            82,
-            778,
-            164,
-            812
+            7.59,
+            31.63,
+            15.19,
+            33.01
         ]
     }
 }

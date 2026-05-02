@@ -9,6 +9,8 @@ import numpy as np
 from datetime import datetime
 from rich.panel import Panel
 from rich.console import Console
+from rapidfuzz import fuzz
+import re
 
 from cmd_program.screen_action import (
     tap_screen,
@@ -185,13 +187,49 @@ def init_database():
 
 def player_initialization():
     recalibrate()
-    tap_screen(50, 150)
+    tap_screen(4.63, 6.1)
     time.sleep(2)
     global current_player
     try:
         time.sleep(1)
-        page_title = req_text("ChiefProfile.Title")[0][0]
-        if page_title.lower() != "Chief Profile".lower():
+        # read and sanitize page title using OCR filtering helpers
+        def clean_text(s):
+            if not s:
+                return ""
+            s = s.strip()
+            s = ''.join(ch for ch in s if ch.isprintable())
+            s = ' '.join(s.split())
+            return s
+
+        def is_garbage(s):
+            if not s:
+                return True
+            s = s.strip()
+            if len(s) < 2:
+                return True
+            non_alnum = sum(1 for ch in s if not ch.isalnum() and not ch.isspace())
+            if non_alnum / max(1, len(s)) > 0.6:
+                return True
+            return False
+
+        def pick_best_text(ocr_results, expected=None, min_len=2):
+            # ocr_results is list of [text, box]
+            candidates = []
+            for entry in (ocr_results or []):
+                txt = entry[0] if isinstance(entry, (list, tuple)) and entry else entry
+                t = clean_text(txt)
+                if len(t) < min_len or is_garbage(t):
+                    continue
+                candidates.append(t)
+            if not candidates:
+                return None
+            if expected:
+                return max(candidates, key=lambda x: fuzz.ratio(x.lower(), expected.lower()))
+            return candidates[0]
+
+        page_title_res = req_text("ChiefProfile.Title")
+        page_title = pick_best_text(page_title_res, expected="Chief Profile") or ""
+        if fuzz.ratio(page_title.lower(), "chief profile".lower()) < 60:
             print("Failed to load chief profile")
             return None
     except Exception as e:
@@ -207,14 +245,51 @@ def player_initialization():
             "ChiefProfile.State"
         ]
     )
-    name, id, furnace, state = (data[0][0].split(']')[1], data[1][0], data[2][0], data[3][0].split('#')[1])
+
+    # safer extraction/helpers
+    def extract_after_delim(s, delim, default=None):
+        if not s:
+            return default
+        if delim in s:
+            parts = s.split(delim)
+            return parts[-1].strip()
+        return s.strip()
+
+    def extract_first_number(s):
+        if not s:
+            return None
+        m = re.search(r"\d+", s)
+        return m.group(0) if m else None
+
+    def extract_id(s):
+        if not s:
+            return None
+        s = s.strip()
+        # prefer sequences of digits or alnum of length >=4
+        m = re.search(r"\d{4,}", s)
+        if m:
+            return m.group(0)
+        m = re.search(r"[A-Za-z0-9\-]{4,}", s)
+        return m.group(0) if m else s
+
+    # pick best text per field
+    name_raw = pick_best_text([data[0]]) if data and len(data) > 0 else None
+    id_raw = pick_best_text([data[1]]) if data and len(data) > 1 else None
+    furnace_raw = pick_best_text([data[2]]) if data and len(data) > 2 else None
+    state_raw = pick_best_text([data[3]]) if data and len(data) > 3 else None
+
+    # cleanup and extract values
+    name = extract_after_delim(name_raw, ']') if name_raw else None
+    id_val = extract_id(id_raw) if id_raw else None
+    furnace = extract_first_number(furnace_raw) if furnace_raw else None
+    state = extract_after_delim(state_raw, '#') if state_raw else (state_raw or None)
     
     current_player_id = None
     current_email = None
 
     for email, info in player_data:
         for player in info["player"]:
-            if player.get("id") == id.lower():
+            if player.get("id") == id_val.lower():
                 current_player_id = player.get("id")
                 current_email = email
 
@@ -222,9 +297,9 @@ def player_initialization():
         print("No player data found for this ID, Exiting this character...")
         raise RuntimeError("Player Initialization Failed, Stopping the Bot...")
 
-    current_player = Player(name, id, state, current_email)
+    current_player = Player(name, id_val, state, current_email)
     console.print(Panel.fit(
-        f"Email: {current_email}\nName:{name}\nID: {id}\nFurnace Level: {furnace}\nState: {state}",
+        f"Email: {current_email}\nName:{name}\nID: {id_val}\nFurnace Level: {furnace}\nState: {state}",
         title="[bold magenta]🎮 Player Summary[/bold magenta]",
         border_style="bright_blue"
     ))

@@ -3,120 +3,120 @@
         "text": "Intel",
         "score": 0.9980592727661133,
         "box": [
-            134,
-            151,
-            247,
-            208
+            12.41,
+            6.14,
+            22.87,
+            8.46
         ]
     },
     "World.Intel.Stamina": {
         "text": "49",
         "score": 0.9993183016777039,
         "box": [
-            918,
-            163,
-            971,
-            200
+            85.0,
+            6.63,
+            89.91,
+            8.13
         ]
     },
     "World.Intel.RefreshingTime": {
         "text": "Refreshes In: 07:18:56",
         "score": 0.9687078595161438,
         "box": [
-            338,
-            288,
-            742,
-            328
+            31.3,
+            11.71,
+            68.7,
+            13.33
         ]
     },
     "World.Intel.ClaimAll": {
         "text": "Claim All",
         "score": 0.897598385810852,
         "box": [
-            432,
-            2199,
-            649,
-            2259
+            40.0,
+            89.39,
+            60.09,
+            91.83
         ]
     },
     "World.Intel.Level": {
         "text": "20",
         "score": 0.9984676837921143,
         "box": [
-            58,
-            2354,
-            122,
-            2406
+            5.37,
+            95.69,
+            11.3,
+            97.8
         ]
     },
     "World.Intel.Beast.Title": {
         "text": "Beast Hunting Lv.10",
         "score": 0.9920936226844788,
         "box": [
-            311,
-            764,
-            767,
-            812
+            28.8,
+            31.06,
+            71.02,
+            33.01
         ]
     },
     "World.Intel.Beast.View": {
         "text": "View",
         "score": 0.9970570206642151,
         "box": [
-            473,
-            1699,
-            604,
-            1765
+            43.8,
+            69.07,
+            55.93,
+            71.75
         ]
     },
     "World.Intel.Beast.View.Attack": {
         "text": "Attack",
         "score": 0.998689591884613,
         "box": [
-            494,
-            1225,
-            586,
-            1252
+            45.74,
+            49.8,
+            54.26,
+            50.89
         ]
     },
     "World.Intel.Survivor.View.Rescue": {
         "text": "Rescue",
         "score": 0.998539924621582,
         "box": [
-            491,
-            1222,
-            589,
-            1255
+            45.46,
+            49.67,
+            54.54,
+            51.02
         ]
     },
     "World.Intel.Survivor.View": {
         "text": "View",
         "score": 0.9956033229827881,
         "box": [
-            474,
-            1625,
-            606,
-            1687
+            43.89,
+            66.06,
+            56.11,
+            68.58
         ]
     },
-     "World.Intel.Exploration.View": {
+    "World.Intel.Exploration.View": {
         "text": "View",
         "score": 0.9974797964096069,
         "box": [
-            473,
-            1699,
-            604,
-            1765
+            43.8,
+            69.07,
+            55.93,
+            71.75
         ]
     },
     "World.Intel.Exploration.View.Explore": {
         "text": "Explore",
         "score": 0.9987884163856506,
         "box": [
-            484,
-            1222,
-            594,
-            1254
+            44.81,
+            49.67,
+            55.0,
+            50.98
         ]
     }
 }

@@ -147,4 +147,4 @@ for i in range(1):
 
 
 
-tap_on_closest_text("heal 10 injured soldiers", "go", maximum_distance=550)
+tap_on_text("click to continue", wait=2, align=[0, -400])

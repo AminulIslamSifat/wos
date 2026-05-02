@@ -19,22 +19,22 @@ from cmd_program.screen_action import(
 
 
 
-missions_title_area = [0, 1960, 1080, 2100]
-missions_area = [0, 460, 1080, 1950]
+missions_title_area = [0, 79.67, 100, 85.37]
+missions_area = [0, 18.7, 100, 79.27]
 
 
 
 def challenge_lowest_power():
     challenge_icons = [
-        {'box': [883, 815, 986, 920]}, 
-        {'box': [883, 1007, 986, 1112]}, 
-        {'box': [883, 1200, 986, 1305]}, 
-        {'box': [883, 1392, 986, 1497]}, 
-        {'box': [883, 1585, 986, 1690]}
+        {'box': [81.76, 33.13, 91.3, 37.4]}, 
+        {'box': [81.76, 40.93, 91.3, 45.2]}, 
+        {'box': [81.76, 48.78, 91.3, 53.05]}, 
+        {'box': [81.76, 56.59, 91.3, 60.86]}, 
+        {'box': [81.76, 64.43, 91.3, 68.7]}
     ]
     powers = []
     time.sleep(0.5)
-    res = req_ocr(rois=[[220, 815, 986, 1690]])
+    res = req_ocr(rois=[[20.37, 33.13, 91.3, 68.7]])
     try:
         for item in res:
             text = item.get("text", "")
@@ -68,7 +68,7 @@ def find_arena():
     for _ in range(10):
         status = tap_on_text(base, wait=2, threshold=0.7, tap=False)
         if not status:
-            swipe_screen(550, 1400, 550, 940, duration=1500)
+            swipe_screen(50.93, 56.91, 50.93, 38.21, duration=1500)
             time.sleep(0.5)
             continue
         status = tap_on_closest_text(base, target, rois=[missions_area], wait=2, maximum_distance=600)
@@ -89,7 +89,7 @@ def arena():
         return None
     tap_on_text("Home.Arena.Challenge", wait=2, sleep=1)
 
-    res = req_ocr(rois=[[300, 1725, 665, 1830]])
+    res = req_ocr(rois=[[27.78, 70.12, 61.57, 74.39]])
 
     try:
         attempt = int(res[0]['text'].split(":")[1])
@@ -97,10 +97,10 @@ def arena():
         print(f"Attempt Reading error -{e}")
 
     while(attempt > 0):
-        res = req_ocr(rois=[[300, 1725, 665, 1830]])
+        res = req_ocr(rois=[[27.78, 70.12, 61.57, 74.39]])
         try:
-            attempt = int(res[0]['text'].split(":")[1])
-            print(f"Remaining Challenge {attempt - 1}")
+            attempt = int(res[0]['text'].split(":")[1]) - 1
+            print(f"Remaining Challenge {attempt}")
         except Exception as e:
             print(f"Attempt counting error -{e}")
 

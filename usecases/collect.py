@@ -16,8 +16,8 @@ from cmd_program.screen_action import(
 )
 
 
-side_panel = [0, 690, 670, 1650]
-missions_title_area = [0, 1960, 1080, 2100]
+side_panel = [0, 28.05, 62.04, 67.07]
+missions_title_area = [0, 79.67, 100, 85.37]
 
 
 
@@ -38,11 +38,11 @@ def collect_life_essence():
     status = tap_on_template("Global.SidePanel", wait=3, sleep=0.5, threshold=0.5)
     if not status:
         print("Side panel not found")
-        tap_screen(4, 1103)
+        tap_screen(0.37, 44.84)
         return None
     for _ in range(2):
-        swipe_screen(350, 1600, 350, 800)
-        time.sleep(1)
+        swipe_screen(32.41, 65.04, 32.41, 32.52)
+        time.sleep(2)
     status = tap_on_text("Tree of Life", rois=[side_panel], sleep=6)
     if not status:
         print("Tree of life not found, Exiting..")
@@ -50,12 +50,12 @@ def collect_life_essence():
         if status:
             status = tap_on_template("Global.SidePanel", wait=2, threshold=0.5)
             if not status:
-                tap_screen(680, 1104)
+                tap_screen(62.96, 44.88)
         return None
-    tap_screen(550, 1240)           #to remove instructor hand
+    tap_screen(50.93, 50.41)           # to remove instructor hand
     time.sleep(0.3)
     for i in range(3):
-        swipe_screen(110, 950, 600, 1250)
+        swipe_screen(10.19, 38.62, 55.56, 50.81)
         time.sleep(2.5)
         status = tap_on_template("Global.Island.TimberMill.EssenceOfLife", wait=0.3)
         if status:
@@ -65,15 +65,15 @@ def collect_life_essence():
 
 
 def collect_from_events():
-    box = [60, 355, 1050, 400]
+    box = [5.56, 14.43, 97.22, 16.26]
     recalibrate()
     tap_on_template("Home.Store", wait=2)
     
     status = True
     while(status):
-        status = tap_on_text("claimable", rois=[[0, 0, 1080, 1080]], wait=2, align=[0, -50])
+        status = tap_on_text("claimable", rois=[[0, 0, 100, 43.9]], wait=2, align=[0, -50])
         if not status:
-            status = tap_on_text("free", rois = [0, 0, 1080, 1080], wait=2)
+            status = tap_on_text("free", rois = [0, 0, 100, 43.9], wait=2)
             if status:
                 tap_on_text("Tap anywhere to exit", wait=2, align=[0, 50])
         if status:

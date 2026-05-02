@@ -3,60 +3,60 @@
         "text": "Exploration",
         "score": 0.9993129372596741,
         "box": [
-            137,
-            149,
-            409,
-            215
+            12.69,
+            6.06,
+            37.87,
+            8.74
         ]
     },
     "Home.Exploration.Claim": {
         "text": "Claim",
         "score": 0.9889460802078247,
         "box": [
-            861,
-            1894,
-            987,
-            1948
+            79.72,
+            76.99,
+            91.39,
+            79.19
         ]
     },
     "Home.Exploration.CurrentLevel": {
         "text": "416",
         "score": 0.9993631839752197,
         "box": [
-            498,
-            2090,
-            578,
-            2136
+            46.11,
+            84.96,
+            53.52,
+            86.83
         ]
     },
     "Home.Exploration.Explore": {
         "text": "Explore",
         "score": 0.9994411468505859,
         "box": [
-            444,
-            2271,
-            637,
-            2345
+            41.11,
+            92.32,
+            58.98,
+            95.33
         ]
     },
     "Home.Exploration.Claim.Claim": {
         "text": "Claim",
         "score": 0.9983280301094055,
         "box": [
-            469,
-            1688,
-            613,
-            1745
+            43.43,
+            68.62,
+            56.76,
+            70.93
         ]
     },
     "Home.Exploration.Claim.Claim.TapAnywhereToExit": {
         "text": "Tap anywhere to exit",
         "score": 0.9882391691207886,
         "box": [
-            343,
-            2291,
-            736,
-            2339
+            31.76,
+            93.13,
+            68.15,
+            95.08
         ]
     }
 }

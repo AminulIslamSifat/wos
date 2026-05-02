@@ -3,40 +3,40 @@
         "text": "",
         "score": null,
         "box": [
-            0,
-            400,
-            1080,
-            2200
+            0.0,
+            16.26,
+            100.0,
+            89.43
         ]
     },
     "Home.Pet.BeastCage.Adventure.RemainingAttempt": {
         "text": "1",
         "score": 0.9850232005119324,
         "box": [
-            770,
-            300,
-            820,
-            344
+            71.3,
+            12.2,
+            75.93,
+            13.98
         ]
     },
     "Home.Labyrinth.Challenge.Defeat.RemainingAttempts": {
         "text": "Remaining attempts today: 4",
         "score": 0.9935328364372253,
         "box": [
-            745,
-            1703,
-            820,
-            1746
+            68.98,
+            69.23,
+            75.93,
+            70.98
         ]
     },
     "Home.Missions.TitleArea": {
         "text": null,
         "score": null,
         "box": [
-            0,
-            1960, 
-            1080,
-            2100
+            0.0,
+            79.67,
+            100.0,
+            85.37
         ]
     }
 }

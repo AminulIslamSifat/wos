@@ -1,32 +1,32 @@
 {
-     "World.Search.ItemLevel": {
+    "World.Search.ItemLevel": {
         "text": "29",
         "score": 0.9995030760765076,
         "box": [
-            886,
-            2103,
-            937,
-            2139
+            82.04,
+            85.49,
+            86.76,
+            86.95
         ]
     },
     "World.Search.Search": {
         "text": "Search",
         "score": 0.9997553825378418,
         "box": [
-            457,
-            2332,
-            625,
-            2390
+            42.31,
+            94.8,
+            57.87,
+            97.15
         ]
     },
     "World.Search.ItemBox": {
         "text": null,
         "score": null,
         "box": [
-            0,
-            1940,
-            1080,
-            1980
+            0.0,
+            78.86,
+            100.0,
+            80.49
         ]
     }
 }

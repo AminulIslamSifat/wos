@@ -18,8 +18,8 @@ from cmd_program.screen_action import(
 
 
 
-missions_title_area = [0, 1960, 1080, 2100]
-missions_area = [0, 460, 1080, 1950]
+missions_title_area = [0, 79.67, 100, 85.37]
+missions_area = [0, 18.7, 100, 79.27]
 
 
 def go_to_labyrinth():
@@ -34,7 +34,7 @@ def go_to_labyrinth():
     for _ in range(10):
         status = tap_on_text(base, wait=2, threshold=0.7, tap=False)
         if not status:
-            swipe_screen(550, 1400, 550, 940, duration=1500)
+            swipe_screen(50.93, 56.91, 50.93, 38.21, duration=1500)
             time.sleep(0.5)
             continue
         status = tap_on_closest_text(base, target, rois=[missions_area], wait=2, maximum_distance=500)
@@ -51,7 +51,8 @@ def labyrinth():
         "Home.Labyrinth.CaveOfMonster",
         "Home.Labyrinth.CharmMine",
         "Home.Labyrinth.ResearchCenter",
-        "Home.Labyrinth.GearForge"
+        "Home.Labyrinth.GearForge",
+        "Home.Labyrinth.GaiaHeart"
     ]
     status = tap_on_template("Home.Labyrinth", sleep=1)
     if not status:
@@ -98,7 +99,7 @@ def labyrinth():
                     remaining_attempts = 0
                 
                 if remaining_attempts == 0:
-                    tap_screen(550, 2000)
+                    tap_screen(50.93, 81.3)
                     time.sleep(1)
                     tap_on_template("Global.Back")
                     break

@@ -3,250 +3,250 @@
         "text": "Arena of Glory",
         "score": 0.9970447421073914,
         "box": [
-            134,
-            141,
-            477,
-            216
+            12.41,
+            5.73,
+            44.17,
+            8.78
         ]
     },
     "Home.Arena.Challenge": {
         "text": "Challenge",
         "score": 0.9993662238121033,
         "box": [
-            420,
-            2329,
-            659,
-            2399
+            38.89,
+            94.67,
+            61.02,
+            97.52
         ]
     },
     "Home.Arena.History": {
         "text": "History",
         "score": 0.9983500242233276,
         "box": [
-            99,
-            2416,
-            199,
-            2459
+            9.17,
+            98.21,
+            18.43,
+            99.96
         ]
     },
     "Home.Arena.DefensiveLineup": {
         "text": "Def. Lineup",
         "score": 0.9525952935218811,
         "box": [
-            855,
-            2418,
-            1002,
-            2456
+            79.17,
+            98.29,
+            92.78,
+            99.84
         ]
     },
     "Home.Arena.Challenge.ChallengeList": {
         "text": "Challenge List",
         "score": 0.995618462562561,
         "box": [
-            387,
-            583,
-            734,
-            649
+            35.83,
+            23.7,
+            67.96,
+            26.38
         ]
     },
     "Home.Arena.Challenge.MyPower": {
         "text": "My Power:  2,099,12",
         "score": 0.8687713742256165,
         "box": [
-            280,
-            698,
-            900,
-            759
+            25.93,
+            28.37,
+            83.33,
+            30.85
         ]
     },
     "Home.Arena.Challenge.FirstEnemyPower": {
         "text": "72,800",
         "score": 0.9806797504425049,
         "box": [
-            237,
-            882,
-            408,
-            938
+            21.94,
+            35.85,
+            37.78,
+            38.13
         ]
     },
     "Home.Arena.Challenge.SecondEnemyPower": {
-       "text": "166,500",
+        "text": "166,500",
         "score": 0.9890565276145935,
         "box": [
-            267,
-            1078,
-            424,
-            1128
+            24.72,
+            43.82,
+            39.26,
+            45.85
         ]
     },
     "Home.Arena.Challenge.ThirdEnemyPower": {
         "text": "72,800",
         "score": 0.9691238403320312,
         "box": [
-            253,
-            1269,
-            407,
-            1323
+            23.43,
+            51.59,
+            37.69,
+            53.78
         ]
     },
     "Home.Arena.Challenge.FourthEnemyPower": {
         "text": "166,500",
         "score": 0.9866270422935486,
         "box": [
-            264,
-            1459,
-            423,
-            1513
+            24.44,
+            59.31,
+            39.17,
+            61.5
         ]
     },
     "Home.Arena.Challenge.FifthEnemyPower": {
         "text": "95,600",
         "score": 0.9795166850090027,
         "box": [
-            230,
-            1650,
-            411,
-            1708
+            21.3,
+            67.07,
+            38.06,
+            69.43
         ]
     },
     "Home.Arena.Challenge.ChallengeCount": {
         "text": "Daily challenges: 5",
         "score": 0.950636625289917,
         "box": [
-            610,
-            1760,
-            641,
-            1807
+            56.48,
+            71.54,
+            59.35,
+            73.46
         ]
     },
     "Home.Arena.Challenge.FreeRefresh": {
         "text": "Free Refresh",
         "score": 0.9594573974609375,
         "box": [
-            386,
-            1863,
-            692,
-            1928
+            35.74,
+            75.73,
+            64.07,
+            78.37
         ]
     },
     "Home.Arena.DefensiveLineup.Title": {
         "text": "Defensive Squad Lineup",
         "score": 0.9787318706512451,
         "box": [
-            134,
-            145,
-            684,
-            220
+            12.41,
+            5.89,
+            63.33,
+            8.94
         ]
     },
     "Home.Arena.DefensiveLineup.QuickDeploy": {
         "text": "Quick Deploy",
         "score": 0.9948062896728516,
         "box": [
-            135,
-            2312,
-            440,
-            2375
+            12.5,
+            93.98,
+            40.74,
+            96.54
         ]
     },
     "Home.Arena.DefensiveLineup.Save": {
         "text": "Save",
         "score": 0.9984620213508606,
         "box": [
-            727,
-            2308,
-            859,
-            2374
+            67.31,
+            93.82,
+            79.54,
+            96.5
         ]
     },
     "Home.Arena.Challenge.Challenge.Title": {
         "text": "Squad Settings",
         "score": 0.9993806481361389,
         "box": [
-            134,
-            149,
-            482,
-            218
+            12.41,
+            6.06,
+            44.63,
+            8.86
         ]
     },
     "Home.Arena.Challenge.Challenge.MyPower": {
         "text": "2,361,773",
         "score": 0.9808194041252136,
         "box": [
-            199,
-            290,
-            376,
-            346
+            18.43,
+            11.79,
+            34.81,
+            14.07
         ]
     },
     "Home.Arena.Challenge.Challenge.EnemyPower": {
         "text": "3,413,484",
         "score": 0.9943243861198425,
         "box": [
-            713,
-            287,
-            905,
-            344
+            66.02,
+            11.67,
+            83.8,
+            13.98
         ]
     },
     "Home.Arena.Challenge.Challenge.QuickDeploy": {
         "text": "Quick Deploy",
         "score": 0.9995825886726379,
         "box": [
-            138,
-            2317,
-            437,
-            2367
+            12.78,
+            94.19,
+            40.46,
+            96.22
         ]
     },
     "Home.Arena.Challenge.Challenge.Fight": {
         "text": "Fight",
         "score": 0.9982673525810242,
         "box": [
-            724,
-            2308,
-            864,
-            2376
+            67.04,
+            93.82,
+            80.0,
+            96.59
         ]
     },
     "Home.Arena.Challenge.Challenge.Fight.Pause.Retreat": {
         "text": "Retreat",
         "score": 0.999765932559967,
         "box": [
-            314,
-            1401,
-            454,
-            1442
+            29.07,
+            56.95,
+            42.04,
+            58.62
         ]
     },
     "Home.Arena.Challenge.Challenge.Fight.Pause.Continue": {
         "text": "Continue",
         "score": 0.9998624920845032,
         "box": [
-            611,
-            1400,
-            777,
-            1441
+            56.57,
+            56.91,
+            71.94,
+            58.58
         ]
     },
     "Home.Arena.Challenge.Challenge.Fight.End.Title": {
         "text": "Defeat!",
         "score": 0.9858356714248657,
         "box": [
-            313,
-            779,
-            762,
-            901
+            28.98,
+            31.67,
+            70.56,
+            36.63
         ]
     },
     "Home.Arena.Challenge.Challenge.Fight.End.TapAnywhereToExit": {
         "text": "Tap anywhere to exit",
         "score": 0.9902394413948059,
         "box": [
-            360,
-            2361,
-            717,
-            2399
+            33.33,
+            95.98,
+            66.39,
+            97.52
         ]
     }
 }

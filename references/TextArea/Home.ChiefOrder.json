@@ -3,90 +3,90 @@
         "text": "77.3M",
         "score": 0.9973246455192566,
         "box": [
-            897,
-            158,
-            1000,
-            193
+            83.06,
+            6.42,
+            92.59,
+            7.85
         ]
     },
     "Home.ChiefOrder.Title": {
         "text": "Chief Order",
         "score": 0.9632502198219299,
         "box": [
-            406,
-            494,
-            677,
-            546
+            37.59,
+            20.08,
+            62.69,
+            22.2
         ]
     },
     "Home.ChiefOrder.UrgentMobilization": {
         "text": "Urgent Mobilization",
         "score": 0.9621757864952087,
         "box": [
-            176,
-            1016,
-            484,
-            1062
+            16.3,
+            41.3,
+            44.81,
+            43.17
         ]
     },
     "Home.ChiefOrder.RushJob": {
         "text": "Rush Job",
         "score": 0.9858837723731995,
         "box": [
-            675,
-            1021,
-            817,
-            1053
+            62.5,
+            41.5,
+            75.65,
+            42.8
         ]
     },
     "Home.ChiefOrder.ComprehensiveCare": {
         "text": "Comprehensive Care",
         "score": 0.9922413229942322,
         "box": [
-            188,
-            1506,
-            475,
-            1539
+            17.41,
+            61.22,
+            43.98,
+            62.56
         ]
     },
     "Home.ChiefOrder.DoubleTime": {
         "text": "Double Time",
         "score": 0.9842640161514282,
         "box": [
-            648,
-            1502,
-            843,
-            1541
+            60.0,
+            61.06,
+            78.06,
+            62.64
         ]
     },
     "Home.ChiefOrder.ProductiveDay": {
         "text": "Productivity Day",
         "score": 0.9930066466331482,
         "box": [
-            200,
-            1979,
-            458,
-            2033
+            18.52,
+            80.45,
+            42.41,
+            82.64
         ]
     },
     "Home.ChiefOrder.Festivities": {
         "text": "Festivities",
         "score": 0.9993093013763428,
         "box": [
-            667,
-            1987,
-            822,
-            2024
+            61.76,
+            80.77,
+            76.11,
+            82.28
         ]
     },
     "Home.ChiefOrder.Enact": {
         "text": "Enact",
         "score": 0.9989480972290039,
         "box": [
-            487,
-            1666,
-            595,
-            1709
+            45.09,
+            67.72,
+            55.09,
+            69.47
         ]
     }
 }

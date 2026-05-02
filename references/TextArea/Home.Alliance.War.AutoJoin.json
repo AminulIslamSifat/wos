@@ -3,80 +3,80 @@
         "text": "Auto-Join",
         "score": 0.9991610646247864,
         "box": [
-            431,
-            527,
-            647,
-            576
+            39.91,
+            21.42,
+            59.91,
+            23.41
         ]
     },
     "Home.Alliance.War.AutoJoin.UseFormation": {
         "text": "Use the Formation",
         "score": 0.9780745506286621,
         "box": [
-            195,
-            961,
-            505,
-            1008
+            18.06,
+            39.07,
+            46.76,
+            40.98
         ]
     },
     "Home.Alliance.War.AutoJoin.IncreaseQueueLimit": {
         "text": "+",
         "score": 0.9467200636863708,
         "box": [
-            699,
-            1203,
-            742,
-            1242
+            64.72,
+            48.9,
+            68.7,
+            50.49
         ]
     },
     "Home.Alliance.War.AutoJoin.QueueLimit": {
         "text": "6",
         "score": 0.997975766658783,
         "box": [
-            863,
-            1199,
-            896,
-            1237
+            79.91,
+            48.74,
+            82.96,
+            50.28
         ]
     },
     "Home.Alliance.War.AutoJoin.AutoJoinAftreExit": {
         "text": "Only Auto-Join After Exiting Game",
         "score": 0.9847086071968079,
         "box": [
-            287,
-            1832,
-            870,
-            1882
+            26.57,
+            74.47,
+            80.56,
+            76.5
         ]
     },
     "Home.Alliance.War.AutoJoin.Stop": {
         "text": "Stop",
         "score": 0.9964983463287354,
         "box": [
-            209,
-            1930,
-            339,
-            2018
+            19.35,
+            78.46,
+            31.39,
+            82.03
         ]
     },
     "Home.Alliance.War.AutoJoin.Restart": {
         "text": "Restart",
         "score": 0.9998407959938049,
         "box": [
-            665,
-            1937,
-            847,
-            2001
+            61.57,
+            78.74,
+            78.43,
+            81.34
         ]
     },
     "Home.Alliance.War.AutoJoin.Enable": {
         "text": "Enable",
         "score": 0.998887300491333,
         "box": [
-            668,
-            1936,
-            840,
-            1999
+            61.85,
+            78.7,
+            77.78,
+            81.26
         ]
     }
 }

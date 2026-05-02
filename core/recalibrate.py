@@ -2,13 +2,17 @@ import time
 import requests
 from core.core import req_ocr, tap_on_template, tap_on_text, tap_on_templates_batch, req_text
 from cmd_program.screen_action import tap_screen
-
+from core.coord_utils import percent_to_pixel
 
 
 def recalibrate(timeout=30):
     is_home = False
     retry = 0
     start = time.time()
+    
+    # Percentage-based coordinates
+    center_x_pct, center_y_pct = 50, 50  # Center of screen
+    top_left_x_pct, top_left_y_pct = 6.48, 6.9  # Top-left area
     
     while(not is_home) and ((time.time()) - start) < timeout:
         found = False
@@ -47,11 +51,21 @@ def recalibrate(timeout=30):
         # if not found:
         #     found = tap_on_template("FirstPurchase.Close", sleep=1)
 
-        rois = [[0, 1900, 1080, 2460]]
-        if not found:
-            found = tap_on_text("Tap anywhere to exit", rois=rois, wait=2, align=[0, -50])
-        if not found:
-            found = tap_on_text("Click to continue", rois=rois, wait=2, align=[0,-50])
+        targets = [
+            "tap anywhere to continue",
+            "tap to exit",
+            "click to continue",
+            "click anywhere to exit",
+            "Reconnect"
+        ]
+        res = req_ocr()
+        for item in res:
+            if item["text"] in targets:
+                box = item["box"]
+                coord = ((box[0]+box[2])//2, (box[1]+box[3])//2)
+                tap_screen(coord)
+                found = True
+
         if not found:
             time.sleep(1)
             text = req_text("Home.World")
@@ -62,13 +76,16 @@ def recalibrate(timeout=30):
             if text:
                 found = True
                 if text.lower() != "city" and text.lower() != "world":
-                    tap_screen(540, 1230)
+                    tap_screen(center_x_pct, center_y_pct)
             else:
                 found = False
 
-        if not found:
-            tap_screen(70, 170)
+        if found:
+            start = time.time()
+        else:
+            tap_screen(top_left_x_pct, top_left_y_pct)
             time.sleep(1)
+
     
     time.sleep(1)
     if not is_home:

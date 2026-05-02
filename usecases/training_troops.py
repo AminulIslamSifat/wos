@@ -16,8 +16,8 @@ from cmd_program.screen_action import(
 )
 
 
-side_panel = [0, 690, 670, 1650]
-training_menu = [250, 1400, 930, 1800]
+side_panel = [0, 28.05, 62.04, 67.07]
+training_menu = [23.15, 56.91, 86.11, 73.17]
 
 
 def train():
@@ -28,7 +28,7 @@ def train():
 
     if not status:
         print("Side Panel Not found")
-        tap_screen(4, 1103)
+        tap_screen(0.37, 44.84)
 
     status = tap_on_text("Infantry", rois=[side_panel], wait=2, sleep=1)
 
@@ -37,7 +37,7 @@ def train():
         return None
     
     for i in range(3):
-        tap_screen(540, 1200)
+        tap_screen(50, 48.78)
         time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], wait=2, sleep=0.5)
     title = req_text("Home.TroopTraining.Title")
@@ -47,7 +47,7 @@ def train():
 
     status = tap_on_text("Home.TroopTraining.Train", wait=2)
     if not status:
-        tap_screen(540, 1230)
+        tap_screen(50, 48.78)
         status = tap_on_text("Home.TroopTraining.Train", wait=2)
     if not status:
         print("Infantry Training is not finished yet, Skipping Infantry...")
@@ -85,12 +85,12 @@ def train_infantry(Amount=None):
 
     tap_on_text("Infantry", rois=[side_panel], wait=2)
     for i in range(3):
-        tap_screen(540, 1200)
+        tap_screen(50, 48.78)
         time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], wait=3)
 
-    tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
-    traned = 0
+    tap_screen(50.93, 44.72)            # Taping at the middle of the screen to remove the tutorial hand icon
+    trained = 0
 
     while(trained < Amount):
         time.sleep(0.5)
@@ -124,12 +124,12 @@ def train_lancer(Amount=None):
 
     tap_on_text("Lancer", rois=[side_panel], wait=2)
     for i in range(3):
-        tap_screen(540, 1200)
+        tap_screen(50, 48.78)
         time.sleep(0.3)
     tap_on_text("Train", rois = [training_menu], wait=2)
     
-    tap_screen(550, 1100)            #Taping at the middle of the screen to remove the tutorial hand icon
-    traned = 0
+    tap_screen(50.93, 44.72)            # Taping at the middle of the screen to remove the tutorial hand icon
+    trained = 0
 
     while(trained < Amount):
         time.sleep(0.5)

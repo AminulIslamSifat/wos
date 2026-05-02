@@ -58,7 +58,7 @@ def wait_till_return(lowest_time=14400):
 
 def gather(remove_hero=False, equalize=True, lowest_time=14400):
     print("Started Gathering...")
-    search_box = [[0, 1940, 1080,1980]]
+    search_box = [[0, 78.86, 100, 80.49]]
     gathering_nodes = ["meat", "wood", "coal", "iron", "coal", "iron"]
 
     time.sleep(0.5)
@@ -87,7 +87,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
     while remaining_march>0 and occupied_march < 5:
         title = tap_on_text("World.City", tap=False)
         if not title:
-            tap_screen(540, 1240)
+            tap_screen(50.93, 50.41)
             time.sleep(0.5)
         print(f"Remaining march queue: {remaining_march} ----- Occupied March: {occupied_march}")
         if occupied_march == 5:
@@ -98,7 +98,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
             return
         found = tap_on_text(gathering_nodes[i], rois=search_box, wait=2)
         if found is None:
-            swipe_screen(1000, 1920, 0, 1920)
+            swipe_screen(92.59, 78.05, 0, 78.05)
             tap_on_text(gathering_nodes[i], rois=search_box, wait=2)
         # time.sleep(0.5)             #rapid tap between node and search cause friction
         
@@ -107,13 +107,13 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
         try:
             level = level[0][0]
             if level != "8":
-                tap_screen(910, 2120)
+                tap_screen(84.26, 86.22)
                 time.sleep(1)
                 input_text("8")
         except Exception as e:
             print(f"Level reading Error, Continuing without reading the level...")
 
-        #from here its needs to be optimized
+        # from here its needs to be optimized
         status = tap_on_text("World.Search.Search", wait=2)
         if status:
             status = tap_on_text("World.Search.Gather", wait=5)
@@ -126,7 +126,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
             print("Gather button is not found, Exiting the task...")
             return
         if remove_hero:
-            tap_on_template("World.Deploy.RemoveHero", threshold=0.6, rois=[[300, 500, 400, 650]], wait=2) #removing hero
+            tap_on_template("World.Deploy.RemoveHero", threshold=0.6, rois=[[27.78, 20.33, 37.04, 26.42]], wait=2)  # removing hero
         if equalize:
             tap_on_text("World.Deploy.Equalize", wait=2)
         tap_on_text("World.Deploy.Deploy", wait=2, sleep=0.5)
@@ -149,7 +149,7 @@ def gather(remove_hero=False, equalize=True, lowest_time=14400):
     try:
         text = text[0][0]
         if text.lower() != "city":
-            tap_screen(540, 1230)
+            tap_screen(50.93, 50)
     except Exception as e:
         print("The search tab may still opened, Trying to recover...")
     print("Completed the gathering task, Returning to homepage...")
